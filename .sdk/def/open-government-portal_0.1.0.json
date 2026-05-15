@@ -1,0 +1,377 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Open Government Portal",
+    "description": "This API allows users to search and access datasets from the Government of Canada. It facilitates learning how to work with datasets and provides insights into how government data has been utilized.",
+    "version": "1.0.0",
+    "contact": {
+      "name": "Open Government Portal",
+      "url": "https://search.open.canada.ca/opendata/"
+    }
+  },
+  "servers": [
+    {
+      "url": "https://search.open.canada.ca",
+      "description": "Production server"
+    }
+  ],
+  "paths": {
+    "/opendata/": {
+      "get": {
+        "summary": "Search and retrieve datasets",
+        "description": "Search the Open Data Portal catalogue to retrieve datasets from the Government of Canada. Returns datasets with metadata including title, description, publisher, formats, keywords, and modification dates.",
+        "operationId": "searchDatasets",
+        "tags": [
+          "Datasets"
+        ],
+        "parameters": [
+          {
+            "name": "q",
+            "in": "query",
+            "description": "Search query term to filter datasets",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "description": "Sort order for results",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "relevance",
+                "modified",
+                "created",
+                "title_asc",
+                "title_desc"
+              ],
+              "default": "relevance"
+            }
+          },
+          {
+            "name": "organization",
+            "in": "query",
+            "description": "Filter by organization/publisher name",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "format",
+            "in": "query",
+            "description": "Filter by dataset format",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "JSON",
+                "CSV",
+                "XLSX",
+                "HTML",
+                "XML",
+                "ZIP",
+                "JSONL",
+                "PNG",
+                "SQL"
+              ]
+            }
+          },
+          {
+            "name": "keyword",
+            "in": "query",
+            "description": "Filter by keyword tags",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Page number for pagination",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "default": 1
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Number of results per page",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 10
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response with dataset results",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "total_records": {
+                      "type": "integer",
+                      "description": "Total number of datasets matching the search criteria",
+                      "example": 46261
+                    },
+                    "page": {
+                      "type": "integer",
+                      "description": "Current page number"
+                    },
+                    "results": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Dataset"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request - Invalid parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/opendata/dataset/{datasetId}": {
+      "get": {
+        "summary": "Get dataset details",
+        "description": "Retrieve detailed information about a specific dataset by its ID",
+        "operationId": "getDatasetById",
+        "tags": [
+          "Datasets"
+        ],
+        "parameters": [
+          {
+            "name": "datasetId",
+            "in": "path",
+            "description": "Unique identifier of the dataset",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Dataset details retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Dataset"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Dataset not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Dataset": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Unique identifier for the dataset"
+          },
+          "title": {
+            "type": "string",
+            "description": "Title of the dataset",
+            "example": "Proactive Disclosure - Travel Expenses"
+          },
+          "description": {
+            "type": "string",
+            "description": "Detailed description of the dataset"
+          },
+          "publisher": {
+            "type": "string",
+            "description": "Organization that published the dataset",
+            "example": "Treasury Board of Canada Secretariat"
+          },
+          "record_modified": {
+            "type": "string",
+            "format": "date",
+            "description": "Date when the dataset was last modified",
+            "example": "2026-02-16"
+          },
+          "record_released": {
+            "type": "string",
+            "format": "date",
+            "description": "Date when the dataset was first released",
+            "example": "2017-02-20"
+          },
+          "formats": {
+            "type": "array",
+            "description": "Available formats for the dataset",
+            "items": {
+              "type": "string",
+              "enum": [
+                "JSON",
+                "CSV",
+                "XLSX",
+                "HTML",
+                "XML",
+                "ZIP",
+                "JSONL",
+                "PNG",
+                "SQL"
+              ]
+            },
+            "example": [
+              "JSON",
+              "XLSX",
+              "HTML",
+              "CSV"
+            ]
+          },
+          "keywords": {
+            "type": "array",
+            "description": "Keywords associated with the dataset",
+            "items": {
+              "type": "string"
+            },
+            "example": [
+              "Proactive Disclosure",
+              "PD",
+              "Travel Expenses"
+            ]
+          },
+          "jurisdiction": {
+            "type": "string",
+            "description": "Jurisdiction level of the dataset",
+            "enum": [
+              "Federal",
+              "Provincial",
+              "Municipal"
+            ],
+            "example": "Federal"
+          },
+          "download_url": {
+            "type": "string",
+            "format": "uri",
+            "description": "URL to download the dataset"
+          },
+          "resources": {
+            "type": "array",
+            "description": "List of resources associated with the dataset",
+            "items": {
+              "$ref": "#/components/schemas/Resource"
+            }
+          }
+        }
+      },
+      "Resource": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Unique identifier for the resource"
+          },
+          "name": {
+            "type": "string",
+            "description": "Name of the resource"
+          },
+          "format": {
+            "type": "string",
+            "description": "Format of the resource",
+            "example": "CSV"
+          },
+          "url": {
+            "type": "string",
+            "format": "uri",
+            "description": "URL to access the resource"
+          },
+          "size": {
+            "type": "integer",
+            "description": "Size of the resource in bytes"
+          },
+          "last_modified": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Date and time when the resource was last modified"
+          }
+        }
+      },
+      "Error": {
+        "type": "object",
+        "properties": {
+          "error": {
+            "type": "string",
+            "description": "Error message"
+          },
+          "status": {
+            "type": "integer",
+            "description": "HTTP status code"
+          },
+          "details": {
+            "type": "string",
+            "description": "Additional error details"
+          }
+        },
+        "required": [
+          "error",
+          "status"
+        ]
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "Datasets",
+      "description": "Operations related to searching and retrieving government datasets"
+    }
+  ]
+}

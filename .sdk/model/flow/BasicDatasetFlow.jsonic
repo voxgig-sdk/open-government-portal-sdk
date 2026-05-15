@@ -1,0 +1,44 @@
+# BasicDatasetFlow
+
+main: kit: flow: BasicDatasetFlow:
+{
+  entity: "dataset",
+  kind: "basic",
+  name: "BasicDatasetFlow",
+  step: [
+    {
+      op: "list",
+      valid: [
+        {
+          apply: "ItemExists",
+          def: {
+            ref: "dataset_ref01"
+          }
+        }
+      ]
+    }
+
+    {
+      input: {
+        ref: "dataset_ref01",
+        srcdatavar: "dataset_ref01_data",
+        suffix: "_dt0"
+      }
+
+      match: {
+        id: "dataset01"
+      }
+
+      op: "load",
+      valid: [
+        {
+          apply: "TextFieldMark",
+          def: {
+            mark: "Mark01-dataset_ref01"
+          }
+        }
+      ]
+    }
+  ],
+  "key$": "BasicDatasetFlow"
+}

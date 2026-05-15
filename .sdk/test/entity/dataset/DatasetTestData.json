@@ -1,0 +1,61 @@
+{
+  "existing": {
+    "dataset": {
+      "DATASET00": {
+        "description": "s6e",
+        "download_url": "s6f",
+        "format": [],
+        "id": "DATASET00",
+        "jurisdiction": "s72",
+        "keyword": [],
+        "publisher": "s74",
+        "record_modified": "s75",
+        "record_released": "s76",
+        "resource": [],
+        "title": "s78"
+      },
+      "DATASET01": {
+        "description": "sdc",
+        "download_url": "sdd",
+        "format": [],
+        "id": "DATASET01",
+        "jurisdiction": "se0",
+        "keyword": [],
+        "publisher": "se2",
+        "record_modified": "se3",
+        "record_released": "se4",
+        "resource": [],
+        "title": "se6"
+      },
+      "DATASET02": {
+        "description": "s14a",
+        "download_url": "s14b",
+        "format": [],
+        "id": "DATASET02",
+        "jurisdiction": "s14e",
+        "keyword": [],
+        "publisher": "s150",
+        "record_modified": "s151",
+        "record_released": "s152",
+        "resource": [],
+        "title": "s154"
+      }
+    }
+  },
+  "new": {
+    "dataset": {
+      "dataset_ref01": {
+        "description": "s1b8",
+        "download_url": "s1b9",
+        "format": [],
+        "jurisdiction": "s1bc",
+        "keyword": [],
+        "publisher": "s1be",
+        "record_modified": "s1bf",
+        "record_released": "s1c0",
+        "resource": [],
+        "title": "s1c2"
+      }
+    }
+  }
+}

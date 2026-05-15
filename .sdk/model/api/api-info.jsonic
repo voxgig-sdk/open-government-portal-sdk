@@ -1,0 +1,24 @@
+# API Information
+
+
+main: {
+  kit: {
+    info: {
+      contact: {
+        name: "Open Government Portal"
+        url: "https://search.open.canada.ca/opendata/"
+      }
+      description: "This API allows users to search and access datasets from the Government of Canada. It facilitates learning how to work with datasets and provides insights into how government data has been utilized."
+      servers: [
+        {
+          description: "Production server"
+          url: "https://search.open.canada.ca"
+        }
+      ]
+      title: "Open Government Portal"
+      version: "1.0.0"
+    }
+  }
+}
+
+}
