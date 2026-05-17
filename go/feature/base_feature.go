@@ -1,7 +1,7 @@
 package feature
 
 import (
-	"github.com/voxgig-sdk/open-government-portal-sdk/core"
+	"github.com/voxgig-sdk/open-government-portal-sdk/go/core"
 )
 
 type BaseFeature struct {

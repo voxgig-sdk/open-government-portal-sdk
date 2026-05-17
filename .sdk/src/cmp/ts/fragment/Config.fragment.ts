@@ -29,7 +29,7 @@ class Config {
 
 
   options = {
-    base: 'https://search.open.canada.ca',
+    base: '$$main.kit.info.servers.0.url$$',
 
     'AUTHBLOCK'headers: 'HEADERS',
 

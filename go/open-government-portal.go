@@ -1,10 +1,10 @@
 package voxgigopengovernmentportalsdk
 
 import (
-	"github.com/voxgig-sdk/open-government-portal-sdk/core"
-	"github.com/voxgig-sdk/open-government-portal-sdk/entity"
-	"github.com/voxgig-sdk/open-government-portal-sdk/feature"
-	_ "github.com/voxgig-sdk/open-government-portal-sdk/utility"
+	"github.com/voxgig-sdk/open-government-portal-sdk/go/core"
+	"github.com/voxgig-sdk/open-government-portal-sdk/go/entity"
+	"github.com/voxgig-sdk/open-government-portal-sdk/go/feature"
+	_ "github.com/voxgig-sdk/open-government-portal-sdk/go/utility"
 )
 
 // Type aliases preserve external API.

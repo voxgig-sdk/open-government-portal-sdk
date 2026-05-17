@@ -6,8 +6,8 @@ import (
 	"strings"
 	"testing"
 
-	sdk "github.com/voxgig-sdk/open-government-portal-sdk"
-	"github.com/voxgig-sdk/open-government-portal-sdk/core"
+	sdk "github.com/voxgig-sdk/open-government-portal-sdk/go"
+	"github.com/voxgig-sdk/open-government-portal-sdk/go/core"
 )
 
 func TestDatasetDirect(t *testing.T) {
