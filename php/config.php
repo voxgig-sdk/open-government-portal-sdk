@@ -20,9 +20,6 @@ class OpenGovernmentPortalConfig
             ],
             "options" => [
                 "base" => "https://search.open.canada.ca",
-                "auth" => [
-                    "prefix" => "Bearer",
-                ],
                 "headers" => [
           'content-type' => 'application/json',
         ],

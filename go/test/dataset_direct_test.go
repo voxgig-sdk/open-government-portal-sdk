@@ -194,14 +194,12 @@ func datasetDirectSetup(mockres any) *datasetDirectSetupResult {
 	env := envOverride(map[string]any{
 		"OPENGOVERNMENTPORTAL_TEST_DATASET_ENTID": map[string]any{},
 		"OPENGOVERNMENTPORTAL_TEST_LIVE":    "FALSE",
-		"OPENGOVERNMENTPORTAL_APIKEY":       "NONE",
 	})
 
 	live := env["OPENGOVERNMENTPORTAL_TEST_LIVE"] == "TRUE"
 
 	if live {
 		mergedOpts := map[string]any{
-			"apikey": env["OPENGOVERNMENTPORTAL_APIKEY"],
 		}
 		client := sdk.NewOpenGovernmentPortalSDK(mergedOpts)
 

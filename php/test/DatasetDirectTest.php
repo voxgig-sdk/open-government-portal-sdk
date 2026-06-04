@@ -123,14 +123,12 @@ function dataset_direct_setup($mockres)
     $env = Runner::env_override([
         "OPENGOVERNMENTPORTAL_TEST_DATASET_ENTID" => [],
         "OPENGOVERNMENTPORTAL_TEST_LIVE" => "FALSE",
-        "OPENGOVERNMENTPORTAL_APIKEY" => "NONE",
     ]);
 
     $live = $env["OPENGOVERNMENTPORTAL_TEST_LIVE"] === "TRUE";
 
     if ($live) {
         $merged_opts = [
-            "apikey" => $env["OPENGOVERNMENTPORTAL_APIKEY"],
         ];
         $client = new OpenGovernmentPortalSDK($merged_opts);
         return [

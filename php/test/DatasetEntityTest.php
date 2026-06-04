@@ -96,7 +96,6 @@ function dataset_basic_setup($extra)
         "OPENGOVERNMENTPORTAL_TEST_DATASET_ENTID" => $idmap,
         "OPENGOVERNMENTPORTAL_TEST_LIVE" => "FALSE",
         "OPENGOVERNMENTPORTAL_TEST_EXPLAIN" => "FALSE",
-        "OPENGOVERNMENTPORTAL_APIKEY" => "NONE",
     ]);
 
     $idmap_resolved = Helpers::to_map(
@@ -108,7 +107,6 @@ function dataset_basic_setup($extra)
     if ($env["OPENGOVERNMENTPORTAL_TEST_LIVE"] === "TRUE") {
         $merged_opts = Vs::merge([
             [
-                "apikey" => $env["OPENGOVERNMENTPORTAL_APIKEY"],
             ],
             $extra ?? [],
         ]);
