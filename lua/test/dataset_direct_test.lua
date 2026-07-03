@@ -117,12 +117,14 @@ function dataset_direct_setup(mockres)
   local env = runner.env_override({
     ["OPENGOVERNMENTPORTAL_TEST_DATASET_ENTID"] = {},
     ["OPENGOVERNMENTPORTAL_TEST_LIVE"] = "FALSE",
+    ["OPENGOVERNMENTPORTAL_APIKEY"] = "NONE",
   })
 
   local live = env["OPENGOVERNMENTPORTAL_TEST_LIVE"] == "TRUE"
 
   if live then
     local merged_opts = {
+      apikey = env["OPENGOVERNMENTPORTAL_APIKEY"],
     }
     local client = sdk.new(merged_opts)
     return {

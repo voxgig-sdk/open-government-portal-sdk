@@ -136,12 +136,14 @@ function directSetup(mockres?: any) {
   const env = envOverride({
     'OPENGOVERNMENTPORTAL_TEST_DATASET_ENTID': {},
     'OPENGOVERNMENTPORTAL_TEST_LIVE': 'FALSE',
+    'OPENGOVERNMENTPORTAL_APIKEY': 'NONE',
   })
 
   const live = 'TRUE' === env.OPENGOVERNMENTPORTAL_TEST_LIVE
 
   if (live) {
     const client = new OpenGovernmentPortalSDK({
+      apikey: env.OPENGOVERNMENTPORTAL_APIKEY,
     })
 
     let idmap: any = env['OPENGOVERNMENTPORTAL_TEST_DATASET_ENTID']

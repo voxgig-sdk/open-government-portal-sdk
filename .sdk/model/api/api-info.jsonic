@@ -17,25 +17,7 @@ main: {
       ]
       title: "Open Government Portal"
       version: "1.0.0"
-      tagline: "Search and retrieve datasets published on Canada's national open government data portal"
-      homepage: "https://search.open.canada.ca"
-      docs_url: "https://open.canada.ca/en/open-government-licence-canada"
-      license_short: "Open Government Licence – Canada"
-      license_md: `- Data is published under the [Open Government Licence – Canada](https://open.canada.ca/en/open-government-licence-canada).
-- Free to copy, modify, publish, translate, adapt, distribute, or otherwise use the information for any lawful purpose.
-- Attribution to the source (the relevant Government of Canada department or agency) is required.
-- Individual datasets may carry additional terms — check the record before redistributing.`
-      about_md: `The [Open Government Portal](https://search.open.canada.ca) is the Government of Canada's central catalogue of open data, open information, and proactive disclosure records. It is operated by the Treasury Board of Canada Secretariat and aggregates publications from federal departments and agencies, as well as participating provincial, territorial, and municipal partners.
-
-The catalogue holds tens of thousands of records spanning subject areas such as environment, science and technology, economics, health, transport, agriculture, and labour. Major publishers include Statistics Canada, Natural Resources Canada, Health Canada, and the Government of Yukon.
-
-This SDK targets the dataset search and retrieval endpoints exposed by the portal, letting you look up dataset packages and their associated metadata, resources, and download links.
-
-All content is provided under the Open Government Licence – Canada, which permits free reuse with attribution. Individual datasets may include extra notes about update frequency, geographic scope, or format.`
-      entity_desc: {
-        dataset: "A catalogued open data package — title, publisher, description, tags, and the list of downloadable resources (CSV, JSON, geospatial files, etc.) attached to it."
-      }
-      auth: false
     }
   }
 }
+

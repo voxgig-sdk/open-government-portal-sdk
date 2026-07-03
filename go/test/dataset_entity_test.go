@@ -135,6 +135,7 @@ func datasetBasicSetup(extra map[string]any) *entityTestSetup {
 		"OPENGOVERNMENTPORTAL_TEST_DATASET_ENTID": idmap,
 		"OPENGOVERNMENTPORTAL_TEST_LIVE":      "FALSE",
 		"OPENGOVERNMENTPORTAL_TEST_EXPLAIN":   "FALSE",
+		"OPENGOVERNMENTPORTAL_APIKEY":         "NONE",
 	})
 
 	idmapResolved := core.ToMapAny(env["OPENGOVERNMENTPORTAL_TEST_DATASET_ENTID"])
@@ -145,6 +146,7 @@ func datasetBasicSetup(extra map[string]any) *entityTestSetup {
 	if env["OPENGOVERNMENTPORTAL_TEST_LIVE"] == "TRUE" {
 		mergedOpts := vs.Merge([]any{
 			map[string]any{
+				"apikey": env["OPENGOVERNMENTPORTAL_APIKEY"],
 			},
 			extra,
 		})

@@ -1,18 +1,8 @@
 # OpenGovernmentPortal SDK
 
-Search and retrieve datasets published on Canada's national open government data portal
+Open Government Portal client, generated from the OpenAPI spec.
 
 > TypeScript, Python, PHP, Golang, Ruby, Lua SDKs, a CLI, an interactive REPL, and an MCP server for AI agents — all generated from one OpenAPI spec by [@voxgig/sdkgen](https://github.com/voxgig/sdkgen).
-
-## About Open Government Portal
-
-The [Open Government Portal](https://search.open.canada.ca) is the Government of Canada's central catalogue of open data, open information, and proactive disclosure records. It is operated by the Treasury Board of Canada Secretariat and aggregates publications from federal departments and agencies, as well as participating provincial, territorial, and municipal partners.
-
-The catalogue holds tens of thousands of records spanning subject areas such as environment, science and technology, economics, health, transport, agriculture, and labour. Major publishers include Statistics Canada, Natural Resources Canada, Health Canada, and the Government of Yukon.
-
-This SDK targets the dataset search and retrieval endpoints exposed by the portal, letting you look up dataset packages and their associated metadata, resources, and download links.
-
-All content is provided under the Open Government Licence – Canada, which permits free reuse with attribution. Individual datasets may include extra notes about update frequency, geographic scope, or format.
 
 ## Try it
 
@@ -46,29 +36,31 @@ gem install open-government-portal-sdk
 luarocks install open-government-portal-sdk
 ```
 
-## 30-second quickstart
+## Quickstart
 
 ### TypeScript
 
 ```ts
 import { OpenGovernmentPortalSDK } from 'open-government-portal'
 
-const client = new OpenGovernmentPortalSDK({})
+const client = new OpenGovernmentPortalSDK({
+  apikey: process.env.OPEN-GOVERNMENT-PORTAL_APIKEY,
+})
 
 // List all datasets
 const datasets = await client.Dataset().list()
+console.log(datasets.data)
 ```
 
-See the [TypeScript README](ts/README.md) for the
-full guide, or scroll down for the same example in other languages.
+See the [TypeScript README](ts/README.md) for the full guide.
 
-## What's in the box
+## Surfaces
 
-| Surface | Use it for | Path |
-| --- | --- | --- |
-| **SDK** (TypeScript, Python, PHP, Golang, Ruby, Lua) | App integration | `ts/` `py/` `php/` `go/` `rb/` `lua/` |
-| **CLI** | Scripts, CI, ops, one-off API calls | `go-cli/` |
-| **MCP server** | AI agents (Claude, Cursor, Cline) | `go-mcp/` |
+| Surface | Path |
+| --- | --- |
+| **SDK** (TypeScript, Python, PHP, Golang, Ruby, Lua) | `ts/` `py/` `php/` `go/` `rb/` `lua/` |
+| **CLI** | `go-cli/` |
+| **MCP server** | `go-mcp/` |
 
 ## Use it from an AI agent (MCP)
 
@@ -98,7 +90,7 @@ The API exposes one entity:
 
 | Entity | Description | API path |
 | --- | --- | --- |
-| **Dataset** | A catalogued open data package — title, publisher, description, tags, and the list of downloadable resources (CSV, JSON, geospatial files, etc.) attached to it. | `/opendata/` |
+| **Dataset** |  | `/opendata/` |
 
 Each entity supports the following operations where available: **load**,
 **list**, **create**, **update**, and **remove**.
@@ -108,17 +100,20 @@ Each entity supports the following operations where available: **load**,
 ### Python
 
 ```python
+import os
 from opengovernmentportal_sdk import OpenGovernmentPortalSDK
 
-client = OpenGovernmentPortalSDK({})
+client = OpenGovernmentPortalSDK({
+    "apikey": os.environ.get("OPEN-GOVERNMENT-PORTAL_APIKEY"),
+})
 
 # List all datasets
-datasets, err = client.Dataset(None).list(None, None)
+datasets, err = client.Dataset().list()
+print(datasets)
 
 # Load a specific dataset
-dataset, err = client.Dataset(None).load(
-    {"id": "example_id"}, None
-)
+dataset, err = client.Dataset().load({"id": "example_id"})
+print(dataset)
 ```
 
 ### PHP
@@ -127,15 +122,17 @@ dataset, err = client.Dataset(None).load(
 <?php
 require_once 'opengovernmentportal_sdk.php';
 
-$client = new OpenGovernmentPortalSDK([]);
+$client = new OpenGovernmentPortalSDK([
+    "apikey" => getenv("OPEN-GOVERNMENT-PORTAL_APIKEY"),
+]);
 
 // List all datasets
-[$datasets, $err] = $client->Dataset(null)->list(null, null);
+[$datasets, $err] = $client->Dataset()->list();
+print_r($datasets);
 
 // Load a specific dataset
-[$dataset, $err] = $client->Dataset(null)->load(
-    ["id" => "example_id"], null
-);
+[$dataset, $err] = $client->Dataset()->load(["id" => "example_id"]);
+print_r($dataset);
 ```
 
 ### Golang
@@ -143,10 +140,13 @@ $client = new OpenGovernmentPortalSDK([]);
 ```go
 import sdk "github.com/voxgig-sdk/open-government-portal-sdk/go"
 
-client := sdk.NewOpenGovernmentPortalSDK(map[string]any{})
+client := sdk.NewOpenGovernmentPortalSDK(map[string]any{
+    "apikey": os.Getenv("OPEN-GOVERNMENT-PORTAL_APIKEY"),
+})
 
 // List all datasets
 datasets, err := client.Dataset(nil).List(nil, nil)
+fmt.Println(datasets)
 ```
 
 ### Ruby
@@ -154,15 +154,17 @@ datasets, err := client.Dataset(nil).List(nil, nil)
 ```ruby
 require_relative "OpenGovernmentPortal_sdk"
 
-client = OpenGovernmentPortalSDK.new({})
+client = OpenGovernmentPortalSDK.new({
+  "apikey" => ENV["OPEN-GOVERNMENT-PORTAL_APIKEY"],
+})
 
 # List all datasets
-datasets, err = client.Dataset(nil).list(nil, nil)
+datasets, err = client.Dataset().list
+puts datasets
 
 # Load a specific dataset
-dataset, err = client.Dataset(nil).load(
-  { "id" => "example_id" }, nil
-)
+dataset, err = client.Dataset().load({ "id" => "example_id" })
+puts dataset
 ```
 
 ### Lua
@@ -170,15 +172,17 @@ dataset, err = client.Dataset(nil).load(
 ```lua
 local sdk = require("open-government-portal_sdk")
 
-local client = sdk.new({})
+local client = sdk.new({
+  apikey = os.getenv("OPEN-GOVERNMENT-PORTAL_APIKEY"),
+})
 
 -- List all datasets
-local datasets, err = client:Dataset(nil):list(nil, nil)
+local datasets, err = client:Dataset():list()
+print(datasets)
 
 -- Load a specific dataset
-local dataset, err = client:Dataset(nil):load(
-  { id = "example_id" }, nil
-)
+local dataset, err = client:Dataset():load({ id = "example_id" })
+print(dataset)
 ```
 
 ## Unit testing in offline mode
@@ -197,25 +201,21 @@ const result = await client.Dataset().load({ id: 'test01' })
 ### Python
 
 ```python
-client = OpenGovernmentPortalSDK.test(None, None)
-result, err = client.Dataset(None).load(
-    {"id": "test01"}, None
-)
+client = OpenGovernmentPortalSDK.test()
+result, err = client.Dataset().load({"id": "test01"})
 ```
 
 ### PHP
 
 ```php
-$client = OpenGovernmentPortalSDK::test(null, null);
-[$result, $err] = $client->Dataset(null)->load(
-    ["id" => "test01"], null
-);
+$client = OpenGovernmentPortalSDK::test();
+[$result, $err] = $client->Dataset()->load(["id" => "test01"]);
 ```
 
 ### Golang
 
 ```go
-client := sdk.TestSDK(nil, nil)
+client := sdk.Test()
 result, err := client.Dataset(nil).Load(
     map[string]any{"id": "test01"}, nil,
 )
@@ -224,19 +224,15 @@ result, err := client.Dataset(nil).Load(
 ### Ruby
 
 ```ruby
-client = OpenGovernmentPortalSDK.test(nil, nil)
-result, err = client.Dataset(nil).load(
-  { "id" => "test01" }, nil
-)
+client = OpenGovernmentPortalSDK.test
+result, err = client.Dataset().load({ "id" => "test01" })
 ```
 
 ### Lua
 
 ```lua
-local client = sdk.test(nil, nil)
-local result, err = client:Dataset(nil):load(
-  { id = "test01" }, nil
-)
+local client = sdk.test()
+local result, err = client:Dataset():load({ id = "test01" })
 ```
 
 ## How it works
@@ -340,16 +336,6 @@ local result, err = client:direct({
 - [Golang](go/README.md)
 - [Ruby](rb/README.md)
 - [Lua](lua/README.md)
-
-## Using the Open Government Portal
-
-- Upstream: [https://search.open.canada.ca](https://search.open.canada.ca)
-- API docs: [https://open.canada.ca/en/open-government-licence-canada](https://open.canada.ca/en/open-government-licence-canada)
-
-- Data is published under the [Open Government Licence – Canada](https://open.canada.ca/en/open-government-licence-canada).
-- Free to copy, modify, publish, translate, adapt, distribute, or otherwise use the information for any lawful purpose.
-- Attribution to the source (the relevant Government of Canada department or agency) is required.
-- Individual datasets may carry additional terms — check the record before redistributing.
 
 ---
 

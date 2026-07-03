@@ -120,6 +120,7 @@ function basicSetup(extra?: any) {
     'OPEN_GOVERNMENT_PORTAL_TEST_DATASET_ENTID': idmap,
     'OPEN_GOVERNMENT_PORTAL_TEST_LIVE': 'FALSE',
     'OPEN_GOVERNMENT_PORTAL_TEST_EXPLAIN': 'FALSE',
+    'OPEN_GOVERNMENT_PORTAL_APIKEY': 'NONE',
   })
 
   idmap = env['OPEN_GOVERNMENT_PORTAL_TEST_DATASET_ENTID']
@@ -129,6 +130,7 @@ function basicSetup(extra?: any) {
   if (live) {
     client = new OpenGovernmentPortalSDK(merge([
       {
+        apikey: env.OPEN_GOVERNMENT_PORTAL_APIKEY,
       },
       extra
     ]))
