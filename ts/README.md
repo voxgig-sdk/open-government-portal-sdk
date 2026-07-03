@@ -10,7 +10,7 @@ The TypeScript SDK for the OpenGovernmentPortal API — a type-safe, entity-orie
 
 ## Install
 ```bash
-npm install open-government-portal
+npm install @voxgig-sdk/open-government-portal
 ```
 ## Tutorial: your first API call
 

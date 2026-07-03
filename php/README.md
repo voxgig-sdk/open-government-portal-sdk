@@ -10,7 +10,7 @@ The PHP SDK for the OpenGovernmentPortal API — an entity-oriented client using
 
 ## Install
 ```bash
-composer require voxgig/open-government-portal-sdk
+composer require voxgig-sdk/open-government-portal
 ```
 
 

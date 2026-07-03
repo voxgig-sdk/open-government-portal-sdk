@@ -5,16 +5,19 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "voxgig-sdk-open-government-portal"
 version = "0.0.1"
-description = "OpenGovernmentPortal SDK for Python"
+description = "Unofficial generated Python SDK for the Open Government Portal public API. Not affiliated with or endorsed by the upstream API provider."
+readme = "README.md"
 license = "MIT"
 requires-python = ">=3.8"
+keywords = ["voxgig", "sdk", "generated-sdk", "openapi", "api-client", "open-government-portal"]
 dependencies = [
-    "requests>=2.33",
     "requests>=2.33",
 ]
 
 [project.urls]
-Homepage = "https://github.com/voxgig/open-government-portal-sdk"
+Homepage = "https://github.com/voxgig-sdk/open-government-portal-sdk"
+Repository = "https://github.com/voxgig-sdk/open-government-portal-sdk"
+Issues = "https://github.com/voxgig-sdk/open-government-portal-sdk/issues"
 
 # Explicit package list — setuptools auto-discovery refuses to pick when
 # multiple top-level dirs (core/entity/feature/utility) are present.

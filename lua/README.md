@@ -10,7 +10,7 @@ The Lua SDK for the OpenGovernmentPortal API — an entity-oriented client using
 
 ## Install
 ```bash
-luarocks install open-government-portal-sdk
+luarocks install voxgig-sdk-open-government-portal
 ```
 
 If the module is not yet published, add the source directory to

@@ -10,13 +10,13 @@ The Ruby SDK for the OpenGovernmentPortal API — an entity-oriented client usin
 
 ## Install
 ```bash
-gem install open-government-portal-sdk
+gem install voxgig-sdk-open-government-portal
 ```
 
 Or add to your `Gemfile`:
 
 ```ruby
-gem "open-government-portal-sdk"
+gem "voxgig-sdk-open-government-portal"
 ```
 
 Then run:

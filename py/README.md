@@ -10,7 +10,7 @@ The Python SDK for the OpenGovernmentPortal API — an entity-oriented client fo
 
 ## Install
 ```bash
-pip install open-government-portal-sdk
+pip install voxgig-sdk-open-government-portal
 ```
 
 Or install from source:
