@@ -83,7 +83,7 @@ same parameters as `direct()`.
 ## DatasetEntity
 
 ```lua
-local dataset = client:dataset(nil)
+local dataset = client:Dataset(nil)
 ```
 
 ### Fields
@@ -109,7 +109,7 @@ local dataset = client:dataset(nil)
 List entities matching the given criteria. Returns an array.
 
 ```lua
-local results, err = client:dataset():list()
+local results, err = client:Dataset():list()
 ```
 
 #### `load(reqmatch, ctrl) -> any, err`
@@ -117,7 +117,7 @@ local results, err = client:dataset():list()
 Load a single entity matching the given criteria.
 
 ```lua
-local result, err = client:dataset():load({ id = "dataset_id" })
+local result, err = client:Dataset():load({ id = "dataset_id" })
 ```
 
 ### Common Methods

@@ -208,13 +208,7 @@ class OpenGovernmentPortalSDK
   end
 
 
-  # Idiomatic facade: client.dataset.list / client.dataset.load({ "id" => ... })
-  def dataset
-    require_relative 'entity/dataset_entity'
-    @dataset ||= DatasetEntity.new(self, nil)
-  end
-
-  # Deprecated: use client.dataset instead.
+  # Canonical facade: client.Dataset.list / client.Dataset.load({ "id" => ... })
   def Dataset(data = nil)
     require_relative 'entity/dataset_entity'
     DatasetEntity.new(self, data)

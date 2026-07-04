@@ -233,10 +233,10 @@ class OpenGovernmentPortalSDK
 
     private $_dataset = null;
 
-    // Idiomatic facade: $client->dataset()->list() / ->load(["id" => ...]).
-    // Also serves the deprecated PascalCase alias Dataset() (PHP method
-    // names are case-insensitive).
-    public function dataset($data = null)
+    // Canonical facade: $client->Dataset()->list() / ->load(["id" => ...]).
+    // PHP method names are case-insensitive, so lowercase $client->dataset()
+    // resolves here too.
+    public function Dataset($data = null)
     {
         require_once __DIR__ . '/entity/dataset_entity.php';
         if ($data === null) {

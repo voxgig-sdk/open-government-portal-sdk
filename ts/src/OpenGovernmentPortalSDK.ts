@@ -204,14 +204,7 @@ class OpenGovernmentPortalSDK {
 
 
 
-  _dataset?: DatasetEntity
-
-  // Idiomatic facade: `client.dataset.list()` / `client.dataset.load({ id })`.
-  get dataset(): DatasetEntity {
-    return (this._dataset ??= new DatasetEntity(this, undefined))
-  }
-
-  /** @deprecated Use `client.dataset` instead. */
+  // Entity access: `client.Dataset().list()` / `client.Dataset().load({ id })`.
   Dataset(data?: any) {
     const self = this
     return new DatasetEntity(self,data)

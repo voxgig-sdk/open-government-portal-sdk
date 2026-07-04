@@ -31,24 +31,28 @@ from opengovernmentportal_sdk import OpenGovernmentPortalSDK
 client = OpenGovernmentPortalSDK()
 ```
 
-### 2. List datasets
+### 2. List dataset records
+
+`list()` returns a `list` of records (each a `dict`) and raises on
+error — iterate it directly.
 
 ```python
 try:
-    result = client.dataset.list()
-    for item in result:
-        d = item.data_get()
-        print(d["id"], d["name"])
+    datasets = client.Dataset().list({})
+    for dataset in datasets:
+        print(dataset)
 except Exception as err:
     print(f"list failed: {err}")
 ```
 
 ### 3. Load a dataset
 
+`load()` returns the bare record (a `dict`) and raises on error.
+
 ```python
 try:
-    result = client.dataset.load({"id": "example_id"})
-    print(result)
+    dataset = client.Dataset().load({"id": "example_id"})
+    print(dataset)
 except Exception as err:
     print(f"load failed: {err}")
 ```
@@ -96,8 +100,9 @@ Create a mock client for unit testing — no server required:
 ```python
 client = OpenGovernmentPortalSDK.test()
 
-result = client.dataset.load({"id": "test01"})
-# result contains mock response data
+# Entity ops return the bare record and raise on error.
+dataset = client.Dataset().load({"id": "test01"})
+# dataset contains the mock response record
 ```
 
 ### Use a custom fetch function
@@ -240,7 +245,7 @@ API path: `/opendata/`
 
 ### Dataset
 
-Create an instance: `const dataset = client.dataset`
+Create an instance: `dataset = client.Dataset()`
 
 #### Operations
 
@@ -267,14 +272,14 @@ Create an instance: `const dataset = client.dataset`
 
 #### Example: Load
 
-```ts
-const dataset = await client.dataset.load({ id: 'dataset_id' })
+```python
+dataset = client.Dataset().load({"id": "dataset_id"})
 ```
 
 #### Example: List
 
-```ts
-const datasets = await client.dataset.list()
+```python
+datasets = client.Dataset().list({})
 ```
 
 
@@ -348,7 +353,7 @@ Entity instances are stateful. After a successful `load`, the entity
 stores the returned data and match criteria internally.
 
 ```python
-dataset = client.dataset
+dataset = client.Dataset()
 dataset.load({"id": "example_id"})
 
 # dataset.data_get() now returns the loaded dataset data

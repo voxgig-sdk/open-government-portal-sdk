@@ -4,44 +4,45 @@
 # params (op.<name>.points[].args.params[]). Field/param types come from the
 # canonical type sentinels via @voxgig/sdkgen canonToType (source of truth:
 # @voxgig/apidef VALID_CANON). Do not edit by hand.
+#
+# These are TypedDicts, not dataclasses: the SDK ops return/accept plain dicts
+# at runtime, and a TypedDict IS a dict shape, so the types match the runtime.
+# Optional (req:false) keys are modelled as TypedDict key-optionality
+# (total=False), split into a required base + total=False subclass when a type
+# has both required and optional keys.
 
 from __future__ import annotations
 
-from dataclasses import dataclass
-from typing import Optional, Any
+from typing import TypedDict, Any
 
 
-@dataclass
-class Dataset:
-    description: Optional[str] = None
-    download_url: Optional[str] = None
-    format: Optional[list] = None
-    id: Optional[str] = None
-    jurisdiction: Optional[str] = None
-    keyword: Optional[list] = None
-    publisher: Optional[str] = None
-    record_modified: Optional[str] = None
-    record_released: Optional[str] = None
-    resource: Optional[list] = None
-    title: Optional[str] = None
+class Dataset(TypedDict, total=False):
+    description: str
+    download_url: str
+    format: list
+    id: str
+    jurisdiction: str
+    keyword: list
+    publisher: str
+    record_modified: str
+    record_released: str
+    resource: list
+    title: str
 
 
-@dataclass
-class DatasetLoadMatch:
+class DatasetLoadMatch(TypedDict):
     id: str
 
 
-@dataclass
-class DatasetListMatch:
-    description: Optional[str] = None
-    download_url: Optional[str] = None
-    format: Optional[list] = None
-    id: Optional[str] = None
-    jurisdiction: Optional[str] = None
-    keyword: Optional[list] = None
-    publisher: Optional[str] = None
-    record_modified: Optional[str] = None
-    record_released: Optional[str] = None
-    resource: Optional[list] = None
-    title: Optional[str] = None
-
+class DatasetListMatch(TypedDict, total=False):
+    description: str
+    download_url: str
+    format: list
+    id: str
+    jurisdiction: str
+    keyword: list
+    publisher: str
+    record_modified: str
+    record_released: str
+    resource: list
+    title: str

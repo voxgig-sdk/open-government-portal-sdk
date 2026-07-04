@@ -109,7 +109,7 @@ Alias for `OpenGovernmentPortalSDK.test()`.
 ## DatasetEntity
 
 ```ts
-const dataset = client.dataset
+const dataset = client.Dataset()
 ```
 
 ### Fields
@@ -135,7 +135,7 @@ const dataset = client.dataset
 List entities matching the given criteria. Returns an array.
 
 ```ts
-const results = await client.dataset.list()
+const results = await client.Dataset().list()
 ```
 
 #### `load(match: object, ctrl?: object)`
@@ -143,7 +143,7 @@ const results = await client.dataset.list()
 Load a single entity matching the given criteria.
 
 ```ts
-const result = await client.dataset.load({ id: 'dataset_id' })
+const result = await client.Dataset().load({ id: 'dataset_id' })
 ```
 
 ### Common Methods

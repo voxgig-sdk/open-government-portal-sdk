@@ -26,9 +26,11 @@ import { OpenGovernmentPortalSDK } from '@voxgig-sdk/open-government-portal'
 
 const client = new OpenGovernmentPortalSDK()
 
-// List all datasets
-const datasets = await client.dataset.list()
-console.log(datasets.data)
+// List all datasets (returns Dataset[])
+const datasets = await client.Dataset().list()
+for (const dataset of datasets) {
+  console.log(dataset)
+}
 ```
 
 See the [TypeScript README](ts/README.md) for the full guide.
@@ -83,12 +85,13 @@ from opengovernmentportal_sdk import OpenGovernmentPortalSDK
 
 client = OpenGovernmentPortalSDK()
 
-# List all datasets
-datasets = client.dataset.list()
-print(datasets)
+# List all datasets (returns a list, raises on error)
+datasets = client.Dataset().list({})
+for dataset in datasets:
+    print(dataset)
 
-# Load a specific dataset
-dataset = client.dataset.load({"id": "example_id"})
+# Load a specific dataset (returns the record, raises on error)
+dataset = client.Dataset().load({"id": "example_id"})
 print(dataset)
 ```
 
@@ -100,12 +103,12 @@ require_once 'opengovernmentportal_sdk.php';
 
 $client = new OpenGovernmentPortalSDK();
 
-// List all datasets (throws on error)
-$datasets = $client->dataset()->list();
+// List all datasets (returns an array; throws on error)
+$datasets = $client->Dataset()->list();
 print_r($datasets);
 
-// Load a specific dataset
-$dataset = $client->dataset()->load(["id" => "example_id"]);
+// Load a specific dataset (returns the bare record; throws on error)
+$dataset = $client->Dataset()->load(["id" => "example_id"]);
 print_r($dataset);
 ```
 
@@ -128,12 +131,12 @@ require_relative "OpenGovernmentPortal_sdk"
 
 client = OpenGovernmentPortalSDK.new
 
-# List all datasets
-datasets = client.dataset.list
+# List all datasets (returns an Array; raises on error)
+datasets = client.Dataset.list
 puts datasets
 
-# Load a specific dataset
-dataset = client.dataset.load({ "id" => "example_id" })
+# Load a specific dataset (returns the bare record; raises on error)
+dataset = client.Dataset.load({ "id" => "example_id" })
 puts dataset
 ```
 
@@ -145,11 +148,11 @@ local sdk = require("open-government-portal_sdk")
 local client = sdk.new()
 
 -- List all datasets
-local datasets, err = client:dataset():list()
+local datasets, err = client:Dataset():list()
 print(datasets)
 
 -- Load a specific dataset
-local dataset, err = client:dataset():load({ id = "example_id" })
+local dataset, err = client:Dataset():load({ id = "example_id" })
 print(dataset)
 ```
 
@@ -162,22 +165,27 @@ in-memory mock, so unit tests run offline.
 
 ```ts
 const client = OpenGovernmentPortalSDK.test()
-const result = await client.dataset.load({ id: 'test01' })
-// result.ok === true, result.data contains mock data
+const dataset = await client.Dataset().load({ id: 'test01' })
+// dataset is a bare Dataset populated with mock data
+console.log(dataset)
 ```
 
 ### Python
 
 ```python
 client = OpenGovernmentPortalSDK.test()
-result = client.dataset.load({"id": "test01"})
+dataset = client.Dataset().load({"id": "test01"})
+print(dataset)
 ```
 
 ### PHP
 
 ```php
-$client = OpenGovernmentPortalSDK::test();
-$result = $client->dataset()->load(["id" => "test01"]);
+// Seed fixture data so offline calls resolve without a live server.
+$client = OpenGovernmentPortalSDK::test([
+    "entity" => ["dataset" => ["test01" => ["id" => "test01"]]],
+]);
+$dataset = $client->Dataset()->load(["id" => "test01"]);
 ```
 
 ### Golang
@@ -192,15 +200,18 @@ result, err := client.Dataset(nil).Load(
 ### Ruby
 
 ```ruby
-client = OpenGovernmentPortalSDK.test
-result = client.dataset.load({ "id" => "test01" })
+# Seed fixture data so offline calls resolve without a live server.
+client = OpenGovernmentPortalSDK.test({
+  "entity" => { "dataset" => { "test01" => { "id" => "test01" } } },
+})
+dataset = client.Dataset.load({ "id" => "test01" })
 ```
 
 ### Lua
 
 ```lua
 local client = sdk.test()
-local result, err = client:dataset():load({ id = "test01" })
+local result, err = client:Dataset():load({ id = "test01" })
 ```
 
 ## How it works
@@ -248,6 +259,9 @@ const result = await client.direct({
   method: 'GET',
   params: { id: 'example' },
 })
+if (result instanceof Error) {
+  throw result
+}
 console.log(result.data)
 ```
 
