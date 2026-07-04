@@ -18,7 +18,6 @@ Create a new SDK client instance.
 | Name | Type | Description |
 | --- | --- | --- |
 | `options` | `object` | SDK configuration options. |
-| `options.apikey` | `string` | API key for authentication. |
 | `options.base` | `string` | Base URL for API requests. |
 | `options.prefix` | `string` | URL prefix appended after base. |
 | `options.suffix` | `string` | URL suffix appended after path. |
@@ -110,7 +109,7 @@ Alias for `OpenGovernmentPortalSDK.test()`.
 ## DatasetEntity
 
 ```ts
-const dataset = client.Dataset()
+const dataset = client.dataset
 ```
 
 ### Fields
@@ -136,7 +135,7 @@ const dataset = client.Dataset()
 List entities matching the given criteria. Returns an array.
 
 ```ts
-const results = await client.Dataset().list()
+const results = await client.dataset.list()
 ```
 
 #### `load(match: object, ctrl?: object)`
@@ -144,7 +143,7 @@ const results = await client.Dataset().list()
 Load a single entity matching the given criteria.
 
 ```ts
-const result = await client.Dataset().load({ id: 'dataset_id' })
+const result = await client.dataset.load({ id: 'dataset_id' })
 ```
 
 ### Common Methods

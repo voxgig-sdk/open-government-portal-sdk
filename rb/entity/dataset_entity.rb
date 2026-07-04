@@ -45,6 +45,7 @@ class DatasetEntity
     end
   end
 
+  # @return [Dataset, Hash] the current Dataset data
   def data_get
     @_utility.feature_hook.call(@_entctx, "GetData")
     VoxgigStruct.clone(@_data)
@@ -57,12 +58,18 @@ class DatasetEntity
     end
   end
 
+  # @return [Hash] the current match filter (any subset of Dataset fields)
   def match_get
     @_utility.feature_hook.call(@_entctx, "GetMatch")
     VoxgigStruct.clone(@_match)
   end
 
   
+  # Load a single Dataset.
+  #
+  # @param reqmatch [DatasetLoadMatch, Hash, nil] match criteria (id/query fields)
+  # @param ctrl [Object, nil] optional per-call control
+  # @return [Dataset, Hash] the loaded Dataset; raises OpenGovernmentPortalError on failure
   def load(reqmatch, ctrl = nil)
     utility = @_utility
     ctx = utility.make_context.call({
@@ -86,6 +93,11 @@ class DatasetEntity
 
 
   
+  # List Dataset items matching the given filter.
+  #
+  # @param reqmatch [DatasetListMatch, Hash, nil] match filter (any subset of Dataset fields)
+  # @param ctrl [Object, nil] optional per-call control
+  # @return [Array<Dataset>, Array] the matching Dataset items; raises OpenGovernmentPortalError on failure
   def list(reqmatch, ctrl = nil)
     utility = @_utility
     ctx = utility.make_context.call({

@@ -50,16 +50,14 @@ class TestDatasetEntity:
         dataset_ref01_ent = client.Dataset(None)
         dataset_ref01_match = {}
 
-        dataset_ref01_list_result, err = dataset_ref01_ent.list(dataset_ref01_match, None)
-        assert err is None
+        dataset_ref01_list_result = dataset_ref01_ent.list(dataset_ref01_match, None)
         assert isinstance(dataset_ref01_list_result, list)
 
         # LOAD
         dataset_ref01_match_dt0 = {
             "id": dataset_ref01_data["id"],
         }
-        dataset_ref01_data_dt0_loaded, err = dataset_ref01_ent.load(dataset_ref01_match_dt0, None)
-        assert err is None
+        dataset_ref01_data_dt0_loaded = dataset_ref01_ent.load(dataset_ref01_match_dt0, None)
         dataset_ref01_data_dt0_load_result = helpers.to_map(dataset_ref01_data_dt0_loaded)
         assert dataset_ref01_data_dt0_load_result is not None
         assert dataset_ref01_data_dt0_load_result["id"] == dataset_ref01_data["id"]
@@ -102,7 +100,6 @@ def _dataset_basic_setup(extra):
         "OPENGOVERNMENTPORTAL_TEST_DATASET_ENTID": idmap,
         "OPENGOVERNMENTPORTAL_TEST_LIVE": "FALSE",
         "OPENGOVERNMENTPORTAL_TEST_EXPLAIN": "FALSE",
-        "OPENGOVERNMENTPORTAL_APIKEY": "NONE",
     })
 
     idmap_resolved = helpers.to_map(
@@ -113,7 +110,6 @@ def _dataset_basic_setup(extra):
     if env.get("OPENGOVERNMENTPORTAL_TEST_LIVE") == "TRUE":
         merged_opts = vs.merge([
             {
-                "apikey": env.get("OPENGOVERNMENTPORTAL_APIKEY"),
             },
             extra or {},
         ])

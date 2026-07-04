@@ -19,7 +19,6 @@ Create a new SDK client instance.
 | Name | Type | Description |
 | --- | --- | --- |
 | `options` | `table` | SDK configuration options. |
-| `options.apikey` | `string` | API key for authentication. |
 | `options.base` | `string` | Base URL for API requests. |
 | `options.prefix` | `string` | URL prefix appended after base. |
 | `options.suffix` | `string` | URL suffix appended after path. |
@@ -84,7 +83,7 @@ same parameters as `direct()`.
 ## DatasetEntity
 
 ```lua
-local dataset = client:Dataset(nil)
+local dataset = client:dataset(nil)
 ```
 
 ### Fields
@@ -110,7 +109,7 @@ local dataset = client:Dataset(nil)
 List entities matching the given criteria. Returns an array.
 
 ```lua
-local results, err = client:Dataset():list()
+local results, err = client:dataset():list()
 ```
 
 #### `load(reqmatch, ctrl) -> any, err`
@@ -118,7 +117,7 @@ local results, err = client:Dataset():list()
 Load a single entity matching the given criteria.
 
 ```lua
-local result, err = client:Dataset():load({ id = "dataset_id" })
+local result, err = client:dataset():load({ id = "dataset_id" })
 ```
 
 ### Common Methods

@@ -55,6 +55,9 @@ class DatasetEntity
         return new DatasetEntity($this->_client, $opts);
     }
 
+    /**
+     * @param Dataset|array $args Dataset data (assoc-array) to store.
+     */
     public function data_set($args): void
     {
         if ($args) {
@@ -63,12 +66,18 @@ class DatasetEntity
         }
     }
 
+    /**
+     * @return Dataset|array The current Dataset data as an assoc-array.
+     */
     public function data_get()
     {
         ($this->_utility->feature_hook)($this->_entctx, "GetData");
         return Struct::clone($this->_data);
     }
 
+    /**
+     * @param array $args Match filter (any subset of Dataset fields).
+     */
     public function match_set($args): void
     {
         if ($args) {
@@ -77,6 +86,9 @@ class DatasetEntity
         }
     }
 
+    /**
+     * @return array The current match filter (any subset of Dataset fields).
+     */
     public function match_get()
     {
         ($this->_utility->feature_hook)($this->_entctx, "GetMatch");
@@ -84,7 +96,16 @@ class DatasetEntity
     }
 
     
-    public function load($reqmatch, $ctrl = null): array
+    /**
+     * Load a single Dataset.
+     *
+     * @param DatasetLoadMatch|array|null $reqmatch Match criteria (id/query
+     *   fields) as an assoc-array; a typed DatasetLoadMatch names the shape.
+     * @param mixed $ctrl Optional per-call control overrides.
+     * @return Dataset|array The loaded Dataset as an assoc-array at the
+     *   SDK boundary; throws OpenGovernmentPortalError on failure (item-5 convention).
+     */
+    public function load(?array $reqmatch = null, $ctrl = null): mixed
     {
         $utility = $this->_utility;
         $ctx = ($utility->make_context)([
@@ -110,7 +131,16 @@ class DatasetEntity
 
 
     
-    public function list($reqmatch, $ctrl = null): array
+    /**
+     * List Dataset items matching the given filter.
+     *
+     * @param DatasetListMatch|array|null $reqmatch Match filter (any subset
+     *   of Dataset fields) as an assoc-array; DatasetListMatch names the shape.
+     * @param mixed $ctrl Optional per-call control overrides.
+     * @return Dataset[]|array A list of Dataset items as assoc-arrays at
+     *   the SDK boundary; throws OpenGovernmentPortalError on failure (item-5 convention).
+     */
+    public function list(?array $reqmatch = null, $ctrl = null): mixed
     {
         $utility = $this->_utility;
         $ctx = ($utility->make_context)([
@@ -138,7 +168,7 @@ class DatasetEntity
 
     
 
-    private function _run_op($ctx, callable $post_done): array
+    private function _run_op($ctx, callable $post_done): mixed
     {
         $utility = $this->_utility;
 

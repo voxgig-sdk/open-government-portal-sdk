@@ -43,16 +43,14 @@ class DatasetEntityTest < Minitest::Test
     dataset_ref01_ent = client.Dataset(nil)
     dataset_ref01_match = {}
 
-    dataset_ref01_list_result, err = dataset_ref01_ent.list(dataset_ref01_match, nil)
-    assert_nil err
+    dataset_ref01_list_result = dataset_ref01_ent.list(dataset_ref01_match, nil)
     assert dataset_ref01_list_result.is_a?(Array)
 
     # LOAD
     dataset_ref01_match_dt0 = {
       "id" => dataset_ref01_data["id"],
     }
-    dataset_ref01_data_dt0_loaded, err = dataset_ref01_ent.load(dataset_ref01_match_dt0, nil)
-    assert_nil err
+    dataset_ref01_data_dt0_loaded = dataset_ref01_ent.load(dataset_ref01_match_dt0, nil)
     dataset_ref01_data_dt0_load_result = Helpers.to_map(dataset_ref01_data_dt0_loaded)
     assert !dataset_ref01_data_dt0_load_result.nil?
     assert_equal dataset_ref01_data_dt0_load_result["id"], dataset_ref01_data["id"]
@@ -93,7 +91,6 @@ def dataset_basic_setup(extra)
     "OPENGOVERNMENTPORTAL_TEST_DATASET_ENTID" => idmap,
     "OPENGOVERNMENTPORTAL_TEST_LIVE" => "FALSE",
     "OPENGOVERNMENTPORTAL_TEST_EXPLAIN" => "FALSE",
-    "OPENGOVERNMENTPORTAL_APIKEY" => "NONE",
   })
 
   idmap_resolved = Helpers.to_map(
@@ -105,7 +102,6 @@ def dataset_basic_setup(extra)
   if env["OPENGOVERNMENTPORTAL_TEST_LIVE"] == "TRUE"
     merged_opts = Vs.merge([
       {
-        "apikey" => env["OPENGOVERNMENTPORTAL_APIKEY"],
       },
       extra || {},
     ])

@@ -85,6 +85,27 @@ func (e *DatasetEntity) Match(args ...any) any {
 	return out
 }
 
+// DataTyped is the statically-typed accessor for this entity's data. With no
+// argument it returns the current data as an Dataset; with an argument it
+// sets the data and returns the stored value. It delegates to the untyped Data
+// (identical runtime) and converts at the typed boundary.
+func (e *DatasetEntity) DataTyped(data ...Dataset) Dataset {
+	if len(data) > 0 {
+		return typedFrom[Dataset](e.Data(asMap(data[0])))
+	}
+	return typedFrom[Dataset](e.Data())
+}
+
+// MatchTyped mirrors DataTyped for the entity's match filter. The match is a
+// partial of the entity, so it round-trips through Dataset (all fields
+// optional at the wire level).
+func (e *DatasetEntity) MatchTyped(match ...Dataset) Dataset {
+	if len(match) > 0 {
+		return typedFrom[Dataset](e.Match(asMap(match[0])))
+	}
+	return typedFrom[Dataset](e.Match())
+}
+
 
 func (e *DatasetEntity) Load(reqmatch map[string]any, ctrl map[string]any) (any, error) {
 	utility := e.utility
@@ -111,6 +132,17 @@ func (e *DatasetEntity) Load(reqmatch map[string]any, ctrl map[string]any) (any,
 	})
 }
 
+// LoadTyped is the statically-typed variant of Load: it takes an
+// DatasetLoadMatch and returns an Dataset. It delegates to the untyped
+// Load (identical runtime) and converts at the typed boundary.
+func (e *DatasetEntity) LoadTyped(reqmatch DatasetLoadMatch, ctrl map[string]any) (Dataset, error) {
+	res, err := e.Load(asMap(reqmatch), ctrl)
+	if err != nil {
+		return Dataset{}, err
+	}
+	return typedFrom[Dataset](res), nil
+}
+
 
 
 
@@ -131,6 +163,17 @@ func (e *DatasetEntity) List(reqmatch map[string]any, ctrl map[string]any) (any,
 			}
 		}
 	})
+}
+
+// ListTyped is the statically-typed variant of List: it takes an
+// DatasetListMatch and returns []Dataset. It delegates to the untyped
+// List (identical runtime) and converts at the typed boundary.
+func (e *DatasetEntity) ListTyped(reqmatch DatasetListMatch, ctrl map[string]any) ([]Dataset, error) {
+	res, err := e.List(asMap(reqmatch), ctrl)
+	if err != nil {
+		return nil, err
+	}
+	return typedSliceFrom[Dataset](res), nil
 }
 
 

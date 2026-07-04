@@ -2,6 +2,8 @@
 
 import { DatasetEntity } from './entity/DatasetEntity'
 
+export type * from './OpenGovernmentPortalTypes'
+
 
 import { inspect } from 'node:util'
 
@@ -202,6 +204,14 @@ class OpenGovernmentPortalSDK {
 
 
 
+  _dataset?: DatasetEntity
+
+  // Idiomatic facade: `client.dataset.list()` / `client.dataset.load({ id })`.
+  get dataset(): DatasetEntity {
+    return (this._dataset ??= new DatasetEntity(this, undefined))
+  }
+
+  /** @deprecated Use `client.dataset` instead. */
   Dataset(data?: any) {
     const self = this
     return new DatasetEntity(self,data)

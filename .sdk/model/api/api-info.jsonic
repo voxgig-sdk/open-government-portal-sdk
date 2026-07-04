@@ -4,6 +4,7 @@
 main: {
   kit: {
     info: {
+      auth: false
       contact: {
         name: "Open Government Portal"
         url: "https://search.open.canada.ca/opendata/"

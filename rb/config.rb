@@ -15,9 +15,6 @@ module OpenGovernmentPortalConfig
       },
       "options" => {
         "base" => "https://search.open.canada.ca",
-        "auth" => {
-          "prefix" => "Bearer",
-        },
         "headers" => {
           "content-type" => "application/json",
         },
@@ -217,6 +214,7 @@ module OpenGovernmentPortalConfig
                         "orig" => "dataset_id",
                         "reqd" => true,
                         "type" => "`$STRING`",
+                        "index$" => 0,
                       },
                     ],
                   },

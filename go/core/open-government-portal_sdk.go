@@ -245,6 +245,9 @@ func (sdk *OpenGovernmentPortalSDK) Direct(fetchargs map[string]any) (map[string
 }
 
 
+// Dataset returns a Dataset entity bound to this client.
+// Idiomatic usage: client.Dataset(nil).List(nil, nil) or
+// client.Dataset(nil).Load(map[string]any{"id": ...}, nil).
 func (sdk *OpenGovernmentPortalSDK) Dataset(data map[string]any) OpenGovernmentPortalEntity {
 	return NewDatasetEntityFunc(sdk, data)
 }

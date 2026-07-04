@@ -79,6 +79,10 @@ end
 
 
 
+---@param reqmatch DatasetLoadMatch
+---@param ctrl? table
+---@return Dataset
+---@return string? err
 function DatasetEntity:load(reqmatch, ctrl)
   local utility = self._utility
   local ctx = utility.make_context({
@@ -104,6 +108,10 @@ end
 
 
 
+---@param reqmatch DatasetListMatch
+---@param ctrl? table
+---@return Dataset[]
+---@return string? err
 function DatasetEntity:list(reqmatch, ctrl)
   local utility = self._utility
   local ctx = utility.make_context({

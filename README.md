@@ -10,26 +10,24 @@ This is an unofficial SDK for the Open Government Portal public API, generated b
 
 | Language | Package | Install |
 | --- | --- | --- |
-| TypeScript | `@voxgig-sdk/open-government-portal` | `npm install @voxgig-sdk/open-government-portal` |
-| Python | `voxgig-sdk-open-government-portal` | `pip install voxgig-sdk-open-government-portal` |
-| PHP | `voxgig-sdk/open-government-portal` | `composer require voxgig-sdk/open-government-portal` |
-| Golang | `github.com/voxgig-sdk/open-government-portal-sdk/go` | `go get github.com/voxgig-sdk/open-government-portal-sdk/go` |
-| Ruby | `voxgig-sdk-open-government-portal` | `gem install voxgig-sdk-open-government-portal` |
-| Lua | `voxgig-sdk-open-government-portal` | `luarocks install voxgig-sdk-open-government-portal` |
+| TypeScript | `@voxgig-sdk/open-government-portal` | publish pending — [install from git tag](https://github.com/voxgig-sdk/open-government-portal-sdk/releases) |
+| Python | `voxgig-sdk-open-government-portal` | publish pending — [install from git tag](https://github.com/voxgig-sdk/open-government-portal-sdk/releases) |
+| PHP | `voxgig-sdk/open-government-portal` | publish pending — [install from git tag](https://github.com/voxgig-sdk/open-government-portal-sdk/releases) |
+| Golang | `github.com/voxgig-sdk/open-government-portal-sdk/go` | `go get github.com/voxgig-sdk/open-government-portal-sdk/go@latest` |
+| Ruby | `voxgig-sdk-open-government-portal` | publish pending — [install from git tag](https://github.com/voxgig-sdk/open-government-portal-sdk/releases) |
+| Lua | `voxgig-sdk-open-government-portal` | publish pending — [install from git tag](https://github.com/voxgig-sdk/open-government-portal-sdk/releases) |
 
 ## Quickstart
 
 ### TypeScript
 
 ```ts
-import { OpenGovernmentPortalSDK } from 'open-government-portal'
+import { OpenGovernmentPortalSDK } from '@voxgig-sdk/open-government-portal'
 
-const client = new OpenGovernmentPortalSDK({
-  apikey: process.env.OPEN-GOVERNMENT-PORTAL_APIKEY,
-})
+const client = new OpenGovernmentPortalSDK()
 
 // List all datasets
-const datasets = await client.Dataset().list()
+const datasets = await client.dataset.list()
 console.log(datasets.data)
 ```
 
@@ -71,7 +69,7 @@ The API exposes one entity:
 
 | Entity | Description | API path |
 | --- | --- | --- |
-| **Dataset** |  | `/opendata/` |
+| **Dataset** | The Dataset entity (list, load). | `/opendata/` |
 
 Each entity supports the following operations where available: **load**,
 **list**, **create**, **update**, and **remove**.
@@ -81,19 +79,16 @@ Each entity supports the following operations where available: **load**,
 ### Python
 
 ```python
-import os
 from opengovernmentportal_sdk import OpenGovernmentPortalSDK
 
-client = OpenGovernmentPortalSDK({
-    "apikey": os.environ.get("OPEN-GOVERNMENT-PORTAL_APIKEY"),
-})
+client = OpenGovernmentPortalSDK()
 
 # List all datasets
-datasets, err = client.Dataset().list()
+datasets = client.dataset.list()
 print(datasets)
 
 # Load a specific dataset
-dataset, err = client.Dataset().load({"id": "example_id"})
+dataset = client.dataset.load({"id": "example_id"})
 print(dataset)
 ```
 
@@ -103,16 +98,14 @@ print(dataset)
 <?php
 require_once 'opengovernmentportal_sdk.php';
 
-$client = new OpenGovernmentPortalSDK([
-    "apikey" => getenv("OPEN-GOVERNMENT-PORTAL_APIKEY"),
-]);
+$client = new OpenGovernmentPortalSDK();
 
-// List all datasets
-[$datasets, $err] = $client->Dataset()->list();
+// List all datasets (throws on error)
+$datasets = $client->dataset()->list();
 print_r($datasets);
 
 // Load a specific dataset
-[$dataset, $err] = $client->Dataset()->load(["id" => "example_id"]);
+$dataset = $client->dataset()->load(["id" => "example_id"]);
 print_r($dataset);
 ```
 
@@ -121,9 +114,7 @@ print_r($dataset);
 ```go
 import sdk "github.com/voxgig-sdk/open-government-portal-sdk/go"
 
-client := sdk.NewOpenGovernmentPortalSDK(map[string]any{
-    "apikey": os.Getenv("OPEN-GOVERNMENT-PORTAL_APIKEY"),
-})
+client := sdk.New()
 
 // List all datasets
 datasets, err := client.Dataset(nil).List(nil, nil)
@@ -135,16 +126,14 @@ fmt.Println(datasets)
 ```ruby
 require_relative "OpenGovernmentPortal_sdk"
 
-client = OpenGovernmentPortalSDK.new({
-  "apikey" => ENV["OPEN-GOVERNMENT-PORTAL_APIKEY"],
-})
+client = OpenGovernmentPortalSDK.new
 
 # List all datasets
-datasets, err = client.Dataset().list
+datasets = client.dataset.list
 puts datasets
 
 # Load a specific dataset
-dataset, err = client.Dataset().load({ "id" => "example_id" })
+dataset = client.dataset.load({ "id" => "example_id" })
 puts dataset
 ```
 
@@ -153,16 +142,14 @@ puts dataset
 ```lua
 local sdk = require("open-government-portal_sdk")
 
-local client = sdk.new({
-  apikey = os.getenv("OPEN-GOVERNMENT-PORTAL_APIKEY"),
-})
+local client = sdk.new()
 
 -- List all datasets
-local datasets, err = client:Dataset():list()
+local datasets, err = client:dataset():list()
 print(datasets)
 
 -- Load a specific dataset
-local dataset, err = client:Dataset():load({ id = "example_id" })
+local dataset, err = client:dataset():load({ id = "example_id" })
 print(dataset)
 ```
 
@@ -175,7 +162,7 @@ in-memory mock, so unit tests run offline.
 
 ```ts
 const client = OpenGovernmentPortalSDK.test()
-const result = await client.Dataset().load({ id: 'test01' })
+const result = await client.dataset.load({ id: 'test01' })
 // result.ok === true, result.data contains mock data
 ```
 
@@ -183,14 +170,14 @@ const result = await client.Dataset().load({ id: 'test01' })
 
 ```python
 client = OpenGovernmentPortalSDK.test()
-result, err = client.Dataset().load({"id": "test01"})
+result = client.dataset.load({"id": "test01"})
 ```
 
 ### PHP
 
 ```php
 $client = OpenGovernmentPortalSDK::test();
-[$result, $err] = $client->Dataset()->load(["id" => "test01"]);
+$result = $client->dataset()->load(["id" => "test01"]);
 ```
 
 ### Golang
@@ -206,14 +193,14 @@ result, err := client.Dataset(nil).Load(
 
 ```ruby
 client = OpenGovernmentPortalSDK.test
-result, err = client.Dataset().load({ "id" => "test01" })
+result = client.dataset.load({ "id" => "test01" })
 ```
 
 ### Lua
 
 ```lua
 local client = sdk.test()
-local result, err = client:Dataset():load({ id = "test01" })
+local result, err = client:dataset():load({ id = "test01" })
 ```
 
 ## How it works
@@ -266,7 +253,7 @@ console.log(result.data)
 
 **Python:**
 ```python
-result, err = client.direct({
+result = client.direct({
     "path": "/api/resource/{id}",
     "method": "GET",
     "params": {"id": "example"},
@@ -275,7 +262,7 @@ result, err = client.direct({
 
 **PHP:**
 ```php
-[$result, $err] = $client->direct([
+$result = $client->direct([
     "path" => "/api/resource/{id}",
     "method" => "GET",
     "params" => ["id" => "example"],
@@ -293,7 +280,7 @@ result, err := client.Direct(map[string]any{
 
 **Ruby:**
 ```ruby
-result, err = client.direct({
+result = client.direct({
   "path" => "/api/resource/{id}",
   "method" => "GET",
   "params" => { "id" => "example" },
