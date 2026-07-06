@@ -34,7 +34,7 @@ class DatasetLoadMatch
     public string $id;
 }
 
-/** Match filter for Dataset#list (any subset of Dataset fields). */
+/** Request payload for Dataset#list. */
 class DatasetListMatch
 {
     public ?string $description = null;

@@ -66,7 +66,7 @@ DatasetLoadMatch = Struct.new(
   keyword_init: true
 )
 
-# Match filter for Dataset#list (any subset of Dataset fields).
+# Request payload for Dataset#list.
 #
 # @!attribute [rw] description
 #   @return [String, nil]

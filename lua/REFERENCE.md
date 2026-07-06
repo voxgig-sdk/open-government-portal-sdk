@@ -90,17 +90,17 @@ local dataset = client:Dataset(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `description` | ``$STRING`` | No |  |
-| `download_url` | ``$STRING`` | No |  |
-| `format` | ``$ARRAY`` | No |  |
-| `id` | ``$STRING`` | No |  |
-| `jurisdiction` | ``$STRING`` | No |  |
-| `keyword` | ``$ARRAY`` | No |  |
-| `publisher` | ``$STRING`` | No |  |
-| `record_modified` | ``$STRING`` | No |  |
-| `record_released` | ``$STRING`` | No |  |
-| `resource` | ``$ARRAY`` | No |  |
-| `title` | ``$STRING`` | No |  |
+| `description` | `string` | No |  |
+| `download_url` | `string` | No |  |
+| `format` | `table` | No |  |
+| `id` | `string` | No |  |
+| `jurisdiction` | `string` | No |  |
+| `keyword` | `table` | No |  |
+| `publisher` | `string` | No |  |
+| `record_modified` | `string` | No |  |
+| `record_released` | `string` | No |  |
+| `resource` | `table` | No |  |
+| `title` | `string` | No |  |
 
 ### Operations
 

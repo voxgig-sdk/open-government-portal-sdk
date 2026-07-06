@@ -4,6 +4,8 @@
 
 The Golang SDK for the OpenGovernmentPortal API — an entity-oriented client using standard Go conventions. No generics required; data flows as `map[string]any`.
 
+It exposes the API as capitalised, semantic **Entities** — e.g. `client.Dataset(nil)` — each with the same small set of operations (`List`, `Load`) instead of raw URL paths and query strings. You call meaning, not endpoints, which keeps the cognitive load low.
+
 > Other languages, the CLI, and MCP server live alongside this one — see
 > the [top-level README](../README.md).
 
@@ -58,12 +60,41 @@ func main() {
     }
 
     // Load a single dataset — the value is the loaded record.
-    dataset, err := client.Dataset(nil).Load(map[string]any{"id": "example_id"}, nil)
+    dataset, err := client.Dataset(nil).Load(map[string]any{"id": "example"}, nil)
     if err != nil {
         panic(err)
     }
     fmt.Println(dataset)
 }
+```
+
+
+## Error handling
+
+Every entity operation returns `(value, error)`. Check `err` before
+using the value — there is no exception to catch:
+
+```go
+datasets, err := client.Dataset(nil).List(nil, nil)
+if err != nil {
+    // handle err
+    return
+}
+_ = datasets
+```
+
+`Direct` follows the same `(value, error)` convention:
+
+```go
+result, err := client.Direct(map[string]any{
+    "path":   "/api/resource/{id}",
+    "method": "GET",
+    "params": map[string]any{"id": "example_id"},
+})
+if err != nil {
+    // handle err
+}
+_ = result
 ```
 
 
@@ -113,13 +144,13 @@ Create a mock client for unit testing — no server required:
 ```go
 client := sdk.Test()
 
-dataset, err := client.Dataset(nil).Load(
-    map[string]any{"id": "test01"}, nil,
+dataset, err := client.Dataset(nil).List(
+    nil, nil,
 )
 if err != nil {
     panic(err)
 }
-fmt.Println(dataset) // the loaded mock data
+fmt.Println(dataset) // the returned mock data
 ```
 
 ### Use a custom fetch function
@@ -206,9 +237,6 @@ All entities implement the `OpenGovernmentPortalEntity` interface.
 | --- | --- | --- |
 | `Load` | `(reqmatch, ctrl map[string]any) (any, error)` | Load a single entity by match criteria. |
 | `List` | `(reqmatch, ctrl map[string]any) (any, error)` | List entities matching the criteria. |
-| `Create` | `(reqdata, ctrl map[string]any) (any, error)` | Create a new entity. |
-| `Update` | `(reqdata, ctrl map[string]any) (any, error)` | Update an existing entity. |
-| `Remove` | `(reqmatch, ctrl map[string]any) (any, error)` | Remove an entity. |
 | `Data` | `(args ...any) any` | Get or set entity data. |
 | `Match` | `(args ...any) any` | Get or set entity match criteria. |
 | `Make` | `() Entity` | Create a new instance with the same options. |
@@ -221,16 +249,16 @@ operation's data **directly** — there is no wrapper:
 
 | Operation | `value` |
 | --- | --- |
-| `Load` / `Create` / `Update` / `Remove` | the entity record (`map[string]any`) |
+| `Load` | the entity record (`map[string]any`) |
 | `List` | a `[]any` of entity records |
 
 Check `err` first, then use the value directly (or the typed
 `...Typed` variants, which return the entity's model struct and a typed
 slice):
 
-    dataset, err := client.Dataset(nil).Load(map[string]any{"id": "example_id"}, nil)
+    dataset, err := client.Dataset(nil).List(map[string]any{/* fields */}, nil)
     if err != nil { /* handle */ }
-    // dataset is the loaded record
+    // dataset is the returned record
 
 Only `Direct()` returns a response envelope — a `map[string]any` with
 `"ok"`, `"status"`, `"headers"`, and `"data"` keys.
@@ -277,17 +305,17 @@ Create an instance: `dataset := client.Dataset(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `description` | ``$STRING`` |  |
-| `download_url` | ``$STRING`` |  |
-| `format` | ``$ARRAY`` |  |
-| `id` | ``$STRING`` |  |
-| `jurisdiction` | ``$STRING`` |  |
-| `keyword` | ``$ARRAY`` |  |
-| `publisher` | ``$STRING`` |  |
-| `record_modified` | ``$STRING`` |  |
-| `record_released` | ``$STRING`` |  |
-| `resource` | ``$ARRAY`` |  |
-| `title` | ``$STRING`` |  |
+| `description` | `string` |  |
+| `download_url` | `string` |  |
+| `format` | `[]any` |  |
+| `id` | `string` |  |
+| `jurisdiction` | `string` |  |
+| `keyword` | `[]any` |  |
+| `publisher` | `string` |  |
+| `record_modified` | `string` |  |
+| `record_released` | `string` |  |
+| `resource` | `[]any` |  |
+| `title` | `string` |  |
 
 #### Example: Load
 
@@ -310,12 +338,16 @@ fmt.Println(datasets) // the array of records
 ```
 
 
-## Explanation
+## Advanced
+
+> The sections above cover everyday use. The material below explains the
+> SDK's internals — useful when extending it with custom features, but not
+> needed for normal use.
 
 ### The operation pipeline
 
-Every entity operation (load, list, create, update, remove) follows a
-six-stage pipeline. Each stage fires a feature hook before executing:
+Every entity operation follows a six-stage pipeline. Each stage fires a
+feature hook before executing:
 
 ```
 PrePoint → PreSpec → PreRequest → PreResponse → PreResult → PreDone
@@ -332,9 +364,9 @@ PrePoint → PreSpec → PreRequest → PreResponse → PreResult → PreDone
 - **PreDone**: Final stage before returning to the caller. Entity
   state (match, data) is updated here.
 
-If any stage returns an error, the pipeline short-circuits and the
-error is returned to the caller. An unexpected panic triggers the
-`PreUnexpected` hook.
+If any stage errors, the pipeline short-circuits and the error surfaces
+to the caller — see [Error handling](#error-handling) for how that looks
+in this language.
 
 ### Features and hooks
 
@@ -375,14 +407,14 @@ like `core.ToMapAny`.
 
 ### Entity state
 
-Entity instances are stateful. After a successful `Load`, the entity
+Entity instances are stateful. After a successful `List`, the entity
 stores the returned data and match criteria internally.
 
 ```go
 dataset := client.Dataset(nil)
-dataset.Load(map[string]any{"id": "example_id"}, nil)
+dataset.List(nil, nil)
 
-// dataset.Data() now returns the loaded dataset data
+// dataset.Data() now returns the dataset data from the last list
 // dataset.Match() returns the last match criteria
 ```
 

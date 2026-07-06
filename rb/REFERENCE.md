@@ -8,7 +8,7 @@ Complete API reference for the OpenGovernmentPortal Ruby SDK.
 ### Constructor
 
 ```ruby
-require_relative 'open-government-portal_sdk'
+require_relative 'OpenGovernmentPortal_sdk'
 
 client = OpenGovernmentPortalSDK.new(options)
 ```
@@ -93,26 +93,26 @@ dataset = client.Dataset
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `description` | ``$STRING`` | No |  |
-| `download_url` | ``$STRING`` | No |  |
-| `format` | ``$ARRAY`` | No |  |
-| `id` | ``$STRING`` | No |  |
-| `jurisdiction` | ``$STRING`` | No |  |
-| `keyword` | ``$ARRAY`` | No |  |
-| `publisher` | ``$STRING`` | No |  |
-| `record_modified` | ``$STRING`` | No |  |
-| `record_released` | ``$STRING`` | No |  |
-| `resource` | ``$ARRAY`` | No |  |
-| `title` | ``$STRING`` | No |  |
+| `description` | `String` | No |  |
+| `download_url` | `String` | No |  |
+| `format` | `Array` | No |  |
+| `id` | `String` | No |  |
+| `jurisdiction` | `String` | No |  |
+| `keyword` | `Array` | No |  |
+| `publisher` | `String` | No |  |
+| `record_modified` | `String` | No |  |
+| `record_released` | `String` | No |  |
+| `resource` | `Array` | No |  |
+| `title` | `String` | No |  |
 
 ### Operations
 
-#### `list(reqmatch, ctrl = nil) -> Array`
+#### `list(reqmatch = nil, ctrl = nil) -> Array`
 
-List entities matching the given criteria. Returns an array. Raises on error.
+List entities matching the given criteria (call with no argument to list all). Returns an array. Raises on error.
 
 ```ruby
-results = client.Dataset.list(nil)
+results = client.Dataset.list
 ```
 
 #### `load(reqmatch, ctrl = nil) -> result`

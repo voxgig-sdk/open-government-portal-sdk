@@ -221,7 +221,7 @@ class OpenGovernmentPortalSDK:
 
 
     def Dataset(self, data=None) -> "DatasetEntity":
-        """Entity factory: client.Dataset().list({}) / client.Dataset().load({"id": ...})."""
+        """Entity factory: client.Dataset().list() / client.Dataset().load({"id": ...})."""
         from entity.dataset_entity import DatasetEntity
         return DatasetEntity(self, data)
 

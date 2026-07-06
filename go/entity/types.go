@@ -28,8 +28,7 @@ type DatasetLoadMatch struct {
 	Id string `json:"id"`
 }
 
-// DatasetListMatch mirrors the dataset fields as an all-optional match
-// filter (Go analog of Partial<Dataset>).
+// DatasetListMatch is the typed request payload for Dataset.ListTyped.
 type DatasetListMatch struct {
 	Description *string `json:"description,omitempty"`
 	DownloadUrl *string `json:"download_url,omitempty"`

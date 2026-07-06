@@ -8,7 +8,7 @@ Complete API reference for the OpenGovernmentPortal Python SDK.
 ### Constructor
 
 ```python
-from open-government-portal_sdk import OpenGovernmentPortalSDK
+from opengovernmentportal_sdk import OpenGovernmentPortalSDK
 
 client = OpenGovernmentPortalSDK(options)
 ```
@@ -87,26 +87,26 @@ dataset = client.Dataset()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `description` | ``$STRING`` | No |  |
-| `download_url` | ``$STRING`` | No |  |
-| `format` | ``$ARRAY`` | No |  |
-| `id` | ``$STRING`` | No |  |
-| `jurisdiction` | ``$STRING`` | No |  |
-| `keyword` | ``$ARRAY`` | No |  |
-| `publisher` | ``$STRING`` | No |  |
-| `record_modified` | ``$STRING`` | No |  |
-| `record_released` | ``$STRING`` | No |  |
-| `resource` | ``$ARRAY`` | No |  |
-| `title` | ``$STRING`` | No |  |
+| `description` | `str` | No |  |
+| `download_url` | `str` | No |  |
+| `format` | `list` | No |  |
+| `id` | `str` | No |  |
+| `jurisdiction` | `str` | No |  |
+| `keyword` | `list` | No |  |
+| `publisher` | `str` | No |  |
+| `record_modified` | `str` | No |  |
+| `record_released` | `str` | No |  |
+| `resource` | `list` | No |  |
+| `title` | `str` | No |  |
 
 ### Operations
 
-#### `list(reqmatch, ctrl=None) -> list`
+#### `list(reqmatch=None, ctrl=None) -> list`
 
-List entities matching the given criteria. Returns a list and raises on error.
+List entities matching the given criteria. The match is optional — call `list()` with no argument to list all records. Returns a list and raises on error.
 
 ```python
-results = client.Dataset().list({})
+results = client.Dataset().list()
 for dataset in results:
     print(dataset)
 ```

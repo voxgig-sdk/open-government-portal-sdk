@@ -8,7 +8,7 @@ Complete API reference for the OpenGovernmentPortal PHP SDK.
 ### Constructor
 
 ```php
-require_once __DIR__ . '/open-government-portal_sdk.php';
+require_once __DIR__ . '/opengovernmentportal_sdk.php';
 
 $client = new OpenGovernmentPortalSDK($options);
 ```
@@ -45,11 +45,11 @@ $client = OpenGovernmentPortalSDK::test();
 
 Create a new `DatasetEntity` instance. Pass `null` for no initial data.
 
-#### `optionsMap(): array`
+#### `options_map(): array`
 
 Return a deep copy of the current SDK options.
 
-#### `getUtility(): ProjectNameUtility`
+#### `get_utility(): OpenGovernmentPortalUtility`
 
 Return a copy of the SDK utility object.
 
@@ -92,26 +92,26 @@ $dataset = $client->Dataset();
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `description` | ``$STRING`` | No |  |
-| `download_url` | ``$STRING`` | No |  |
-| `format` | ``$ARRAY`` | No |  |
-| `id` | ``$STRING`` | No |  |
-| `jurisdiction` | ``$STRING`` | No |  |
-| `keyword` | ``$ARRAY`` | No |  |
-| `publisher` | ``$STRING`` | No |  |
-| `record_modified` | ``$STRING`` | No |  |
-| `record_released` | ``$STRING`` | No |  |
-| `resource` | ``$ARRAY`` | No |  |
-| `title` | ``$STRING`` | No |  |
+| `description` | `string` | No |  |
+| `download_url` | `string` | No |  |
+| `format` | `array` | No |  |
+| `id` | `string` | No |  |
+| `jurisdiction` | `string` | No |  |
+| `keyword` | `array` | No |  |
+| `publisher` | `string` | No |  |
+| `record_modified` | `string` | No |  |
+| `record_released` | `string` | No |  |
+| `resource` | `array` | No |  |
+| `title` | `string` | No |  |
 
 ### Operations
 
-#### `list(array $reqmatch, ?array $ctrl = null): mixed`
+#### `list(?array $reqmatch = null, ?array $ctrl = null): mixed`
 
-List entities matching the given criteria. Returns an array. Throws on error.
+List entities matching the given criteria (call with no argument to list all). Returns an array. Throws on error.
 
 ```php
-$results = $client->Dataset()->list([]);
+$results = $client->Dataset()->list();
 ```
 
 #### `load(array $reqmatch, ?array $ctrl = null): mixed`
@@ -124,19 +124,19 @@ $result = $client->Dataset()->load(["id" => "dataset_id"]);
 
 ### Common Methods
 
-#### `dataGet(): array`
+#### `data_get(): array`
 
 Get the entity data. Returns a copy of the current data.
 
-#### `dataSet($data): void`
+#### `data_set($data): void`
 
 Set the entity data.
 
-#### `matchGet(): array`
+#### `match_get(): array`
 
 Get the entity match criteria.
 
-#### `matchSet($match): void`
+#### `match_set($match): void`
 
 Set the entity match criteria.
 
@@ -145,7 +145,7 @@ Set the entity match criteria.
 Create a new `DatasetEntity` instance with the same client and
 options.
 
-#### `getName(): string`
+#### `get_name(): string`
 
 Return the entity name.
 

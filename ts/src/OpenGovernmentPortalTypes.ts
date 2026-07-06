@@ -23,5 +23,17 @@ export interface DatasetLoadMatch {
   id: string
 }
 
-export type DatasetListMatch = Partial<Dataset>
+export interface DatasetListMatch {
+  description?: string
+  download_url?: string
+  format?: any[]
+  id?: string
+  jurisdiction?: string
+  keyword?: any[]
+  publisher?: string
+  record_modified?: string
+  record_released?: string
+  resource?: any[]
+  title?: string
+}
 

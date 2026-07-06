@@ -116,17 +116,17 @@ const dataset = client.Dataset()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `description` | ``$STRING`` | No |  |
-| `download_url` | ``$STRING`` | No |  |
-| `format` | ``$ARRAY`` | No |  |
-| `id` | ``$STRING`` | No |  |
-| `jurisdiction` | ``$STRING`` | No |  |
-| `keyword` | ``$ARRAY`` | No |  |
-| `publisher` | ``$STRING`` | No |  |
-| `record_modified` | ``$STRING`` | No |  |
-| `record_released` | ``$STRING`` | No |  |
-| `resource` | ``$ARRAY`` | No |  |
-| `title` | ``$STRING`` | No |  |
+| `description` | `string` | No |  |
+| `download_url` | `string` | No |  |
+| `format` | `any[]` | No |  |
+| `id` | `string` | No |  |
+| `jurisdiction` | `string` | No |  |
+| `keyword` | `any[]` | No |  |
+| `publisher` | `string` | No |  |
+| `record_modified` | `string` | No |  |
+| `record_released` | `string` | No |  |
+| `resource` | `any[]` | No |  |
+| `title` | `string` | No |  |
 
 ### Operations
 
