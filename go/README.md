@@ -60,7 +60,7 @@ func main() {
     }
 
     // Load a single dataset — the value is the loaded record.
-    dataset, err := client.Dataset(nil).Load(map[string]any{"id": "example"}, nil)
+    dataset, err := client.Dataset(nil).Load(map[string]any{"id": "example_id"}, nil)
     if err != nil {
         panic(err)
     }

@@ -16,9 +16,9 @@ main: {
           url: "https://search.open.canada.ca"
         }
       ]
+      summary: "This API allows users to search and access datasets from the Government of Canada."
       title: "Open Government Portal"
       version: "1.0.0"
+      website: "https://search.open.canada.ca"
     }
   }
-}
-

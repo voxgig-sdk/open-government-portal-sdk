@@ -6,9 +6,6 @@
     },
     "kit": {
       "config": {
-        "auth": {
-          "prefix": "Bearer"
-        },
         "docs_order": [
           "ts",
           "py",
@@ -391,14 +388,17 @@
           "url": "https://search.open.canada.ca/opendata/"
         },
         "description": "This API allows users to search and access datasets from the Government of Canada. It facilitates learning how to work with datasets and provides insights into how government data has been utilized.",
+        "meta_source": "https://www.freepublicapis.com",
         "servers": [
           {
             "description": "Production server",
             "url": "https://search.open.canada.ca"
           }
         ],
+        "summary": "This API allows users to search and access datasets from the Government of Canada.",
         "title": "Open Government Portal",
-        "version": "1.0.0"
+        "version": "1.0.0",
+        "website": "https://search.open.canada.ca"
       },
       "option": {},
       "target": {
@@ -451,6 +451,9 @@
           },
           "name": "go-cli",
           "phase": {
+            "agentguide": {
+              "active": false
+            },
             "entity": {
               "active": false
             },
@@ -501,6 +504,9 @@
           },
           "name": "go-mcp",
           "phase": {
+            "agentguide": {
+              "active": false
+            },
             "entity": {
               "active": false
             },
