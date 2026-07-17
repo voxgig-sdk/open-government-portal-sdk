@@ -1,4 +1,4 @@
--- ProjectName SDK exists test
+-- OpenGovernmentPortal SDK exists test
 
 local sdk = require("open-government-portal_sdk")
 
