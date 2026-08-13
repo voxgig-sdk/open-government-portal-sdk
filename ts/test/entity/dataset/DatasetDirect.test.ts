@@ -19,11 +19,15 @@ import {
 describe('DatasetDirect', async () => {
 
   // Per-test live pacing. Delay is read from sdk-test-control.json's
-  // `test.live.delayMs`; only sleeps when OPENGOVERNMENTPORTAL_TEST_LIVE=TRUE.
-  afterEach(liveDelay('OPENGOVERNMENTPORTAL_TEST_LIVE'))
+  // `test.live.delayMs`; only sleeps when OPEN_GOVERNMENT_PORTAL_TEST_LIVE=TRUE.
+  afterEach(liveDelay('OPEN_GOVERNMENT_PORTAL_TEST_LIVE'))
 
   test('direct-exists', async () => {
     const sdk = new OpenGovernmentPortalSDK({
+      // Concrete base: a live construction must satisfy any server
+      // variables a templated base URL declares; overriding base with a
+      // literal (as the direct flow tests do) sidesteps the requirement.
+      base: 'http://localhost:8080',
       system: { fetch: async () => ({}) }
     })
     assert('function' === typeof sdk.direct)
@@ -134,17 +138,17 @@ function directSetup(mockres?: any) {
   const calls: any[] = []
 
   const env = envOverride({
-    'OPENGOVERNMENTPORTAL_TEST_DATASET_ENTID': {},
-    'OPENGOVERNMENTPORTAL_TEST_LIVE': 'FALSE',
+    'OPEN_GOVERNMENT_PORTAL_TEST_DATASET_ENTID': {},
+    'OPEN_GOVERNMENT_PORTAL_TEST_LIVE': 'FALSE',
   })
 
-  const live = 'TRUE' === env.OPENGOVERNMENTPORTAL_TEST_LIVE
+  const live = 'TRUE' === env.OPEN_GOVERNMENT_PORTAL_TEST_LIVE
 
   if (live) {
     const client = new OpenGovernmentPortalSDK({
     })
 
-    let idmap: any = env['OPENGOVERNMENTPORTAL_TEST_DATASET_ENTID']
+    let idmap: any = env['OPEN_GOVERNMENT_PORTAL_TEST_DATASET_ENTID']
     if ('string' === typeof idmap && idmap.startsWith('{')) {
       idmap = JSON.parse(idmap)
     }

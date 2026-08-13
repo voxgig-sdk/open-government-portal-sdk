@@ -49,7 +49,7 @@ try {
 
 ```php
 try {
-    // load() returns the bare Dataset record (throws on error).
+    // load() returns the ENTITY — call data_get() for the Dataset record (throws on error).
     $dataset = $client->Dataset()->load(["id" => "example_id"]);
     print_r($dataset);
 } catch (\Throwable $err) {
@@ -140,7 +140,8 @@ $client = OpenGovernmentPortalSDK::test([
     "entity" => ["dataset" => ["test01" => ["id" => "test01"]]],
 ]);
 
-// Entity ops return the bare mock record (throws on error).
+// Entity ops return the ENTITY (throws on error);
+// call data_get() for the mock record.
 $dataset = $client->Dataset()->list();
 print_r($dataset);
 ```
@@ -240,7 +241,7 @@ All entities share the same interface.
 
 ### Result shape
 
-Entity operations return the bare result data (an `array` for single-entity
+Entity operations return the ENTITY (call data_get() for the record) (an `array` for single-entity
 ops, a `list` for `list`) and throw on error. Wrap calls in
 `try`/`catch` to handle failures.
 
@@ -264,14 +265,14 @@ On error, `ok` is `false` and `$err` contains the error value.
 | --- | --- |
 | `description` |  |
 | `download_url` |  |
-| `format` |  |
+| `formats` |  |
 | `id` |  |
 | `jurisdiction` |  |
-| `keyword` |  |
+| `keywords` |  |
 | `publisher` |  |
 | `record_modified` |  |
 | `record_released` |  |
-| `resource` |  |
+| `resources` |  |
 | `title` |  |
 
 Operations: List, Load.
@@ -300,20 +301,20 @@ Create an instance: `$dataset = $client->Dataset();`
 | --- | --- | --- |
 | `description` | `string` |  |
 | `download_url` | `string` |  |
-| `format` | `array` |  |
+| `formats` | `array` |  |
 | `id` | `string` |  |
 | `jurisdiction` | `string` |  |
-| `keyword` | `array` |  |
+| `keywords` | `array` |  |
 | `publisher` | `string` |  |
 | `record_modified` | `string` |  |
 | `record_released` | `string` |  |
-| `resource` | `array` |  |
+| `resources` | `array` |  |
 | `title` | `string` |  |
 
 #### Example: Load
 
 ```php
-// load() returns the bare Dataset record (throws on error).
+// load() returns the ENTITY — call data_get() for the Dataset record (throws on error).
 $dataset = $client->Dataset()->load(["id" => "dataset_id"]);
 ```
 

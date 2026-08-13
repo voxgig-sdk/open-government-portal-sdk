@@ -271,14 +271,14 @@ Only `Direct()` returns a response envelope — a `map[string]any` with
 | --- | --- |
 | `"description"` |  |
 | `"download_url"` |  |
-| `"format"` |  |
+| `"formats"` |  |
 | `"id"` |  |
 | `"jurisdiction"` |  |
-| `"keyword"` |  |
+| `"keywords"` |  |
 | `"publisher"` |  |
 | `"record_modified"` |  |
 | `"record_released"` |  |
-| `"resource"` |  |
+| `"resources"` |  |
 | `"title"` |  |
 
 Operations: List, Load.
@@ -307,14 +307,14 @@ Create an instance: `dataset := client.Dataset(nil)`
 | --- | --- | --- |
 | `description` | `string` |  |
 | `download_url` | `string` |  |
-| `format` | `[]any` |  |
+| `formats` | `[]any` |  |
 | `id` | `string` |  |
 | `jurisdiction` | `string` |  |
-| `keyword` | `[]any` |  |
+| `keywords` | `[]any` |  |
 | `publisher` | `string` |  |
 | `record_modified` | `string` |  |
 | `record_released` | `string` |  |
-| `resource` | `[]any` |  |
+| `resources` | `[]any` |  |
 | `title` | `string` |  |
 
 #### Example: Load

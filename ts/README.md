@@ -35,7 +35,9 @@ const client = new OpenGovernmentPortalSDK()
 
 ### 2. List dataset records
 
-`list()` resolves to an array of Dataset objects — iterate it directly:
+`list()` resolves to an array of Dataset ENTITIES — every operation
+resolves to entities, not raw records. Iterate them directly, and call
+`.data()` on one for the record it holds:
 
 ```ts
 const datasets = await client.Dataset().list()
@@ -133,7 +135,8 @@ Create a mock client for unit testing — no server required:
 const client = OpenGovernmentPortalSDK.test()
 
 const dataset = await client.Dataset().list()
-// dataset is a bare entity populated with mock response data
+// dataset is the entity, populated with mock response data
+// — call dataset.data() for the record itself
 console.log(dataset)
 ```
 
@@ -301,14 +304,14 @@ The `prepare()` method returns:
 | --- | --- |
 | `description` |  |
 | `download_url` |  |
-| `format` |  |
+| `formats` |  |
 | `id` |  |
 | `jurisdiction` |  |
-| `keyword` |  |
+| `keywords` |  |
 | `publisher` |  |
 | `record_modified` |  |
 | `record_released` |  |
-| `resource` |  |
+| `resources` |  |
 | `title` |  |
 
 Operations: list, load.
@@ -337,14 +340,14 @@ Create an instance: `const dataset = client.Dataset()`
 | --- | --- | --- |
 | `description` | `string` |  |
 | `download_url` | `string` |  |
-| `format` | `any[]` |  |
+| `formats` | `any[]` |  |
 | `id` | `string` |  |
 | `jurisdiction` | `string` |  |
-| `keyword` | `any[]` |  |
+| `keywords` | `any[]` |  |
 | `publisher` | `string` |  |
 | `record_modified` | `string` |  |
 | `record_released` | `string` |  |
-| `resource` | `any[]` |  |
+| `resources` | `any[]` |  |
 | `title` | `string` |  |
 
 #### Example: Load

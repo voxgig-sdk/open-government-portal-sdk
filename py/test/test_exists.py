@@ -1,4 +1,4 @@
-# ProjectName SDK exists test
+# OpenGovernmentPortal SDK exists test
 
 import pytest
 from opengovernmentportal_sdk import OpenGovernmentPortalSDK

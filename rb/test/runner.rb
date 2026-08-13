@@ -23,8 +23,8 @@ module OpenGovernmentPortalTestRunner
   end
 
   def self.env_override(m)
-    live = getenv("OPENGOVERNMENTPORTAL_TEST_LIVE")
-    override = getenv("OPENGOVERNMENTPORTAL_TEST_OVERRIDE")
+    live = getenv("OPEN_GOVERNMENT_PORTAL_TEST_LIVE")
+    override = getenv("OPEN_GOVERNMENT_PORTAL_TEST_OVERRIDE")
 
     if live == "TRUE" || override == "TRUE"
       m.each_key do |key|
@@ -44,8 +44,8 @@ module OpenGovernmentPortalTestRunner
       end
     end
 
-    explain = getenv("OPENGOVERNMENTPORTAL_TEST_EXPLAIN")
-    m["OPENGOVERNMENTPORTAL_TEST_EXPLAIN"] = explain if explain && !explain.empty?
+    explain = getenv("OPEN_GOVERNMENT_PORTAL_TEST_EXPLAIN")
+    m["OPEN_GOVERNMENT_PORTAL_TEST_EXPLAIN"] = explain if explain && !explain.empty?
 
     m
   end

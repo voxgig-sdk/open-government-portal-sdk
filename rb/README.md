@@ -48,7 +48,7 @@ end
 
 ```ruby
 begin
-  # load returns the bare Dataset record (raises on error).
+  # load returns the ENTITY — call data_get for the Dataset record (raises on error).
   dataset = client.Dataset.load({ "id" => "example_id" })
   puts dataset
 rescue => err
@@ -134,7 +134,8 @@ client = OpenGovernmentPortalSDK.test({
   "entity" => { "dataset" => { "test01" => { "id" => "test01" } } },
 })
 
-# Entity ops return the bare mock record (raises on error).
+# Entity ops return the ENTITY (raises on error);
+# call data_get for the mock record.
 dataset = client.Dataset.list()
 puts dataset
 ```
@@ -254,14 +255,14 @@ returns a result `Hash` with these keys:
 | --- | --- |
 | `description` |  |
 | `download_url` |  |
-| `format` |  |
+| `formats` |  |
 | `id` |  |
 | `jurisdiction` |  |
-| `keyword` |  |
+| `keywords` |  |
 | `publisher` |  |
 | `record_modified` |  |
 | `record_released` |  |
-| `resource` |  |
+| `resources` |  |
 | `title` |  |
 
 Operations: List, Load.
@@ -290,20 +291,20 @@ Create an instance: `dataset = client.Dataset`
 | --- | --- | --- |
 | `description` | `String` |  |
 | `download_url` | `String` |  |
-| `format` | `Array` |  |
+| `formats` | `Array` |  |
 | `id` | `String` |  |
 | `jurisdiction` | `String` |  |
-| `keyword` | `Array` |  |
+| `keywords` | `Array` |  |
 | `publisher` | `String` |  |
 | `record_modified` | `String` |  |
 | `record_released` | `String` |  |
-| `resource` | `Array` |  |
+| `resources` | `Array` |  |
 | `title` | `String` |  |
 
 #### Example: Load
 
 ```ruby
-# load returns the bare Dataset record (raises on error).
+# load returns the ENTITY — call data_get for the Dataset record (raises on error).
 dataset = client.Dataset.load({ "id" => "dataset_id" })
 ```
 

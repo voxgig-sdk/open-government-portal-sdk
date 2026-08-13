@@ -16,11 +16,11 @@
 import pytest
 
 from opengovernmentportal_sdk import OpenGovernmentPortalSDK
-from core.error import OpenGovernmentPortalError
-from core.result import OpenGovernmentPortalResult
-from core.response import OpenGovernmentPortalResponse
-from core.spec import OpenGovernmentPortalSpec
-from feature.base_feature import OpenGovernmentPortalBaseFeature
+from opengovernmentportal_sdk.core.error import OpenGovernmentPortalError
+from opengovernmentportal_sdk.core.result import OpenGovernmentPortalResult
+from opengovernmentportal_sdk.core.response import OpenGovernmentPortalResponse
+from opengovernmentportal_sdk.core.spec import OpenGovernmentPortalSpec
+from opengovernmentportal_sdk.feature.base_feature import OpenGovernmentPortalBaseFeature
 
 
 def _client():

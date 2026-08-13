@@ -52,7 +52,7 @@ except Exception as err:
 
 ### 3. Load a dataset
 
-`load()` returns the bare record (a `dict`) and raises on error.
+`load()` returns the ENTITY — call data_get() for the record — and raises on error.
 
 ```python
 try:
@@ -136,7 +136,8 @@ Create a mock client for unit testing — no server required:
 ```python
 client = OpenGovernmentPortalSDK.test()
 
-# Entity ops return the bare record and raise on error.
+# Entity ops return the ENTITY and raises on error;
+# call data_get() for the record.
 dataset = client.Dataset().list()
 # dataset contains the mock response record
 ```
@@ -233,7 +234,7 @@ All entities share the same interface.
 
 ### Result shape
 
-Entity operations return the bare result data (a `dict` for single-entity
+Entity operations return the ENTITY (call data_get() for the record) (a `dict` for single-entity
 ops, a `list` for `list`) and raise on error. Wrap calls in
 `try`/`except` to handle failures.
 
@@ -257,14 +258,14 @@ On error, `ok` is `False` and `err` contains the error value.
 | --- | --- |
 | `description` |  |
 | `download_url` |  |
-| `format` |  |
+| `formats` |  |
 | `id` |  |
 | `jurisdiction` |  |
-| `keyword` |  |
+| `keywords` |  |
 | `publisher` |  |
 | `record_modified` |  |
 | `record_released` |  |
-| `resource` |  |
+| `resources` |  |
 | `title` |  |
 
 Operations: List, Load.
@@ -293,14 +294,14 @@ Create an instance: `dataset = client.Dataset()`
 | --- | --- | --- |
 | `description` | `str` |  |
 | `download_url` | `str` |  |
-| `format` | `list` |  |
+| `formats` | `list` |  |
 | `id` | `str` |  |
 | `jurisdiction` | `str` |  |
-| `keyword` | `list` |  |
+| `keywords` | `list` |  |
 | `publisher` | `str` |  |
 | `record_modified` | `str` |  |
 | `record_released` | `str` |  |
-| `resource` | `list` |  |
+| `resources` | `list` |  |
 | `title` | `str` |  |
 
 #### Example: Load

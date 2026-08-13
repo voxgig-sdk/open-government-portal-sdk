@@ -89,14 +89,14 @@ dataset = client.Dataset()
 | --- | --- | --- | --- |
 | `description` | `str` | No |  |
 | `download_url` | `str` | No |  |
-| `format` | `list` | No |  |
+| `formats` | `list` | No |  |
 | `id` | `str` | No |  |
 | `jurisdiction` | `str` | No |  |
-| `keyword` | `list` | No |  |
+| `keywords` | `list` | No |  |
 | `publisher` | `str` | No |  |
 | `record_modified` | `str` | No |  |
 | `record_released` | `str` | No |  |
-| `resource` | `list` | No |  |
+| `resources` | `list` | No |  |
 | `title` | `str` | No |  |
 
 ### Operations

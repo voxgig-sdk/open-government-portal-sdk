@@ -43,8 +43,8 @@ class OpenGovernmentPortalTestRunner
 
     public static function env_override(array $m): array
     {
-        $live = self::getenv('OPENGOVERNMENTPORTAL_TEST_LIVE');
-        $override = self::getenv('OPENGOVERNMENTPORTAL_TEST_OVERRIDE');
+        $live = self::getenv('OPEN_GOVERNMENT_PORTAL_TEST_LIVE');
+        $override = self::getenv('OPEN_GOVERNMENT_PORTAL_TEST_OVERRIDE');
 
         if ($live === 'TRUE' || $override === 'TRUE') {
             foreach (array_keys($m) as $key) {
@@ -63,9 +63,9 @@ class OpenGovernmentPortalTestRunner
             }
         }
 
-        $explain = self::getenv('OPENGOVERNMENTPORTAL_TEST_EXPLAIN');
+        $explain = self::getenv('OPEN_GOVERNMENT_PORTAL_TEST_EXPLAIN');
         if ($explain !== null && $explain !== '') {
-            $m['OPENGOVERNMENTPORTAL_TEST_EXPLAIN'] = $explain;
+            $m['OPEN_GOVERNMENT_PORTAL_TEST_EXPLAIN'] = $explain;
         }
 
         return $m;

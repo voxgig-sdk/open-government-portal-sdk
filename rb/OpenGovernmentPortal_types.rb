@@ -16,7 +16,7 @@
 # @!attribute [rw] download_url
 #   @return [String, nil]
 #
-# @!attribute [rw] format
+# @!attribute [rw] formats
 #   @return [Array, nil]
 #
 # @!attribute [rw] id
@@ -25,7 +25,7 @@
 # @!attribute [rw] jurisdiction
 #   @return [String, nil]
 #
-# @!attribute [rw] keyword
+# @!attribute [rw] keywords
 #   @return [Array, nil]
 #
 # @!attribute [rw] publisher
@@ -37,7 +37,7 @@
 # @!attribute [rw] record_released
 #   @return [String, nil]
 #
-# @!attribute [rw] resource
+# @!attribute [rw] resources
 #   @return [Array, nil]
 #
 # @!attribute [rw] title
@@ -45,14 +45,14 @@
 Dataset = Struct.new(
   :description,
   :download_url,
-  :format,
+  :formats,
   :id,
   :jurisdiction,
-  :keyword,
+  :keywords,
   :publisher,
   :record_modified,
   :record_released,
-  :resource,
+  :resources,
   :title,
   keyword_init: true
 )
@@ -74,7 +74,7 @@ DatasetLoadMatch = Struct.new(
 # @!attribute [rw] download_url
 #   @return [String, nil]
 #
-# @!attribute [rw] format
+# @!attribute [rw] formats
 #   @return [Array, nil]
 #
 # @!attribute [rw] id
@@ -83,7 +83,7 @@ DatasetLoadMatch = Struct.new(
 # @!attribute [rw] jurisdiction
 #   @return [String, nil]
 #
-# @!attribute [rw] keyword
+# @!attribute [rw] keywords
 #   @return [Array, nil]
 #
 # @!attribute [rw] publisher
@@ -95,7 +95,7 @@ DatasetLoadMatch = Struct.new(
 # @!attribute [rw] record_released
 #   @return [String, nil]
 #
-# @!attribute [rw] resource
+# @!attribute [rw] resources
 #   @return [Array, nil]
 #
 # @!attribute [rw] title
@@ -103,14 +103,14 @@ DatasetLoadMatch = Struct.new(
 DatasetListMatch = Struct.new(
   :description,
   :download_url,
-  :format,
+  :formats,
   :id,
   :jurisdiction,
-  :keyword,
+  :keywords,
   :publisher,
   :record_modified,
   :record_released,
-  :resource,
+  :resources,
   :title,
   keyword_init: true
 )

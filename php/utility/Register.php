@@ -23,6 +23,7 @@ require_once __DIR__ . '/MakeUrl.php';
 require_once __DIR__ . '/Param.php';
 require_once __DIR__ . '/PrepareAuth.php';
 require_once __DIR__ . '/PrepareBody.php';
+require_once __DIR__ . '/Graphql.php';
 require_once __DIR__ . '/PrepareHeaders.php';
 require_once __DIR__ . '/PrepareMethod.php';
 require_once __DIR__ . '/PrepareParams.php';
@@ -59,6 +60,8 @@ OpenGovernmentPortalUtility::setRegistrar(function (OpenGovernmentPortalUtility 
     $u->prepare_params = [OpenGovernmentPortalPrepareParams::class, 'call'];
     $u->prepare_path = [OpenGovernmentPortalPreparePath::class, 'call'];
     $u->prepare_query = [OpenGovernmentPortalPrepareQuery::class, 'call'];
+    $u->graphql_body = [OpenGovernmentPortalGraphql::class, 'body'];
+    $u->graphql_errors = [OpenGovernmentPortalGraphql::class, 'errors'];
     $u->result_basic = [OpenGovernmentPortalResultBasic::class, 'call'];
     $u->result_body = [OpenGovernmentPortalResultBody::class, 'call'];
     $u->result_headers = [OpenGovernmentPortalResultHeaders::class, 'call'];

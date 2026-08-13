@@ -8,14 +8,14 @@
 export interface Dataset {
   description?: string
   download_url?: string
-  format?: any[]
+  formats?: any[]
   id?: string
   jurisdiction?: string
-  keyword?: any[]
+  keywords?: any[]
   publisher?: string
   record_modified?: string
   record_released?: string
-  resource?: any[]
+  resources?: any[]
   title?: string
 }
 
@@ -26,14 +26,14 @@ export interface DatasetLoadMatch {
 export interface DatasetListMatch {
   description?: string
   download_url?: string
-  format?: any[]
+  formats?: any[]
   id?: string
   jurisdiction?: string
-  keyword?: any[]
+  keywords?: any[]
   publisher?: string
   record_modified?: string
   record_released?: string
-  resource?: any[]
+  resources?: any[]
   title?: string
 }
 

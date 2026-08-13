@@ -3,9 +3,9 @@
 import json
 import pytest
 
-from utility.voxgig_struct import voxgig_struct as vs
+from opengovernmentportal_sdk.utility.voxgig_struct import voxgig_struct as vs
 from opengovernmentportal_sdk import OpenGovernmentPortalSDK
-from core import helpers
+from opengovernmentportal_sdk.core import helpers
 from test import runner
 
 
@@ -105,11 +105,11 @@ def _dataset_direct_setup(mockres):
     calls = []
 
     env = runner.env_override({
-        "OPENGOVERNMENTPORTAL_TEST_DATASET_ENTID": {},
-        "OPENGOVERNMENTPORTAL_TEST_LIVE": "FALSE",
+        "OPEN_GOVERNMENT_PORTAL_TEST_DATASET_ENTID": {},
+        "OPEN_GOVERNMENT_PORTAL_TEST_LIVE": "FALSE",
     })
 
-    live = env.get("OPENGOVERNMENTPORTAL_TEST_LIVE") == "TRUE"
+    live = env.get("OPEN_GOVERNMENT_PORTAL_TEST_LIVE") == "TRUE"
 
     if live:
         merged_opts = {

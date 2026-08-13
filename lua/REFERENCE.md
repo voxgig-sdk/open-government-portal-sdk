@@ -92,14 +92,14 @@ local dataset = client:Dataset(nil)
 | --- | --- | --- | --- |
 | `description` | `string` | No |  |
 | `download_url` | `string` | No |  |
-| `format` | `table` | No |  |
+| `formats` | `table` | No |  |
 | `id` | `string` | No |  |
 | `jurisdiction` | `string` | No |  |
-| `keyword` | `table` | No |  |
+| `keywords` | `table` | No |  |
 | `publisher` | `string` | No |  |
 | `record_modified` | `string` | No |  |
 | `record_released` | `string` | No |  |
-| `resource` | `table` | No |  |
+| `resources` | `table` | No |  |
 | `title` | `string` | No |  |
 
 ### Operations

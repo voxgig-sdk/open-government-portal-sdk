@@ -94,14 +94,14 @@ $dataset = $client->Dataset();
 | --- | --- | --- | --- |
 | `description` | `string` | No |  |
 | `download_url` | `string` | No |  |
-| `format` | `array` | No |  |
+| `formats` | `array` | No |  |
 | `id` | `string` | No |  |
 | `jurisdiction` | `string` | No |  |
-| `keyword` | `array` | No |  |
+| `keywords` | `array` | No |  |
 | `publisher` | `string` | No |  |
 | `record_modified` | `string` | No |  |
 | `record_released` | `string` | No |  |
-| `resource` | `array` | No |  |
+| `resources` | `array` | No |  |
 | `title` | `string` | No |  |
 
 ### Operations

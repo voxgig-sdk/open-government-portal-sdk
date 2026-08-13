@@ -41,7 +41,7 @@ module OpenGovernmentPortalConfig
             },
             {
               "active" => true,
-              "name" => "format",
+              "name" => "formats",
               "req" => false,
               "type" => "`$ARRAY`",
               "index$" => 2,
@@ -62,7 +62,7 @@ module OpenGovernmentPortalConfig
             },
             {
               "active" => true,
-              "name" => "keyword",
+              "name" => "keywords",
               "req" => false,
               "type" => "`$ARRAY`",
               "index$" => 5,
@@ -90,7 +90,7 @@ module OpenGovernmentPortalConfig
             },
             {
               "active" => true,
-              "name" => "resource",
+              "name" => "resources",
               "req" => false,
               "type" => "`$ARRAY`",
               "index$" => 9,
@@ -174,6 +174,7 @@ module OpenGovernmentPortalConfig
                       },
                     ],
                   },
+                  "kind" => "http",
                   "method" => "GET",
                   "orig" => "/opendata/",
                   "parts" => [
@@ -192,7 +193,7 @@ module OpenGovernmentPortalConfig
                   },
                   "transform" => {
                     "req" => "`reqdata`",
-                    "res" => "`body`",
+                    "res" => "`body.results`",
                   },
                   "index$" => 0,
                 },
@@ -218,6 +219,7 @@ module OpenGovernmentPortalConfig
                       },
                     ],
                   },
+                  "kind" => "http",
                   "method" => "GET",
                   "orig" => "/opendata/dataset/{datasetId}",
                   "parts" => [

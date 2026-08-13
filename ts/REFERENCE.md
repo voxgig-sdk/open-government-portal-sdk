@@ -118,14 +118,14 @@ const dataset = client.Dataset()
 | --- | --- | --- | --- |
 | `description` | `string` | No |  |
 | `download_url` | `string` | No |  |
-| `format` | `any[]` | No |  |
+| `formats` | `any[]` | No |  |
 | `id` | `string` | No |  |
 | `jurisdiction` | `string` | No |  |
-| `keyword` | `any[]` | No |  |
+| `keywords` | `any[]` | No |  |
 | `publisher` | `string` | No |  |
 | `record_modified` | `string` | No |  |
 | `record_released` | `string` | No |  |
-| `resource` | `any[]` | No |  |
+| `resources` | `any[]` | No |  |
 | `title` | `string` | No |  |
 
 ### Operations

@@ -243,14 +243,14 @@ Only `direct()` returns a response envelope — a `table` with `ok`,
 | --- | --- |
 | `description` |  |
 | `download_url` |  |
-| `format` |  |
+| `formats` |  |
 | `id` |  |
 | `jurisdiction` |  |
-| `keyword` |  |
+| `keywords` |  |
 | `publisher` |  |
 | `record_modified` |  |
 | `record_released` |  |
-| `resource` |  |
+| `resources` |  |
 | `title` |  |
 
 Operations: List, Load.
@@ -279,14 +279,14 @@ Create an instance: `local dataset = client:Dataset(nil)`
 | --- | --- | --- |
 | `description` | `string` |  |
 | `download_url` | `string` |  |
-| `format` | `table` |  |
+| `formats` | `table` |  |
 | `id` | `string` |  |
 | `jurisdiction` | `string` |  |
-| `keyword` | `table` |  |
+| `keywords` | `table` |  |
 | `publisher` | `string` |  |
 | `record_modified` | `string` |  |
 | `record_released` | `string` |  |
-| `resource` | `table` |  |
+| `resources` | `table` |  |
 | `title` | `string` |  |
 
 #### Example: Load

@@ -17,14 +17,14 @@ class Dataset
 {
     public ?string $description = null;
     public ?string $download_url = null;
-    public ?array $format = null;
+    public ?array $formats = null;
     public ?string $id = null;
     public ?string $jurisdiction = null;
-    public ?array $keyword = null;
+    public ?array $keywords = null;
     public ?string $publisher = null;
     public ?string $record_modified = null;
     public ?string $record_released = null;
-    public ?array $resource = null;
+    public ?array $resources = null;
     public ?string $title = null;
 }
 
@@ -39,14 +39,14 @@ class DatasetListMatch
 {
     public ?string $description = null;
     public ?string $download_url = null;
-    public ?array $format = null;
+    public ?array $formats = null;
     public ?string $id = null;
     public ?string $jurisdiction = null;
-    public ?array $keyword = null;
+    public ?array $keywords = null;
     public ?string $publisher = null;
     public ?string $record_modified = null;
     public ?string $record_released = null;
-    public ?array $resource = null;
+    public ?array $resources = null;
     public ?string $title = null;
 }
 

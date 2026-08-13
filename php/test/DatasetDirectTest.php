@@ -121,11 +121,11 @@ function dataset_direct_setup($mockres)
     $calls = new \ArrayObject();
 
     $env = Runner::env_override([
-        "OPENGOVERNMENTPORTAL_TEST_DATASET_ENTID" => [],
-        "OPENGOVERNMENTPORTAL_TEST_LIVE" => "FALSE",
+        "OPEN_GOVERNMENT_PORTAL_TEST_DATASET_ENTID" => [],
+        "OPEN_GOVERNMENT_PORTAL_TEST_LIVE" => "FALSE",
     ]);
 
-    $live = $env["OPENGOVERNMENTPORTAL_TEST_LIVE"] === "TRUE";
+    $live = $env["OPEN_GOVERNMENT_PORTAL_TEST_LIVE"] === "TRUE";
 
     if ($live) {
         $merged_opts = [

@@ -95,14 +95,14 @@ dataset = client.Dataset
 | --- | --- | --- | --- |
 | `description` | `String` | No |  |
 | `download_url` | `String` | No |  |
-| `format` | `Array` | No |  |
+| `formats` | `Array` | No |  |
 | `id` | `String` | No |  |
 | `jurisdiction` | `String` | No |  |
-| `keyword` | `Array` | No |  |
+| `keywords` | `Array` | No |  |
 | `publisher` | `String` | No |  |
 | `record_modified` | `String` | No |  |
 | `record_released` | `String` | No |  |
-| `resource` | `Array` | No |  |
+| `resources` | `Array` | No |  |
 | `title` | `String` | No |  |
 
 ### Operations

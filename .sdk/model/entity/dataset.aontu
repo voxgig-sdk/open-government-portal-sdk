@@ -16,7 +16,7 @@ main: kit: entity: dataset: {
       type: "`$STRING`"
     }
     {
-      name: "format"
+      name: "formats"
       req: false
       type: "`$ARRAY`"
     }
@@ -31,7 +31,7 @@ main: kit: entity: dataset: {
       type: "`$STRING`"
     }
     {
-      name: "keyword"
+      name: "keywords"
       req: false
       type: "`$ARRAY`"
     }
@@ -51,7 +51,7 @@ main: kit: entity: dataset: {
       type: "`$STRING`"
     }
     {
-      name: "resource"
+      name: "resources"
       req: false
       type: "`$ARRAY`"
     }
@@ -147,7 +147,7 @@ main: kit: entity: dataset: {
           }
           transform: {
             req: "`reqdata`"
-            res: "`body`"
+            res: "`body.results`"
           }
         }
       ]

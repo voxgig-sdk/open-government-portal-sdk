@@ -9,14 +9,14 @@
 ---@class Dataset
 ---@field description? string
 ---@field download_url? string
----@field format? table
+---@field formats? table
 ---@field id? string
 ---@field jurisdiction? string
----@field keyword? table
+---@field keywords? table
 ---@field publisher? string
 ---@field record_modified? string
 ---@field record_released? string
----@field resource? table
+---@field resources? table
 ---@field title? string
 
 ---@class DatasetLoadMatch
@@ -25,14 +25,14 @@
 ---@class DatasetListMatch
 ---@field description? string
 ---@field download_url? string
----@field format? table
+---@field formats? table
 ---@field id? string
 ---@field jurisdiction? string
----@field keyword? table
+---@field keywords? table
 ---@field publisher? string
 ---@field record_modified? string
 ---@field record_released? string
----@field resource? table
+---@field resources? table
 ---@field title? string
 
 local M = {}

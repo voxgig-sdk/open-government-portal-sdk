@@ -40,7 +40,7 @@ func MakeConfig() map[string]any {
 					},
 					map[string]any{
 						"active": true,
-						"name": "format",
+						"name": "formats",
 						"req": false,
 						"type": "`$ARRAY`",
 						"index$": 2,
@@ -61,7 +61,7 @@ func MakeConfig() map[string]any {
 					},
 					map[string]any{
 						"active": true,
-						"name": "keyword",
+						"name": "keywords",
 						"req": false,
 						"type": "`$ARRAY`",
 						"index$": 5,
@@ -89,7 +89,7 @@ func MakeConfig() map[string]any {
 					},
 					map[string]any{
 						"active": true,
-						"name": "resource",
+						"name": "resources",
 						"req": false,
 						"type": "`$ARRAY`",
 						"index$": 9,
@@ -173,6 +173,7 @@ func MakeConfig() map[string]any {
 										},
 									},
 								},
+								"kind": "http",
 								"method": "GET",
 								"orig": "/opendata/",
 								"parts": []any{
@@ -191,12 +192,11 @@ func MakeConfig() map[string]any {
 								},
 								"transform": map[string]any{
 									"req": "`reqdata`",
-									"res": "`body`",
+									"res": "`body.results`",
 								},
 								"index$": 0,
 							},
 						},
-						"key$": "list",
 					},
 					"load": map[string]any{
 						"input": "data",
@@ -217,6 +217,7 @@ func MakeConfig() map[string]any {
 										},
 									},
 								},
+								"kind": "http",
 								"method": "GET",
 								"orig": "/opendata/dataset/{datasetId}",
 								"parts": []any{
@@ -241,7 +242,6 @@ func MakeConfig() map[string]any {
 								"index$": 0,
 							},
 						},
-						"key$": "load",
 					},
 				},
 				"relations": map[string]any{

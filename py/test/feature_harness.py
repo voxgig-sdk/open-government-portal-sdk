@@ -14,12 +14,12 @@ from __future__ import annotations
 
 from urllib.parse import quote
 
-from config import make_config
-from features import _make_feature
-from core.control import OpenGovernmentPortalControl
-from core.error import OpenGovernmentPortalError
-from core.result import OpenGovernmentPortalResult
-from core.spec import OpenGovernmentPortalSpec
+from opengovernmentportal_sdk.config import make_config
+from opengovernmentportal_sdk.features import _make_feature
+from opengovernmentportal_sdk.core.control import OpenGovernmentPortalControl
+from opengovernmentportal_sdk.core.error import OpenGovernmentPortalError
+from opengovernmentportal_sdk.core.result import OpenGovernmentPortalResult
+from opengovernmentportal_sdk.core.spec import OpenGovernmentPortalSpec
 
 
 # True when this SDK was generated with the named feature.
