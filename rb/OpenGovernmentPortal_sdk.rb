@@ -28,7 +28,7 @@ class OpenGovernmentPortalSDK
     utility = OpenGovernmentPortalUtility.new
     @_utility = utility
 
-    config = OpenGovernmentPortalConfig.make_config
+    config = OpenGovernmentPortalConfig.shared_config
 
     @_rootctx = utility.make_context.call({
       "client" => self,

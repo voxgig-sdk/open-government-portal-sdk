@@ -5,6 +5,29 @@ declare(strict_types=1);
 
 class OpenGovernmentPortalConfig
 {
+    /** @var array<string,mixed>|null */
+    private static ?array $shared_config = null;
+
+    /**
+     * Return the process-wide config, built once on first use. The SDK reads
+     * the config on every request and never writes to it, so one instance is
+     * shared by every client rather than rebuilt per client.
+     *
+     * PHP arrays are copy-on-write, so callers that do mutate the result get
+     * their own copy and cannot disturb the shared one.
+     */
+    public static function shared_config(): array
+    {
+        if (self::$shared_config === null) {
+            self::$shared_config = self::make_config();
+        }
+        return self::$shared_config;
+    }
+
+    /**
+     * Build a fresh, fully materialised config array. Every call rebuilds the
+     * whole structure, so prefer shared_config unless you need a private copy.
+     */
     public static function make_config(): array
     {
         return [
@@ -31,81 +54,48 @@ class OpenGovernmentPortalConfig
         'dataset' => [
           'fields' => [
             [
-              'active' => true,
               'name' => 'description',
-              'req' => false,
               'type' => '`$STRING`',
-              'index$' => 0,
             ],
             [
-              'active' => true,
               'name' => 'download_url',
-              'req' => false,
               'type' => '`$STRING`',
-              'index$' => 1,
             ],
             [
-              'active' => true,
               'name' => 'formats',
-              'req' => false,
               'type' => '`$ARRAY`',
-              'index$' => 2,
             ],
             [
-              'active' => true,
               'name' => 'id',
-              'req' => false,
               'type' => '`$STRING`',
-              'index$' => 3,
             ],
             [
-              'active' => true,
               'name' => 'jurisdiction',
-              'req' => false,
               'type' => '`$STRING`',
-              'index$' => 4,
             ],
             [
-              'active' => true,
               'name' => 'keywords',
-              'req' => false,
               'type' => '`$ARRAY`',
-              'index$' => 5,
             ],
             [
-              'active' => true,
               'name' => 'publisher',
-              'req' => false,
               'type' => '`$STRING`',
-              'index$' => 6,
             ],
             [
-              'active' => true,
               'name' => 'record_modified',
-              'req' => false,
               'type' => '`$STRING`',
-              'index$' => 7,
             ],
             [
-              'active' => true,
               'name' => 'record_released',
-              'req' => false,
               'type' => '`$STRING`',
-              'index$' => 8,
             ],
             [
-              'active' => true,
               'name' => 'resources',
-              'req' => false,
               'type' => '`$ARRAY`',
-              'index$' => 9,
             ],
             [
-              'active' => true,
               'name' => 'title',
-              'req' => false,
               'type' => '`$STRING`',
-              'index$' => 10,
             ],
           ],
           'name' => 'dataset',
@@ -115,66 +105,51 @@ class OpenGovernmentPortalConfig
               'name' => 'list',
               'points' => [
                 [
-                  'active' => true,
                   'args' => [
                     'query' => [
                       [
-                        'active' => true,
                         'kind' => 'query',
                         'name' => 'format',
                         'orig' => 'format',
-                        'reqd' => false,
                         'type' => '`$STRING`',
                       ],
                       [
-                        'active' => true,
                         'kind' => 'query',
                         'name' => 'keyword',
                         'orig' => 'keyword',
-                        'reqd' => false,
                         'type' => '`$STRING`',
                       ],
                       [
-                        'active' => true,
                         'example' => 10,
                         'kind' => 'query',
                         'name' => 'limit',
                         'orig' => 'limit',
-                        'reqd' => false,
                         'type' => '`$INTEGER`',
                       ],
                       [
-                        'active' => true,
                         'kind' => 'query',
                         'name' => 'organization',
                         'orig' => 'organization',
-                        'reqd' => false,
                         'type' => '`$STRING`',
                       ],
                       [
-                        'active' => true,
                         'example' => 1,
                         'kind' => 'query',
                         'name' => 'page',
                         'orig' => 'page',
-                        'reqd' => false,
                         'type' => '`$INTEGER`',
                       ],
                       [
-                        'active' => true,
                         'kind' => 'query',
                         'name' => 'q',
                         'orig' => 'q',
-                        'reqd' => false,
                         'type' => '`$STRING`',
                       ],
                       [
-                        'active' => true,
                         'example' => 'relevance',
                         'kind' => 'query',
                         'name' => 'sort',
                         'orig' => 'sort',
-                        'reqd' => false,
                         'type' => '`$STRING`',
                       ],
                     ],
@@ -200,27 +175,22 @@ class OpenGovernmentPortalConfig
                     'req' => '`reqdata`',
                     'res' => '`body.results`',
                   ],
-                  'index$' => 0,
                 ],
               ],
-              'key$' => 'list',
             ],
             'load' => [
               'input' => 'data',
               'name' => 'load',
               'points' => [
                 [
-                  'active' => true,
                   'args' => [
                     'params' => [
                       [
-                        'active' => true,
                         'kind' => 'param',
                         'name' => 'id',
                         'orig' => 'dataset_id',
                         'reqd' => true,
                         'type' => '`$STRING`',
-                        'index$' => 0,
                       ],
                     ],
                   ],
@@ -246,10 +216,8 @@ class OpenGovernmentPortalConfig
                     'req' => '`reqdata`',
                     'res' => '`body`',
                   ],
-                  'index$' => 0,
                 ],
               ],
-              'key$' => 'load',
             ],
           ],
           'relations' => [

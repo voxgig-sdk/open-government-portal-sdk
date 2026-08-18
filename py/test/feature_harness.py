@@ -14,7 +14,7 @@ from __future__ import annotations
 
 from urllib.parse import quote
 
-from opengovernmentportal_sdk.config import make_config
+from opengovernmentportal_sdk.config import shared_config
 from opengovernmentportal_sdk.features import _make_feature
 from opengovernmentportal_sdk.core.control import OpenGovernmentPortalControl
 from opengovernmentportal_sdk.core.error import OpenGovernmentPortalError
@@ -24,7 +24,7 @@ from opengovernmentportal_sdk.core.spec import OpenGovernmentPortalSpec
 
 # True when this SDK was generated with the named feature.
 def has_feature(name):
-    feature = make_config().get("feature")
+    feature = shared_config().get("feature")
     return isinstance(feature, dict) and feature.get(name) is not None
 
 

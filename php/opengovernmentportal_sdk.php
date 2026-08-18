@@ -40,7 +40,7 @@ class OpenGovernmentPortalSDK
         $utility = new OpenGovernmentPortalUtility();
         $this->_utility = $utility;
 
-        $config = OpenGovernmentPortalConfig::make_config();
+        $config = OpenGovernmentPortalConfig::shared_config();
 
         $this->_rootctx = ($utility->make_context)([
             "client" => $this,

@@ -15,7 +15,7 @@ require_relative "../OpenGovernmentPortal_sdk"
 module OpenGovernmentPortalFeatureHarness
   # True when this SDK was generated with the named feature.
   def self.has_feature?(name)
-    f = OpenGovernmentPortalConfig.make_config["feature"]
+    f = OpenGovernmentPortalConfig.shared_config["feature"]
     f.is_a?(Hash) && !f[name].nil?
   end
 
