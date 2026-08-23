@@ -253,17 +253,17 @@ returns a result `Hash` with these keys:
 
 | Field | Description |
 | --- | --- |
-| `description` |  |
-| `download_url` |  |
-| `formats` |  |
-| `id` |  |
-| `jurisdiction` |  |
-| `keywords` |  |
-| `publisher` |  |
-| `record_modified` |  |
-| `record_released` |  |
-| `resources` |  |
-| `title` |  |
+| `description` | Detailed description of the dataset |
+| `download_url` | URL to download the dataset |
+| `formats` | Available formats for the dataset |
+| `id` | Unique identifier for the dataset |
+| `jurisdiction` | Jurisdiction level of the dataset |
+| `keywords` | Keywords associated with the dataset |
+| `publisher` | Organization that published the dataset |
+| `record_modified` | Date when the dataset was last modified |
+| `record_released` | Date when the dataset was first released |
+| `resources` | List of resources associated with the dataset |
+| `title` | Title of the dataset |
 
 Operations: List, Load.
 
@@ -289,17 +289,17 @@ Create an instance: `dataset = client.Dataset`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `description` | `String` |  |
-| `download_url` | `String` |  |
-| `formats` | `Array` |  |
-| `id` | `String` |  |
-| `jurisdiction` | `String` |  |
-| `keywords` | `Array` |  |
-| `publisher` | `String` |  |
-| `record_modified` | `String` |  |
-| `record_released` | `String` |  |
-| `resources` | `Array` |  |
-| `title` | `String` |  |
+| `description` | `String` | Detailed description of the dataset |
+| `download_url` | `String` | URL to download the dataset |
+| `formats` | `Array` | Available formats for the dataset |
+| `id` | `String` | Unique identifier for the dataset |
+| `jurisdiction` | `String` | Jurisdiction level of the dataset |
+| `keywords` | `Array` | Keywords associated with the dataset |
+| `publisher` | `String` | Organization that published the dataset |
+| `record_modified` | `String` | Date when the dataset was last modified |
+| `record_released` | `String` | Date when the dataset was first released |
+| `resources` | `Array` | List of resources associated with the dataset |
+| `title` | `String` | Title of the dataset |
 
 #### Example: Load
 

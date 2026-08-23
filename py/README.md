@@ -256,17 +256,17 @@ On error, `ok` is `False` and `err` contains the error value.
 
 | Field | Description |
 | --- | --- |
-| `description` |  |
-| `download_url` |  |
-| `formats` |  |
-| `id` |  |
-| `jurisdiction` |  |
-| `keywords` |  |
-| `publisher` |  |
-| `record_modified` |  |
-| `record_released` |  |
-| `resources` |  |
-| `title` |  |
+| `description` | Detailed description of the dataset |
+| `download_url` | URL to download the dataset |
+| `formats` | Available formats for the dataset |
+| `id` | Unique identifier for the dataset |
+| `jurisdiction` | Jurisdiction level of the dataset |
+| `keywords` | Keywords associated with the dataset |
+| `publisher` | Organization that published the dataset |
+| `record_modified` | Date when the dataset was last modified |
+| `record_released` | Date when the dataset was first released |
+| `resources` | List of resources associated with the dataset |
+| `title` | Title of the dataset |
 
 Operations: List, Load.
 
@@ -292,17 +292,17 @@ Create an instance: `dataset = client.Dataset()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `description` | `str` |  |
-| `download_url` | `str` |  |
-| `formats` | `list` |  |
-| `id` | `str` |  |
-| `jurisdiction` | `str` |  |
-| `keywords` | `list` |  |
-| `publisher` | `str` |  |
-| `record_modified` | `str` |  |
-| `record_released` | `str` |  |
-| `resources` | `list` |  |
-| `title` | `str` |  |
+| `description` | `str` | Detailed description of the dataset |
+| `download_url` | `str` | URL to download the dataset |
+| `formats` | `list` | Available formats for the dataset |
+| `id` | `str` | Unique identifier for the dataset |
+| `jurisdiction` | `str` | Jurisdiction level of the dataset |
+| `keywords` | `list` | Keywords associated with the dataset |
+| `publisher` | `str` | Organization that published the dataset |
+| `record_modified` | `str` | Date when the dataset was last modified |
+| `record_released` | `str` | Date when the dataset was first released |
+| `resources` | `list` | List of resources associated with the dataset |
+| `title` | `str` | Title of the dataset |
 
 #### Example: Load
 

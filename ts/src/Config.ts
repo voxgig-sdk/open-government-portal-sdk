@@ -19,9 +19,20 @@ class Config {
     return fi
   }
 
+  // False for a feature added at runtime via options.extend (station's
+  // adopt path) - the constructor uses this to skip makeFeature for names
+  // no generated class backs.
+  hasFeature(this: any, fn: string) {
+    return null != FEATURE_CLASS[fn]
+  }
+
 
   main = {
     name: 'OpenGovernmentPortal',
+        slug: "open-government-portal",
+    version: "0.0.1",
+    target: "ts",
+
   }
 
 
@@ -56,46 +67,57 @@ class Config {
       "fields": [
         {
           "name": "description",
+          "short": "Detailed description of the dataset",
           "type": "`$STRING`"
         },
         {
           "name": "download_url",
+          "short": "URL to download the dataset",
           "type": "`$STRING`"
         },
         {
           "name": "formats",
+          "short": "Available formats for the dataset",
           "type": "`$ARRAY`"
         },
         {
           "name": "id",
+          "short": "Unique identifier for the dataset",
           "type": "`$STRING`"
         },
         {
           "name": "jurisdiction",
+          "short": "Jurisdiction level of the dataset",
           "type": "`$STRING`"
         },
         {
           "name": "keywords",
+          "short": "Keywords associated with the dataset",
           "type": "`$ARRAY`"
         },
         {
           "name": "publisher",
+          "short": "Organization that published the dataset",
           "type": "`$STRING`"
         },
         {
           "name": "record_modified",
+          "short": "Date when the dataset was last modified",
           "type": "`$STRING`"
         },
         {
           "name": "record_released",
+          "short": "Date when the dataset was first released",
           "type": "`$STRING`"
         },
         {
           "name": "resources",
+          "short": "List of resources associated with the dataset",
           "type": "`$ARRAY`"
         },
         {
           "name": "title",
+          "short": "Title of the dataset",
           "type": "`$STRING`"
         }
       ],

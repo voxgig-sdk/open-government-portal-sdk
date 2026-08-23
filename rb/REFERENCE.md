@@ -93,17 +93,17 @@ dataset = client.Dataset
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `description` | `String` | No |  |
-| `download_url` | `String` | No |  |
-| `formats` | `Array` | No |  |
-| `id` | `String` | No |  |
-| `jurisdiction` | `String` | No |  |
-| `keywords` | `Array` | No |  |
-| `publisher` | `String` | No |  |
-| `record_modified` | `String` | No |  |
-| `record_released` | `String` | No |  |
-| `resources` | `Array` | No |  |
-| `title` | `String` | No |  |
+| `description` | `String` | No | Detailed description of the dataset |
+| `download_url` | `String` | No | URL to download the dataset |
+| `formats` | `Array` | No | Available formats for the dataset |
+| `id` | `String` | No | Unique identifier for the dataset |
+| `jurisdiction` | `String` | No | Jurisdiction level of the dataset |
+| `keywords` | `Array` | No | Keywords associated with the dataset |
+| `publisher` | `String` | No | Organization that published the dataset |
+| `record_modified` | `String` | No | Date when the dataset was last modified |
+| `record_released` | `String` | No | Date when the dataset was first released |
+| `resources` | `Array` | No | List of resources associated with the dataset |
+| `title` | `String` | No | Title of the dataset |
 
 ### Operations
 

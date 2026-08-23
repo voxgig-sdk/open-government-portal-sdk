@@ -6,7 +6,7 @@ The Golang SDK for the OpenGovernmentPortal API — an entity-oriented client us
 
 It exposes the API as capitalised, semantic **Entities** — e.g. `client.Dataset(nil)` — each with the same small set of operations (`List`, `Load`) instead of raw URL paths and query strings. You call meaning, not endpoints, which keeps the cognitive load low.
 
-> Other languages, the CLI, and MCP server live alongside this one — see
+> Also generated from this model: `go-cli`, `go-mcp`, `lua`, `php`, `py`, `rb`, `ts` — see
 > the [top-level README](../README.md).
 
 
@@ -269,17 +269,17 @@ Only `Direct()` returns a response envelope — a `map[string]any` with
 
 | Field | Description |
 | --- | --- |
-| `"description"` |  |
-| `"download_url"` |  |
-| `"formats"` |  |
-| `"id"` |  |
-| `"jurisdiction"` |  |
-| `"keywords"` |  |
-| `"publisher"` |  |
-| `"record_modified"` |  |
-| `"record_released"` |  |
-| `"resources"` |  |
-| `"title"` |  |
+| `"description"` | Detailed description of the dataset |
+| `"download_url"` | URL to download the dataset |
+| `"formats"` | Available formats for the dataset |
+| `"id"` | Unique identifier for the dataset |
+| `"jurisdiction"` | Jurisdiction level of the dataset |
+| `"keywords"` | Keywords associated with the dataset |
+| `"publisher"` | Organization that published the dataset |
+| `"record_modified"` | Date when the dataset was last modified |
+| `"record_released"` | Date when the dataset was first released |
+| `"resources"` | List of resources associated with the dataset |
+| `"title"` | Title of the dataset |
 
 Operations: List, Load.
 
@@ -305,17 +305,17 @@ Create an instance: `dataset := client.Dataset(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `description` | `string` |  |
-| `download_url` | `string` |  |
-| `formats` | `[]any` |  |
-| `id` | `string` |  |
-| `jurisdiction` | `string` |  |
-| `keywords` | `[]any` |  |
-| `publisher` | `string` |  |
-| `record_modified` | `string` |  |
-| `record_released` | `string` |  |
-| `resources` | `[]any` |  |
-| `title` | `string` |  |
+| `description` | `string` | Detailed description of the dataset |
+| `download_url` | `string` | URL to download the dataset |
+| `formats` | `[]any` | Available formats for the dataset |
+| `id` | `string` | Unique identifier for the dataset |
+| `jurisdiction` | `string` | Jurisdiction level of the dataset |
+| `keywords` | `[]any` | Keywords associated with the dataset |
+| `publisher` | `string` | Organization that published the dataset |
+| `record_modified` | `string` | Date when the dataset was last modified |
+| `record_released` | `string` | Date when the dataset was first released |
+| `resources` | `[]any` | List of resources associated with the dataset |
+| `title` | `string` | Title of the dataset |
 
 #### Example: Load
 

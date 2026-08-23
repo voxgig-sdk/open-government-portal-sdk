@@ -90,17 +90,17 @@ local dataset = client:Dataset(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `description` | `string` | No |  |
-| `download_url` | `string` | No |  |
-| `formats` | `table` | No |  |
-| `id` | `string` | No |  |
-| `jurisdiction` | `string` | No |  |
-| `keywords` | `table` | No |  |
-| `publisher` | `string` | No |  |
-| `record_modified` | `string` | No |  |
-| `record_released` | `string` | No |  |
-| `resources` | `table` | No |  |
-| `title` | `string` | No |  |
+| `description` | `string` | No | Detailed description of the dataset |
+| `download_url` | `string` | No | URL to download the dataset |
+| `formats` | `table` | No | Available formats for the dataset |
+| `id` | `string` | No | Unique identifier for the dataset |
+| `jurisdiction` | `string` | No | Jurisdiction level of the dataset |
+| `keywords` | `table` | No | Keywords associated with the dataset |
+| `publisher` | `string` | No | Organization that published the dataset |
+| `record_modified` | `string` | No | Date when the dataset was last modified |
+| `record_released` | `string` | No | Date when the dataset was first released |
+| `resources` | `table` | No | List of resources associated with the dataset |
+| `title` | `string` | No | Title of the dataset |
 
 ### Operations
 

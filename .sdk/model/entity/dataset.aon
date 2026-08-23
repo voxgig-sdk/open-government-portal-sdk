@@ -8,56 +8,67 @@ main: kit: entity: dataset: {
     {
       name: "description"
       req: false
+      short: "Detailed description of the dataset"
       type: "`$STRING`"
     }
     {
       name: "download_url"
       req: false
+      short: "URL to download the dataset"
       type: "`$STRING`"
     }
     {
       name: "formats"
       req: false
+      short: "Available formats for the dataset"
       type: "`$ARRAY`"
     }
     {
       name: "id"
       req: false
+      short: "Unique identifier for the dataset"
       type: "`$STRING`"
     }
     {
       name: "jurisdiction"
       req: false
+      short: "Jurisdiction level of the dataset"
       type: "`$STRING`"
     }
     {
       name: "keywords"
       req: false
+      short: "Keywords associated with the dataset"
       type: "`$ARRAY`"
     }
     {
       name: "publisher"
       req: false
+      short: "Organization that published the dataset"
       type: "`$STRING`"
     }
     {
       name: "record_modified"
       req: false
+      short: "Date when the dataset was last modified"
       type: "`$STRING`"
     }
     {
       name: "record_released"
       req: false
+      short: "Date when the dataset was first released"
       type: "`$STRING`"
     }
     {
       name: "resources"
       req: false
+      short: "List of resources associated with the dataset"
       type: "`$ARRAY`"
     }
     {
       name: "title"
       req: false
+      short: "Title of the dataset"
       type: "`$STRING`"
     }
   ]

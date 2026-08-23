@@ -11,6 +11,9 @@ func MakeConfig() map[string]any {
 	return map[string]any{
 		"main": map[string]any{
 			"name": "OpenGovernmentPortal",
+			"slug": "open-government-portal",
+			"version": "0.0.1",
+			"target": "go",
 		},
 		"feature": map[string]any{
 			"test": map[string]any{
@@ -33,46 +36,57 @@ func MakeConfig() map[string]any {
 				"fields": []any{
 					map[string]any{
 						"name": "description",
+						"short": "Detailed description of the dataset",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "download_url",
+						"short": "URL to download the dataset",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "formats",
+						"short": "Available formats for the dataset",
 						"type": "`$ARRAY`",
 					},
 					map[string]any{
 						"name": "id",
+						"short": "Unique identifier for the dataset",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "jurisdiction",
+						"short": "Jurisdiction level of the dataset",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "keywords",
+						"short": "Keywords associated with the dataset",
 						"type": "`$ARRAY`",
 					},
 					map[string]any{
 						"name": "publisher",
+						"short": "Organization that published the dataset",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "record_modified",
+						"short": "Date when the dataset was last modified",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "record_released",
+						"short": "Date when the dataset was first released",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "resources",
+						"short": "List of resources associated with the dataset",
 						"type": "`$ARRAY`",
 					},
 					map[string]any{
 						"name": "title",
+						"short": "Title of the dataset",
 						"type": "`$STRING`",
 					},
 				},

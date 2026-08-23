@@ -263,17 +263,17 @@ On error, `ok` is `false` and `$err` contains the error value.
 
 | Field | Description |
 | --- | --- |
-| `description` |  |
-| `download_url` |  |
-| `formats` |  |
-| `id` |  |
-| `jurisdiction` |  |
-| `keywords` |  |
-| `publisher` |  |
-| `record_modified` |  |
-| `record_released` |  |
-| `resources` |  |
-| `title` |  |
+| `description` | Detailed description of the dataset |
+| `download_url` | URL to download the dataset |
+| `formats` | Available formats for the dataset |
+| `id` | Unique identifier for the dataset |
+| `jurisdiction` | Jurisdiction level of the dataset |
+| `keywords` | Keywords associated with the dataset |
+| `publisher` | Organization that published the dataset |
+| `record_modified` | Date when the dataset was last modified |
+| `record_released` | Date when the dataset was first released |
+| `resources` | List of resources associated with the dataset |
+| `title` | Title of the dataset |
 
 Operations: List, Load.
 
@@ -299,17 +299,17 @@ Create an instance: `$dataset = $client->Dataset();`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `description` | `string` |  |
-| `download_url` | `string` |  |
-| `formats` | `array` |  |
-| `id` | `string` |  |
-| `jurisdiction` | `string` |  |
-| `keywords` | `array` |  |
-| `publisher` | `string` |  |
-| `record_modified` | `string` |  |
-| `record_released` | `string` |  |
-| `resources` | `array` |  |
-| `title` | `string` |  |
+| `description` | `string` | Detailed description of the dataset |
+| `download_url` | `string` | URL to download the dataset |
+| `formats` | `array` | Available formats for the dataset |
+| `id` | `string` | Unique identifier for the dataset |
+| `jurisdiction` | `string` | Jurisdiction level of the dataset |
+| `keywords` | `array` | Keywords associated with the dataset |
+| `publisher` | `string` | Organization that published the dataset |
+| `record_modified` | `string` | Date when the dataset was last modified |
+| `record_released` | `string` | Date when the dataset was first released |
+| `resources` | `array` | List of resources associated with the dataset |
+| `title` | `string` | Title of the dataset |
 
 #### Example: Load
 

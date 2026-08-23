@@ -9,7 +9,7 @@ The API is exposed as capitalised, semantic **Entities** — e.g.
 instead of raw URL paths and query parameters. This keeps the surface
 predictable and low-friction for both humans and AI agents.
 
-> Other languages, the CLI, and MCP server live alongside this one — see
+> Also generated from this model: `go`, `go-cli`, `go-mcp`, `lua`, `php`, `py`, `rb` — see
 > the [top-level README](../README.md).
 
 
@@ -302,17 +302,17 @@ The `prepare()` method returns:
 
 | Field | Description |
 | --- | --- |
-| `description` |  |
-| `download_url` |  |
-| `formats` |  |
-| `id` |  |
-| `jurisdiction` |  |
-| `keywords` |  |
-| `publisher` |  |
-| `record_modified` |  |
-| `record_released` |  |
-| `resources` |  |
-| `title` |  |
+| `description` | Detailed description of the dataset |
+| `download_url` | URL to download the dataset |
+| `formats` | Available formats for the dataset |
+| `id` | Unique identifier for the dataset |
+| `jurisdiction` | Jurisdiction level of the dataset |
+| `keywords` | Keywords associated with the dataset |
+| `publisher` | Organization that published the dataset |
+| `record_modified` | Date when the dataset was last modified |
+| `record_released` | Date when the dataset was first released |
+| `resources` | List of resources associated with the dataset |
+| `title` | Title of the dataset |
 
 Operations: list, load.
 
@@ -338,17 +338,17 @@ Create an instance: `const dataset = client.Dataset()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `description` | `string` |  |
-| `download_url` | `string` |  |
-| `formats` | `any[]` |  |
-| `id` | `string` |  |
-| `jurisdiction` | `string` |  |
-| `keywords` | `any[]` |  |
-| `publisher` | `string` |  |
-| `record_modified` | `string` |  |
-| `record_released` | `string` |  |
-| `resources` | `any[]` |  |
-| `title` | `string` |  |
+| `description` | `string` | Detailed description of the dataset |
+| `download_url` | `string` | URL to download the dataset |
+| `formats` | `any[]` | Available formats for the dataset |
+| `id` | `string` | Unique identifier for the dataset |
+| `jurisdiction` | `string` | Jurisdiction level of the dataset |
+| `keywords` | `any[]` | Keywords associated with the dataset |
+| `publisher` | `string` | Organization that published the dataset |
+| `record_modified` | `string` | Date when the dataset was last modified |
+| `record_released` | `string` | Date when the dataset was first released |
+| `resources` | `any[]` | List of resources associated with the dataset |
+| `title` | `string` | Title of the dataset |
 
 #### Example: Load
 
