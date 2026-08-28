@@ -68,50 +68,34 @@ DatasetLoadMatch = Struct.new(
 
 # Request payload for Dataset#list.
 #
-# @!attribute [rw] description
+# @!attribute [rw] format
 #   @return [String, nil]
 #
-# @!attribute [rw] download_url
+# @!attribute [rw] keyword
 #   @return [String, nil]
 #
-# @!attribute [rw] formats
-#   @return [Array, nil]
+# @!attribute [rw] limit
+#   @return [Integer, nil]
 #
-# @!attribute [rw] id
+# @!attribute [rw] organization
 #   @return [String, nil]
 #
-# @!attribute [rw] jurisdiction
+# @!attribute [rw] page
+#   @return [Integer, nil]
+#
+# @!attribute [rw] q
 #   @return [String, nil]
 #
-# @!attribute [rw] keywords
-#   @return [Array, nil]
-#
-# @!attribute [rw] publisher
-#   @return [String, nil]
-#
-# @!attribute [rw] record_modified
-#   @return [String, nil]
-#
-# @!attribute [rw] record_released
-#   @return [String, nil]
-#
-# @!attribute [rw] resources
-#   @return [Array, nil]
-#
-# @!attribute [rw] title
+# @!attribute [rw] sort
 #   @return [String, nil]
 DatasetListMatch = Struct.new(
-  :description,
-  :download_url,
-  :formats,
-  :id,
-  :jurisdiction,
-  :keywords,
-  :publisher,
-  :record_modified,
-  :record_released,
-  :resources,
-  :title,
+  :format,
+  :keyword,
+  :limit,
+  :organization,
+  :page,
+  :q,
+  :sort,
   keyword_init: true
 )
 

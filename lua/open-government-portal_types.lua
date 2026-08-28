@@ -23,17 +23,13 @@
 ---@field id string
 
 ---@class DatasetListMatch
----@field description? string
----@field download_url? string
----@field formats? table
----@field id? string
----@field jurisdiction? string
----@field keywords? table
----@field publisher? string
----@field record_modified? string
----@field record_released? string
----@field resources? table
----@field title? string
+---@field format? string
+---@field keyword? string
+---@field limit? number
+---@field organization? string
+---@field page? number
+---@field q? string
+---@field sort? string
 
 local M = {}
 

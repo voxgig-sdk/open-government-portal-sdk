@@ -34,17 +34,13 @@ type DatasetLoadMatch struct {
 
 // DatasetListMatch is the typed request payload for Dataset.ListTyped.
 type DatasetListMatch struct {
-	Description *string `json:"description,omitempty"`
-	DownloadUrl *string `json:"download_url,omitempty"`
-	Formats *[]any `json:"formats,omitempty"`
-	Id *string `json:"id,omitempty"`
-	Jurisdiction *string `json:"jurisdiction,omitempty"`
-	Keywords *[]any `json:"keywords,omitempty"`
-	Publisher *string `json:"publisher,omitempty"`
-	RecordModified *string `json:"record_modified,omitempty"`
-	RecordReleased *string `json:"record_released,omitempty"`
-	Resources *[]any `json:"resources,omitempty"`
-	Title *string `json:"title,omitempty"`
+	Format *string `json:"format,omitempty"`
+	Keyword *string `json:"keyword,omitempty"`
+	Limit *int `json:"limit,omitempty"`
+	Organization *string `json:"organization,omitempty"`
+	Page *int `json:"page,omitempty"`
+	Q *string `json:"q,omitempty"`
+	Sort *string `json:"sort,omitempty"`
 }
 
 // asMap turns a typed request/data struct into the map[string]any the

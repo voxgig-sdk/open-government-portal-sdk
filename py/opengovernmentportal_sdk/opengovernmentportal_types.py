@@ -35,14 +35,10 @@ class DatasetLoadMatch(TypedDict):
 
 
 class DatasetListMatch(TypedDict, total=False):
-    description: str
-    download_url: str
-    formats: list
-    id: str
-    jurisdiction: str
-    keywords: list
-    publisher: str
-    record_modified: str
-    record_released: str
-    resources: list
-    title: str
+    format: str
+    keyword: str
+    limit: int
+    organization: str
+    page: int
+    q: str
+    sort: str

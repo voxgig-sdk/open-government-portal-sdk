@@ -37,16 +37,12 @@ class DatasetLoadMatch
 /** Request payload for Dataset#list. */
 class DatasetListMatch
 {
-    public ?string $description = null;
-    public ?string $download_url = null;
-    public ?array $formats = null;
-    public ?string $id = null;
-    public ?string $jurisdiction = null;
-    public ?array $keywords = null;
-    public ?string $publisher = null;
-    public ?string $record_modified = null;
-    public ?string $record_released = null;
-    public ?array $resources = null;
-    public ?string $title = null;
+    public ?string $format = null;
+    public ?string $keyword = null;
+    public ?int $limit = null;
+    public ?string $organization = null;
+    public ?int $page = null;
+    public ?string $q = null;
+    public ?string $sort = null;
 }
 
