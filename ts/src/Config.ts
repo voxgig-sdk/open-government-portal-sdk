@@ -10,6 +10,17 @@ const FEATURE_CLASS: Record<string, typeof BaseFeature> = {
 }
 
 
+// Per-feature plugin DEFINITIONS (voxgig/plugin `Definition` values), from
+// the model's active plugin groups. A feature that takes a `plugins` option
+// (secrets over sekreto) reads its own entry; a feature with no plugins has
+// none. Named imports above make each definition statically reachable, so
+// an SDK carries exactly the plugin modules its model selects — the same
+// leanness the old side-effect registry imports bought, without a registry.
+const FEATURE_PLUGINS: Record<string, any[]> = {
+  
+}
+
+
 class Config {
 
   makeFeature(this: any, fn: string) {
@@ -72,6 +83,7 @@ class Config {
           "type": "`$STRING`"
         },
         {
+          "format": "uri",
           "name": "download_url",
           "short": "URL to download the dataset",
           "type": "`$STRING`"
@@ -102,11 +114,13 @@ class Config {
           "type": "`$STRING`"
         },
         {
+          "format": "date",
           "name": "record_modified",
           "short": "Date when the dataset was last modified",
           "type": "`$STRING`"
         },
         {
+          "format": "date",
           "name": "record_released",
           "short": "Date when the dataset was first released",
           "type": "`$STRING`"
@@ -122,6 +136,10 @@ class Config {
           "type": "`$STRING`"
         }
       ],
+      "id": {
+        "field": "id",
+        "name": "id"
+      },
       "name": "dataset",
       "op": {
         "list": {
@@ -181,8 +199,10 @@ class Config {
               "kind": "http",
               "method": "GET",
               "orig": "/opendata/",
-              "parts": [
-                "opendata"
+              "segments": [
+                {
+                  "lit": "opendata"
+                }
               ],
               "select": {
                 "exist": [
@@ -198,7 +218,10 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body.results`"
-              }
+              },
+              "parts": [
+                "opendata"
+              ]
             }
           ]
         },
@@ -221,16 +244,22 @@ class Config {
               "kind": "http",
               "method": "GET",
               "orig": "/opendata/dataset/{datasetId}",
-              "parts": [
-                "opendata",
-                "dataset",
-                "{id}"
-              ],
               "rename": {
                 "param": {
                   "datasetId": "id"
                 }
               },
+              "segments": [
+                {
+                  "lit": "opendata"
+                },
+                {
+                  "lit": "dataset"
+                },
+                {
+                  "var": "id"
+                }
+              ],
               "select": {
                 "exist": [
                   "id"
@@ -239,7 +268,12 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
-              }
+              },
+              "parts": [
+                "opendata",
+                "dataset",
+                "{id}"
+              ]
             }
           ]
         }
@@ -255,6 +289,7 @@ class Config {
 const config = new Config()
 
 export {
-  config
+  config,
+  FEATURE_PLUGINS,
 }
 

@@ -1,6 +1,14 @@
 # OpenGovernmentPortal SDK configuration
 
 
+# The sekreto plugin DEFINITIONS the model selected per feature, imported
+# above by name from the modules the catalogue's active `plugin.def`
+# entries declare. Handed to each feature (secrets builds its Sekreto
+# with them): a provider kind not listed here is unknown to that SDK.
+FEATURE_PLUGINS = {
+}
+
+
 _shared_config = None
 
 
@@ -58,6 +66,7 @@ def make_config():
             "type": "`$STRING`",
           },
           {
+            "format": "uri",
             "name": "download_url",
             "short": "URL to download the dataset",
             "type": "`$STRING`",
@@ -88,11 +97,13 @@ def make_config():
             "type": "`$STRING`",
           },
           {
+            "format": "date",
             "name": "record_modified",
             "short": "Date when the dataset was last modified",
             "type": "`$STRING`",
           },
           {
+            "format": "date",
             "name": "record_released",
             "short": "Date when the dataset was first released",
             "type": "`$STRING`",
@@ -108,6 +119,10 @@ def make_config():
             "type": "`$STRING`",
           },
         ],
+        "id": {
+          "field": "id",
+          "name": "id",
+        },
         "name": "dataset",
         "op": {
           "list": {
@@ -167,8 +182,10 @@ def make_config():
                 "kind": "http",
                 "method": "GET",
                 "orig": "/opendata/",
-                "parts": [
-                  "opendata",
+                "segments": [
+                  {
+                    "lit": "opendata",
+                  },
                 ],
                 "select": {
                   "exist": [
@@ -185,6 +202,9 @@ def make_config():
                   "req": "`reqdata`",
                   "res": "`body.results`",
                 },
+                "parts": [
+                  "opendata",
+                ],
               },
             ],
           },
@@ -207,16 +227,22 @@ def make_config():
                 "kind": "http",
                 "method": "GET",
                 "orig": "/opendata/dataset/{datasetId}",
-                "parts": [
-                  "opendata",
-                  "dataset",
-                  "{id}",
-                ],
                 "rename": {
                   "param": {
                     "datasetId": "id",
                   },
                 },
+                "segments": [
+                  {
+                    "lit": "opendata",
+                  },
+                  {
+                    "lit": "dataset",
+                  },
+                  {
+                    "var": "id",
+                  },
+                ],
                 "select": {
                   "exist": [
                     "id",
@@ -226,6 +252,11 @@ def make_config():
                   "req": "`reqdata`",
                   "res": "`body`",
                 },
+                "parts": [
+                  "opendata",
+                  "dataset",
+                  "{id}",
+                ],
               },
             ],
           },

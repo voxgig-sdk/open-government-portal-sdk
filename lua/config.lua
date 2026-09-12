@@ -37,6 +37,7 @@ local function make_config()
             ["type"] = "`$STRING`",
           },
           {
+            ["format"] = "uri",
             ["name"] = "download_url",
             ["short"] = "URL to download the dataset",
             ["type"] = "`$STRING`",
@@ -67,11 +68,13 @@ local function make_config()
             ["type"] = "`$STRING`",
           },
           {
+            ["format"] = "date",
             ["name"] = "record_modified",
             ["short"] = "Date when the dataset was last modified",
             ["type"] = "`$STRING`",
           },
           {
+            ["format"] = "date",
             ["name"] = "record_released",
             ["short"] = "Date when the dataset was first released",
             ["type"] = "`$STRING`",
@@ -86,6 +89,10 @@ local function make_config()
             ["short"] = "Title of the dataset",
             ["type"] = "`$STRING`",
           },
+        },
+        ["id"] = {
+          ["field"] = "id",
+          ["name"] = "id",
         },
         ["name"] = "dataset",
         ["op"] = {
@@ -146,8 +153,10 @@ local function make_config()
                 ["kind"] = "http",
                 ["method"] = "GET",
                 ["orig"] = "/opendata/",
-                ["parts"] = {
-                  "opendata",
+                ["segments"] = {
+                  {
+                    ["lit"] = "opendata",
+                  },
                 },
                 ["select"] = {
                   ["exist"] = {
@@ -163,6 +172,9 @@ local function make_config()
                 ["transform"] = {
                   ["req"] = "`reqdata`",
                   ["res"] = "`body.results`",
+                },
+                ["parts"] = {
+                  "opendata",
                 },
               },
             },
@@ -186,14 +198,20 @@ local function make_config()
                 ["kind"] = "http",
                 ["method"] = "GET",
                 ["orig"] = "/opendata/dataset/{datasetId}",
-                ["parts"] = {
-                  "opendata",
-                  "dataset",
-                  "{id}",
-                },
                 ["rename"] = {
                   ["param"] = {
                     ["datasetId"] = "id",
+                  },
+                },
+                ["segments"] = {
+                  {
+                    ["lit"] = "opendata",
+                  },
+                  {
+                    ["lit"] = "dataset",
+                  },
+                  {
+                    ["var"] = "id",
                   },
                 },
                 ["select"] = {
@@ -204,6 +222,11 @@ local function make_config()
                 ["transform"] = {
                   ["req"] = "`reqdata`",
                   ["res"] = "`body`",
+                },
+                ["parts"] = {
+                  "opendata",
+                  "dataset",
+                  "{id}",
                 },
               },
             },

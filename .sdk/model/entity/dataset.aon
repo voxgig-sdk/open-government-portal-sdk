@@ -12,6 +12,7 @@ main: kit: entity: dataset: {
       type: "`$STRING`"
     }
     {
+      format: "uri"
       name: "download_url"
       req: false
       short: "URL to download the dataset"
@@ -48,12 +49,14 @@ main: kit: entity: dataset: {
       type: "`$STRING`"
     }
     {
+      format: "date"
       name: "record_modified"
       req: false
       short: "Date when the dataset was last modified"
       type: "`$STRING`"
     }
     {
+      format: "date"
       name: "record_released"
       req: false
       short: "Date when the dataset was first released"
@@ -142,8 +145,10 @@ main: kit: entity: dataset: {
           }
           method: "GET"
           orig: "/opendata/"
-          parts: [
-            "opendata"
+          segments: [
+            {
+              lit: "opendata"
+            }
           ]
           select: {
             exist: [
@@ -180,16 +185,22 @@ main: kit: entity: dataset: {
           }
           method: "GET"
           orig: "/opendata/dataset/{datasetId}"
-          parts: [
-            "opendata"
-            "dataset"
-            "{id}"
-          ]
           rename: {
             param: {
               datasetId: "id"
             }
           }
+          segments: [
+            {
+              lit: "opendata"
+            }
+            {
+              lit: "dataset"
+            }
+            {
+              var: "id"
+            }
+          ]
           select: {
             exist: [
               "id"

@@ -63,6 +63,7 @@ class OpenGovernmentPortalConfig
               'type' => '`$STRING`',
             ],
             [
+              'format' => 'uri',
               'name' => 'download_url',
               'short' => 'URL to download the dataset',
               'type' => '`$STRING`',
@@ -93,11 +94,13 @@ class OpenGovernmentPortalConfig
               'type' => '`$STRING`',
             ],
             [
+              'format' => 'date',
               'name' => 'record_modified',
               'short' => 'Date when the dataset was last modified',
               'type' => '`$STRING`',
             ],
             [
+              'format' => 'date',
               'name' => 'record_released',
               'short' => 'Date when the dataset was first released',
               'type' => '`$STRING`',
@@ -112,6 +115,10 @@ class OpenGovernmentPortalConfig
               'short' => 'Title of the dataset',
               'type' => '`$STRING`',
             ],
+          ],
+          'id' => [
+            'field' => 'id',
+            'name' => 'id',
           ],
           'name' => 'dataset',
           'op' => [
@@ -172,8 +179,10 @@ class OpenGovernmentPortalConfig
                   'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/opendata/',
-                  'parts' => [
-                    'opendata',
+                  'segments' => [
+                    [
+                      'lit' => 'opendata',
+                    ],
                   ],
                   'select' => [
                     'exist' => [
@@ -189,6 +198,9 @@ class OpenGovernmentPortalConfig
                   'transform' => [
                     'req' => '`reqdata`',
                     'res' => '`body.results`',
+                  ],
+                  'parts' => [
+                    'opendata',
                   ],
                 ],
               ],
@@ -212,14 +224,20 @@ class OpenGovernmentPortalConfig
                   'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/opendata/dataset/{datasetId}',
-                  'parts' => [
-                    'opendata',
-                    'dataset',
-                    '{id}',
-                  ],
                   'rename' => [
                     'param' => [
                       'datasetId' => 'id',
+                    ],
+                  ],
+                  'segments' => [
+                    [
+                      'lit' => 'opendata',
+                    ],
+                    [
+                      'lit' => 'dataset',
+                    ],
+                    [
+                      'var' => 'id',
                     ],
                   ],
                   'select' => [
@@ -230,6 +248,11 @@ class OpenGovernmentPortalConfig
                   'transform' => [
                     'req' => '`reqdata`',
                     'res' => '`body`',
+                  ],
+                  'parts' => [
+                    'opendata',
+                    'dataset',
+                    '{id}',
                   ],
                 ],
               ],
