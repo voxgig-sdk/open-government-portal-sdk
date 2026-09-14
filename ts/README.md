@@ -28,7 +28,7 @@ loading a specific record.
 ### 1. Create a client
 
 ```ts
-import { OpenGovernmentPortalSDK } from '@voxgig-sdk/open-government-portal'
+import { OpenGovernmentPortalSDK } from '@voxgig-sdk/open-government-portal-sdk'
 
 const client = new OpenGovernmentPortalSDK()
 ```
@@ -445,7 +445,7 @@ open-government-portal/
 Import the SDK from the package root:
 
 ```ts
-import { OpenGovernmentPortalSDK } from '@voxgig-sdk/open-government-portal'
+import { OpenGovernmentPortalSDK } from '@voxgig-sdk/open-government-portal-sdk'
 ```
 
 ### Entity state

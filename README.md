@@ -105,7 +105,7 @@ local results, err = client:Dataset():list()
 
 | Language | Package | Install |
 | --- | --- | --- |
-| TypeScript | `@voxgig-sdk/open-government-portal` | publish pending — [install from git tag](https://github.com/voxgig-sdk/open-government-portal-sdk/releases) |
+| TypeScript | `@voxgig-sdk/open-government-portal-sdk` | publish pending — [install from git tag](https://github.com/voxgig-sdk/open-government-portal-sdk/releases) |
 | Python | `voxgig-sdk-open-government-portal` | publish pending — [install from git tag](https://github.com/voxgig-sdk/open-government-portal-sdk/releases) |
 | PHP | `voxgig-sdk/open-government-portal` | publish pending — [install from git tag](https://github.com/voxgig-sdk/open-government-portal-sdk/releases) |
 | Golang | `github.com/voxgig-sdk/open-government-portal-sdk/go` | `go get github.com/voxgig-sdk/open-government-portal-sdk/go@latest` |
@@ -119,7 +119,7 @@ local results, err = client:Dataset():list()
 ### TypeScript
 
 ```ts
-import { OpenGovernmentPortalSDK } from '@voxgig-sdk/open-government-portal'
+import { OpenGovernmentPortalSDK } from '@voxgig-sdk/open-government-portal-sdk'
 
 const client = new OpenGovernmentPortalSDK()
 
