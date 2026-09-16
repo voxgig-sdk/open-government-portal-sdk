@@ -1,12 +1,18 @@
 # OpenGovernmentPortal SDK feature factory
 
 from opengovernmentportal_sdk.feature.base_feature import OpenGovernmentPortalBaseFeature
+from opengovernmentportal_sdk.feature.ratelimit_feature import OpenGovernmentPortalRatelimitFeature
+from opengovernmentportal_sdk.feature.retry_feature import OpenGovernmentPortalRetryFeature
 from opengovernmentportal_sdk.feature.test_feature import OpenGovernmentPortalTestFeature
+from opengovernmentportal_sdk.feature.timeout_feature import OpenGovernmentPortalTimeoutFeature
 
 
 _FEATURES = {
     "base": lambda: OpenGovernmentPortalBaseFeature(),
+    "ratelimit": lambda: OpenGovernmentPortalRatelimitFeature(),
+    "retry": lambda: OpenGovernmentPortalRetryFeature(),
     "test": lambda: OpenGovernmentPortalTestFeature(),
+    "timeout": lambda: OpenGovernmentPortalTimeoutFeature(),
 }
 
 

@@ -4,7 +4,10 @@ declare(strict_types=1);
 // OpenGovernmentPortal SDK feature factory
 
 require_once __DIR__ . '/feature/BaseFeature.php';
+require_once __DIR__ . '/feature/RatelimitFeature.php';
+require_once __DIR__ . '/feature/RetryFeature.php';
 require_once __DIR__ . '/feature/TestFeature.php';
+require_once __DIR__ . '/feature/TimeoutFeature.php';
 
 
 class OpenGovernmentPortalFeatures
@@ -14,8 +17,14 @@ class OpenGovernmentPortalFeatures
         switch ($name) {
             case "base":
                 return new OpenGovernmentPortalBaseFeature();
+            case "ratelimit":
+                return new OpenGovernmentPortalRatelimitFeature();
+            case "retry":
+                return new OpenGovernmentPortalRetryFeature();
             case "test":
                 return new OpenGovernmentPortalTestFeature();
+            case "timeout":
+                return new OpenGovernmentPortalTimeoutFeature();
             default:
                 return new OpenGovernmentPortalBaseFeature();
         }
@@ -31,7 +40,10 @@ class OpenGovernmentPortalFeatures
     {
         switch ($name) {
             case "base":
+            case "ratelimit":
+            case "retry":
             case "test":
+            case "timeout":
                 return true;
             default:
                 return false;

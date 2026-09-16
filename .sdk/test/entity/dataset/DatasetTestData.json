@@ -57,5 +57,514 @@
         "title": "s1c2"
       }
     }
+  },
+  "requests": {
+    "GET /opendata/": {
+      "provenance": "operation-contract",
+      "contract": {
+        "operationId": "searchDatasets",
+        "parameters": [
+          {
+            "description": "Search query term to filter datasets",
+            "in": "query",
+            "name": "q",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Sort order for results",
+            "in": "query",
+            "name": "sort",
+            "required": false,
+            "schema": {
+              "default": "relevance",
+              "enum": [
+                "relevance",
+                "modified",
+                "created",
+                "title_asc",
+                "title_desc"
+              ],
+              "type": "string"
+            }
+          },
+          {
+            "description": "Filter by organization/publisher name",
+            "in": "query",
+            "name": "organization",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Filter by dataset format",
+            "in": "query",
+            "name": "format",
+            "required": false,
+            "schema": {
+              "enum": [
+                "JSON",
+                "CSV",
+                "XLSX",
+                "HTML",
+                "XML",
+                "ZIP",
+                "JSONL",
+                "PNG",
+                "SQL"
+              ],
+              "type": "string"
+            }
+          },
+          {
+            "description": "Filter by keyword tags",
+            "in": "query",
+            "name": "keyword",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Page number for pagination",
+            "in": "query",
+            "name": "page",
+            "required": false,
+            "schema": {
+              "default": 1,
+              "minimum": 1,
+              "type": "integer"
+            }
+          },
+          {
+            "description": "Number of results per page",
+            "in": "query",
+            "name": "limit",
+            "required": false,
+            "schema": {
+              "default": 10,
+              "maximum": 100,
+              "minimum": 1,
+              "type": "integer"
+            }
+          }
+        ],
+        "protocol": "http",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "page": {
+                      "description": "Current page number",
+                      "type": "integer"
+                    },
+                    "results": {
+                      "items": {
+                        "properties": {
+                          "description": {
+                            "description": "Detailed description of the dataset",
+                            "type": "string"
+                          },
+                          "download_url": {
+                            "description": "URL to download the dataset",
+                            "format": "uri",
+                            "type": "string"
+                          },
+                          "formats": {
+                            "description": "Available formats for the dataset",
+                            "example": [
+                              "JSON",
+                              "XLSX",
+                              "HTML",
+                              "CSV"
+                            ],
+                            "items": {
+                              "enum": [
+                                "JSON",
+                                "CSV",
+                                "XLSX",
+                                "HTML",
+                                "XML",
+                                "ZIP",
+                                "JSONL",
+                                "PNG",
+                                "SQL"
+                              ],
+                              "type": "string"
+                            },
+                            "type": "array"
+                          },
+                          "id": {
+                            "description": "Unique identifier for the dataset",
+                            "type": "string"
+                          },
+                          "jurisdiction": {
+                            "description": "Jurisdiction level of the dataset",
+                            "enum": [
+                              "Federal",
+                              "Provincial",
+                              "Municipal"
+                            ],
+                            "example": "Federal",
+                            "type": "string"
+                          },
+                          "keywords": {
+                            "description": "Keywords associated with the dataset",
+                            "example": [
+                              "Proactive Disclosure",
+                              "PD",
+                              "Travel Expenses"
+                            ],
+                            "items": {
+                              "type": "string"
+                            },
+                            "type": "array"
+                          },
+                          "publisher": {
+                            "description": "Organization that published the dataset",
+                            "example": "Treasury Board of Canada Secretariat",
+                            "type": "string"
+                          },
+                          "record_modified": {
+                            "description": "Date when the dataset was last modified",
+                            "example": "2026-02-16",
+                            "format": "date",
+                            "type": "string"
+                          },
+                          "record_released": {
+                            "description": "Date when the dataset was first released",
+                            "example": "2017-02-20",
+                            "format": "date",
+                            "type": "string"
+                          },
+                          "resources": {
+                            "description": "List of resources associated with the dataset",
+                            "items": {
+                              "properties": {
+                                "format": {
+                                  "description": "Format of the resource",
+                                  "example": "CSV",
+                                  "type": "string"
+                                },
+                                "id": {
+                                  "description": "Unique identifier for the resource",
+                                  "type": "string"
+                                },
+                                "last_modified": {
+                                  "description": "Date and time when the resource was last modified",
+                                  "format": "date-time",
+                                  "type": "string"
+                                },
+                                "name": {
+                                  "description": "Name of the resource",
+                                  "type": "string"
+                                },
+                                "size": {
+                                  "description": "Size of the resource in bytes",
+                                  "type": "integer"
+                                },
+                                "url": {
+                                  "description": "URL to access the resource",
+                                  "format": "uri",
+                                  "type": "string"
+                                }
+                              },
+                              "type": "object"
+                            },
+                            "type": "array"
+                          },
+                          "title": {
+                            "description": "Title of the dataset",
+                            "example": "Proactive Disclosure - Travel Expenses",
+                            "type": "string"
+                          }
+                        },
+                        "type": "object"
+                      },
+                      "type": "array"
+                    },
+                    "total_records": {
+                      "description": "Total number of datasets matching the search criteria",
+                      "example": 46261,
+                      "type": "integer"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Successful response with dataset results"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "details": {
+                      "description": "Additional error details",
+                      "type": "string"
+                    },
+                    "error": {
+                      "description": "Error message",
+                      "type": "string"
+                    },
+                    "status": {
+                      "description": "HTTP status code",
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "error",
+                    "status"
+                  ],
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Bad request - Invalid parameters"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "details": {
+                      "description": "Additional error details",
+                      "type": "string"
+                    },
+                    "error": {
+                      "description": "Error message",
+                      "type": "string"
+                    },
+                    "status": {
+                      "description": "HTTP status code",
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "error",
+                    "status"
+                  ],
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Internal server error"
+          }
+        },
+        "securitySource": "unspecified"
+      }
+    },
+    "GET /opendata/dataset/{datasetId}": {
+      "provenance": "operation-contract",
+      "contract": {
+        "operationId": "getDatasetById",
+        "parameters": [
+          {
+            "description": "Unique identifier of the dataset",
+            "in": "path",
+            "name": "datasetId",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "protocol": "http",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "description": {
+                      "description": "Detailed description of the dataset",
+                      "type": "string"
+                    },
+                    "download_url": {
+                      "description": "URL to download the dataset",
+                      "format": "uri",
+                      "type": "string"
+                    },
+                    "formats": {
+                      "description": "Available formats for the dataset",
+                      "example": [
+                        "JSON",
+                        "XLSX",
+                        "HTML",
+                        "CSV"
+                      ],
+                      "items": {
+                        "enum": [
+                          "JSON",
+                          "CSV",
+                          "XLSX",
+                          "HTML",
+                          "XML",
+                          "ZIP",
+                          "JSONL",
+                          "PNG",
+                          "SQL"
+                        ],
+                        "type": "string"
+                      },
+                      "type": "array"
+                    },
+                    "id": {
+                      "description": "Unique identifier for the dataset",
+                      "type": "string"
+                    },
+                    "jurisdiction": {
+                      "description": "Jurisdiction level of the dataset",
+                      "enum": [
+                        "Federal",
+                        "Provincial",
+                        "Municipal"
+                      ],
+                      "example": "Federal",
+                      "type": "string"
+                    },
+                    "keywords": {
+                      "description": "Keywords associated with the dataset",
+                      "example": [
+                        "Proactive Disclosure",
+                        "PD",
+                        "Travel Expenses"
+                      ],
+                      "items": {
+                        "type": "string"
+                      },
+                      "type": "array"
+                    },
+                    "publisher": {
+                      "description": "Organization that published the dataset",
+                      "example": "Treasury Board of Canada Secretariat",
+                      "type": "string"
+                    },
+                    "record_modified": {
+                      "description": "Date when the dataset was last modified",
+                      "example": "2026-02-16",
+                      "format": "date",
+                      "type": "string"
+                    },
+                    "record_released": {
+                      "description": "Date when the dataset was first released",
+                      "example": "2017-02-20",
+                      "format": "date",
+                      "type": "string"
+                    },
+                    "resources": {
+                      "description": "List of resources associated with the dataset",
+                      "items": {
+                        "properties": {
+                          "format": {
+                            "description": "Format of the resource",
+                            "example": "CSV",
+                            "type": "string"
+                          },
+                          "id": {
+                            "description": "Unique identifier for the resource",
+                            "type": "string"
+                          },
+                          "last_modified": {
+                            "description": "Date and time when the resource was last modified",
+                            "format": "date-time",
+                            "type": "string"
+                          },
+                          "name": {
+                            "description": "Name of the resource",
+                            "type": "string"
+                          },
+                          "size": {
+                            "description": "Size of the resource in bytes",
+                            "type": "integer"
+                          },
+                          "url": {
+                            "description": "URL to access the resource",
+                            "format": "uri",
+                            "type": "string"
+                          }
+                        },
+                        "type": "object"
+                      },
+                      "type": "array"
+                    },
+                    "title": {
+                      "description": "Title of the dataset",
+                      "example": "Proactive Disclosure - Travel Expenses",
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Dataset details retrieved successfully"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "details": {
+                      "description": "Additional error details",
+                      "type": "string"
+                    },
+                    "error": {
+                      "description": "Error message",
+                      "type": "string"
+                    },
+                    "status": {
+                      "description": "HTTP status code",
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "error",
+                    "status"
+                  ],
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Dataset not found"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "details": {
+                      "description": "Additional error details",
+                      "type": "string"
+                    },
+                    "error": {
+                      "description": "Error message",
+                      "type": "string"
+                    },
+                    "status": {
+                      "description": "HTTP status code",
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "error",
+                    "status"
+                  ],
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Internal server error"
+          }
+        },
+        "securitySource": "unspecified"
+      }
+    }
   }
 }

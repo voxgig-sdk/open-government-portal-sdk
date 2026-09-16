@@ -5,6 +5,8 @@ import * as Fs from 'node:fs'
 
 import { test, describe, afterEach } from 'node:test'
 import assert from 'node:assert'
+import { createLiveTransport } from '../../live-runner'
+import { runLiveEntity } from '../../live-entity'
 
 
 import { OpenGovernmentPortalSDK, BaseFeature, stdutil } from '../../..'
@@ -47,16 +49,13 @@ describe('DatasetEntity', async () => {
 
     const live = 'TRUE' === process.env.OPEN_GOVERNMENT_PORTAL_TEST_LIVE
     for (const op of ['list', 'load']) {
-      if (maybeSkipControl(t, 'entityOp', 'dataset.' + op, live)) return
+      if (!live && maybeSkipControl(t, 'entityOp', 'dataset.' + op, live)) return
     }
 
+    
     const setup = basicSetup()
-    // The basic flow consumes synthetic IDs and field values from the
-    // fixture (entity TestData.json). Those don't exist on the live API.
-    // Skip live runs unless the user provided a real ENTID env override.
-    if (setup.syntheticOnly) {
-      t.skip('live entity test uses synthetic IDs from fixture — set OPEN_GOVERNMENT_PORTAL_TEST_DATASET_ENTID JSON to run live')
-      return
+    if (setup.live) {
+      return runLiveEntity(setup, {"active":true,"alias":{"field":{}},"fields":[{"active":true,"name":"description","req":false,"short":"Detailed description of the dataset","type":"`$STRING`","index$":0},{"active":true,"format":"uri","name":"download_url","req":false,"short":"URL to download the dataset","type":"`$STRING`","index$":1},{"active":true,"name":"formats","req":false,"short":"Available formats for the dataset","type":"`$ARRAY`","index$":2},{"active":true,"name":"id","req":false,"short":"Unique identifier for the dataset","type":"`$STRING`","index$":3},{"active":true,"name":"jurisdiction","req":false,"short":"Jurisdiction level of the dataset","type":"`$STRING`","index$":4},{"active":true,"name":"keywords","req":false,"short":"Keywords associated with the dataset","type":"`$ARRAY`","index$":5},{"active":true,"name":"publisher","req":false,"short":"Organization that published the dataset","type":"`$STRING`","index$":6},{"active":true,"format":"date","name":"record_modified","req":false,"short":"Date when the dataset was last modified","type":"`$STRING`","index$":7},{"active":true,"format":"date","name":"record_released","req":false,"short":"Date when the dataset was first released","type":"`$STRING`","index$":8},{"active":true,"name":"resources","req":false,"short":"List of resources associated with the dataset","type":"`$ARRAY`","index$":9},{"active":true,"name":"title","req":false,"short":"Title of the dataset","type":"`$STRING`","index$":10}],"id":{"field":"id","name":"id"},"name":"dataset","op":{"list":{"input":"data","name":"list","points":[{"active":true,"args":{"query":[{"active":true,"kind":"query","name":"format","orig":"format","reqd":false,"type":"`$STRING`","index$":0},{"active":true,"kind":"query","name":"keyword","orig":"keyword","reqd":false,"type":"`$STRING`","index$":1},{"active":true,"example":10,"kind":"query","name":"limit","orig":"limit","reqd":false,"type":"`$INTEGER`","index$":2},{"active":true,"kind":"query","name":"organization","orig":"organization","reqd":false,"type":"`$STRING`","index$":3},{"active":true,"example":1,"kind":"query","name":"page","orig":"page","reqd":false,"type":"`$INTEGER`","index$":4},{"active":true,"kind":"query","name":"q","orig":"q","reqd":false,"type":"`$STRING`","index$":5},{"active":true,"example":"relevance","kind":"query","name":"sort","orig":"sort","reqd":false,"type":"`$STRING`","index$":6}]},"contract":{"id":"GET /opendata/","json":"{\"operationId\":\"searchDatasets\",\"parameters\":[{\"description\":\"Search query term to filter datasets\",\"in\":\"query\",\"name\":\"q\",\"required\":false,\"schema\":{\"type\":\"string\"}},{\"description\":\"Sort order for results\",\"in\":\"query\",\"name\":\"sort\",\"required\":false,\"schema\":{\"default\":\"relevance\",\"enum\":[\"relevance\",\"modified\",\"created\",\"title_asc\",\"title_desc\"],\"type\":\"string\"}},{\"description\":\"Filter by organization/publisher name\",\"in\":\"query\",\"name\":\"organization\",\"required\":false,\"schema\":{\"type\":\"string\"}},{\"description\":\"Filter by dataset format\",\"in\":\"query\",\"name\":\"format\",\"required\":false,\"schema\":{\"enum\":[\"JSON\",\"CSV\",\"XLSX\",\"HTML\",\"XML\",\"ZIP\",\"JSONL\",\"PNG\",\"SQL\"],\"type\":\"string\"}},{\"description\":\"Filter by keyword tags\",\"in\":\"query\",\"name\":\"keyword\",\"required\":false,\"schema\":{\"type\":\"string\"}},{\"description\":\"Page number for pagination\",\"in\":\"query\",\"name\":\"page\",\"required\":false,\"schema\":{\"default\":1,\"minimum\":1,\"type\":\"integer\"}},{\"description\":\"Number of results per page\",\"in\":\"query\",\"name\":\"limit\",\"required\":false,\"schema\":{\"default\":10,\"maximum\":100,\"minimum\":1,\"type\":\"integer\"}}],\"protocol\":\"http\",\"responses\":{\"200\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"page\":{\"description\":\"Current page number\",\"type\":\"integer\"},\"results\":{\"items\":{\"properties\":{\"description\":{\"description\":\"Detailed description of the dataset\",\"type\":\"string\"},\"download_url\":{\"description\":\"URL to download the dataset\",\"format\":\"uri\",\"type\":\"string\"},\"formats\":{\"description\":\"Available formats for the dataset\",\"example\":[\"JSON\",\"XLSX\",\"HTML\",\"CSV\"],\"items\":{\"enum\":[\"JSON\",\"CSV\",\"XLSX\",\"HTML\",\"XML\",\"ZIP\",\"JSONL\",\"PNG\",\"SQL\"],\"type\":\"string\"},\"type\":\"array\"},\"id\":{\"description\":\"Unique identifier for the dataset\",\"type\":\"string\"},\"jurisdiction\":{\"description\":\"Jurisdiction level of the dataset\",\"enum\":[\"Federal\",\"Provincial\",\"Municipal\"],\"example\":\"Federal\",\"type\":\"string\"},\"keywords\":{\"description\":\"Keywords associated with the dataset\",\"example\":[\"Proactive Disclosure\",\"PD\",\"Travel Expenses\"],\"items\":{\"type\":\"string\"},\"type\":\"array\"},\"publisher\":{\"description\":\"Organization that published the dataset\",\"example\":\"Treasury Board of Canada Secretariat\",\"type\":\"string\"},\"record_modified\":{\"description\":\"Date when the dataset was last modified\",\"example\":\"2026-02-16\",\"format\":\"date\",\"type\":\"string\"},\"record_released\":{\"description\":\"Date when the dataset was first released\",\"example\":\"2017-02-20\",\"format\":\"date\",\"type\":\"string\"},\"resources\":{\"description\":\"List of resources associated with the dataset\",\"items\":{\"properties\":{\"format\":{\"description\":\"Format of the resource\",\"example\":\"CSV\",\"type\":\"string\"},\"id\":{\"description\":\"Unique identifier for the resource\",\"type\":\"string\"},\"last_modified\":{\"description\":\"Date and time when the resource was last modified\",\"format\":\"date-time\",\"type\":\"string\"},\"name\":{\"description\":\"Name of the resource\",\"type\":\"string\"},\"size\":{\"description\":\"Size of the resource in bytes\",\"type\":\"integer\"},\"url\":{\"description\":\"URL to access the resource\",\"format\":\"uri\",\"type\":\"string\"}},\"type\":\"object\"},\"type\":\"array\"},\"title\":{\"description\":\"Title of the dataset\",\"example\":\"Proactive Disclosure - Travel Expenses\",\"type\":\"string\"}},\"type\":\"object\"},\"type\":\"array\"},\"total_records\":{\"description\":\"Total number of datasets matching the search criteria\",\"example\":46261,\"type\":\"integer\"}},\"type\":\"object\"}}},\"description\":\"Successful response with dataset results\"},\"400\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"details\":{\"description\":\"Additional error details\",\"type\":\"string\"},\"error\":{\"description\":\"Error message\",\"type\":\"string\"},\"status\":{\"description\":\"HTTP status code\",\"type\":\"integer\"}},\"required\":[\"error\",\"status\"],\"type\":\"object\"}}},\"description\":\"Bad request - Invalid parameters\"},\"500\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"details\":{\"description\":\"Additional error details\",\"type\":\"string\"},\"error\":{\"description\":\"Error message\",\"type\":\"string\"},\"status\":{\"description\":\"HTTP status code\",\"type\":\"integer\"}},\"required\":[\"error\",\"status\"],\"type\":\"object\"}}},\"description\":\"Internal server error\"}},\"securitySource\":\"unspecified\"}","source":"openapi3","version":1},"kind":"http","method":"GET","orig":"/opendata/","segments":[{"lit":"opendata"}],"select":{"exist":["format","keyword","limit","organization","page","q","sort"]},"transform":{"req":"`reqdata`","res":"`body.results`"},"index$":0}],"key$":"list"},"load":{"input":"data","name":"load","points":[{"active":true,"args":{"params":[{"active":true,"kind":"param","name":"id","orig":"dataset_id","reqd":true,"type":"`$STRING`","index$":0}]},"contract":{"id":"GET /opendata/dataset/{datasetId}","json":"{\"operationId\":\"getDatasetById\",\"parameters\":[{\"description\":\"Unique identifier of the dataset\",\"in\":\"path\",\"name\":\"datasetId\",\"required\":true,\"schema\":{\"type\":\"string\"}}],\"protocol\":\"http\",\"responses\":{\"200\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"description\":{\"description\":\"Detailed description of the dataset\",\"type\":\"string\"},\"download_url\":{\"description\":\"URL to download the dataset\",\"format\":\"uri\",\"type\":\"string\"},\"formats\":{\"description\":\"Available formats for the dataset\",\"example\":[\"JSON\",\"XLSX\",\"HTML\",\"CSV\"],\"items\":{\"enum\":[\"JSON\",\"CSV\",\"XLSX\",\"HTML\",\"XML\",\"ZIP\",\"JSONL\",\"PNG\",\"SQL\"],\"type\":\"string\"},\"type\":\"array\"},\"id\":{\"description\":\"Unique identifier for the dataset\",\"type\":\"string\"},\"jurisdiction\":{\"description\":\"Jurisdiction level of the dataset\",\"enum\":[\"Federal\",\"Provincial\",\"Municipal\"],\"example\":\"Federal\",\"type\":\"string\"},\"keywords\":{\"description\":\"Keywords associated with the dataset\",\"example\":[\"Proactive Disclosure\",\"PD\",\"Travel Expenses\"],\"items\":{\"type\":\"string\"},\"type\":\"array\"},\"publisher\":{\"description\":\"Organization that published the dataset\",\"example\":\"Treasury Board of Canada Secretariat\",\"type\":\"string\"},\"record_modified\":{\"description\":\"Date when the dataset was last modified\",\"example\":\"2026-02-16\",\"format\":\"date\",\"type\":\"string\"},\"record_released\":{\"description\":\"Date when the dataset was first released\",\"example\":\"2017-02-20\",\"format\":\"date\",\"type\":\"string\"},\"resources\":{\"description\":\"List of resources associated with the dataset\",\"items\":{\"properties\":{\"format\":{\"description\":\"Format of the resource\",\"example\":\"CSV\",\"type\":\"string\"},\"id\":{\"description\":\"Unique identifier for the resource\",\"type\":\"string\"},\"last_modified\":{\"description\":\"Date and time when the resource was last modified\",\"format\":\"date-time\",\"type\":\"string\"},\"name\":{\"description\":\"Name of the resource\",\"type\":\"string\"},\"size\":{\"description\":\"Size of the resource in bytes\",\"type\":\"integer\"},\"url\":{\"description\":\"URL to access the resource\",\"format\":\"uri\",\"type\":\"string\"}},\"type\":\"object\"},\"type\":\"array\"},\"title\":{\"description\":\"Title of the dataset\",\"example\":\"Proactive Disclosure - Travel Expenses\",\"type\":\"string\"}},\"type\":\"object\"}}},\"description\":\"Dataset details retrieved successfully\"},\"404\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"details\":{\"description\":\"Additional error details\",\"type\":\"string\"},\"error\":{\"description\":\"Error message\",\"type\":\"string\"},\"status\":{\"description\":\"HTTP status code\",\"type\":\"integer\"}},\"required\":[\"error\",\"status\"],\"type\":\"object\"}}},\"description\":\"Dataset not found\"},\"500\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"details\":{\"description\":\"Additional error details\",\"type\":\"string\"},\"error\":{\"description\":\"Error message\",\"type\":\"string\"},\"status\":{\"description\":\"HTTP status code\",\"type\":\"integer\"}},\"required\":[\"error\",\"status\"],\"type\":\"object\"}}},\"description\":\"Internal server error\"}},\"securitySource\":\"unspecified\"}","source":"openapi3","version":1},"kind":"http","method":"GET","orig":"/opendata/dataset/{datasetId}","rename":{"param":{"datasetId":"id"}},"segments":[{"lit":"opendata"},{"lit":"dataset"},{"var":"id"}],"select":{"exist":["id"]},"transform":{"req":"`reqdata`","res":"`body`"},"index$":0}],"key$":"load"}},"relations":{"ancestors":[]},"key$":"dataset","name__orig":"dataset","Name":"Dataset","name_":"dataset","name-":"dataset","NAME":"DATASET","index$":0}, {"active":true,"entity":"dataset","key$":"BasicDatasetFlow","kind":"basic","name":"BasicDatasetFlow","param":{},"step":[{"active":true,"data":{},"input":{},"match":{},"op":"list","spec":[],"valid":[{"apply":"ItemExists","def":{"ref":"dataset_ref01"}}],"index$":0},{"active":true,"data":{},"input":{"ref":"dataset_ref01","srcdatavar":"dataset_ref01_data","suffix":"_dt0"},"match":{"id":"dataset01"},"op":"load","spec":[],"valid":[{"apply":"TextFieldMark","def":{"mark":"Mark01-dataset_ref01"}}],"index$":1}]}, 'Dataset')
     }
     const client = setup.client
     const struct = setup.struct
@@ -116,13 +115,6 @@ function basicSetup(extra?: any) {
       }]
     })
 
-  // Detect whether the user provided a real ENTID JSON via env var. The
-  // basic flow consumes synthetic IDs from the fixture file; without an
-  // override those synthetic IDs reach the live API and 4xx. Surface this
-  // to the test so it can skip rather than fail.
-  const idmapEnvVal = process.env['OPEN_GOVERNMENT_PORTAL_TEST_DATASET_ENTID']
-  const idmapOverridden = null != idmapEnvVal && idmapEnvVal.trim().startsWith('{')
-
   const env = envOverride({
     'OPEN_GOVERNMENT_PORTAL_TEST_DATASET_ENTID': idmap,
     'OPEN_GOVERNMENT_PORTAL_TEST_LIVE': 'FALSE',
@@ -133,7 +125,13 @@ function basicSetup(extra?: any) {
 
   const live = 'TRUE' === env.OPEN_GOVERNMENT_PORTAL_TEST_LIVE
 
+  const transport = createLiveTransport()
   if (live) {
+    const rawIds = process.env['OPEN_GOVERNMENT_PORTAL_TEST_DATASET_ENTID']
+    idmap = rawIds && rawIds.trim() ? JSON.parse(rawIds) : {}
+    if (!idmap || Array.isArray(idmap) || typeof idmap !== 'object') {
+      throw new Error('Live ENTID must be a JSON object')
+    }
     client = new OpenGovernmentPortalSDK(merge([
       // FIRST, so the generated fields below win: sdk-test-control.json's
       // test.client.options adds to the live client, it does not redirect it.
@@ -145,7 +143,8 @@ function basicSetup(extra?: any) {
       // argument at all - so a bare 'extra' silently discarded the apikey
       // and server values above and handed the SDK undefined. Harmless
       // while there was nothing in that object; not harmless now.
-      extra || {}
+      extra || {},
+      { system: { fetch: transport.fetch } }
     ]))
   }
 
@@ -158,7 +157,7 @@ function basicSetup(extra?: any) {
     data: entityData,
     explain: 'TRUE' === env.OPEN_GOVERNMENT_PORTAL_TEST_EXPLAIN,
     live,
-    syntheticOnly: live && !idmapOverridden,
+    transport,
     now: Date.now(),
   }
 
