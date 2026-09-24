@@ -87,61 +87,72 @@ local function make_config()
         ["fields"] = {
           {
             ["name"] = "description",
-            ["short"] = "Detailed description of the dataset",
+            ["title"] = "Description",
             ["type"] = "`$STRING`",
+            ["short"] = "Detailed description of the dataset",
           },
           {
-            ["format"] = "uri",
             ["name"] = "download_url",
-            ["short"] = "URL to download the dataset",
+            ["title"] = "Download Url",
             ["type"] = "`$STRING`",
+            ["short"] = "URL to download the dataset",
+            ["format"] = "uri",
           },
           {
             ["name"] = "formats",
-            ["short"] = "Available formats for the dataset",
+            ["title"] = "Formats",
             ["type"] = "`$ARRAY`",
+            ["short"] = "Available formats for the dataset",
           },
           {
             ["name"] = "id",
-            ["short"] = "Unique identifier for the dataset",
+            ["title"] = "Id",
             ["type"] = "`$STRING`",
+            ["short"] = "Unique identifier for the dataset",
           },
           {
             ["name"] = "jurisdiction",
-            ["short"] = "Jurisdiction level of the dataset",
+            ["title"] = "Jurisdiction",
             ["type"] = "`$STRING`",
+            ["short"] = "Jurisdiction level of the dataset",
           },
           {
             ["name"] = "keywords",
-            ["short"] = "Keywords associated with the dataset",
+            ["title"] = "Keywords",
             ["type"] = "`$ARRAY`",
+            ["short"] = "Keywords associated with the dataset",
           },
           {
             ["name"] = "publisher",
+            ["title"] = "Publisher",
+            ["type"] = "`$STRING`",
             ["short"] = "Organization that published the dataset",
-            ["type"] = "`$STRING`",
           },
           {
-            ["format"] = "date",
             ["name"] = "record_modified",
-            ["short"] = "Date when the dataset was last modified",
+            ["title"] = "Record Modified",
             ["type"] = "`$STRING`",
+            ["short"] = "Date when the dataset was last modified",
+            ["format"] = "date",
           },
           {
-            ["format"] = "date",
             ["name"] = "record_released",
-            ["short"] = "Date when the dataset was first released",
+            ["title"] = "Record Released",
             ["type"] = "`$STRING`",
+            ["short"] = "Date when the dataset was first released",
+            ["format"] = "date",
           },
           {
             ["name"] = "resources",
-            ["short"] = "List of resources associated with the dataset",
+            ["title"] = "Resources",
             ["type"] = "`$ARRAY`",
+            ["short"] = "List of resources associated with the dataset",
           },
           {
             ["name"] = "title",
-            ["short"] = "Title of the dataset",
+            ["title"] = "Title",
             ["type"] = "`$STRING`",
+            ["short"] = "Title of the dataset",
           },
         },
         ["id"] = {
@@ -155,61 +166,69 @@ local function make_config()
             ["name"] = "list",
             ["points"] = {
               {
-                ["args"] = {
-                  ["query"] = {
-                    {
-                      ["kind"] = "query",
-                      ["name"] = "format",
-                      ["orig"] = "format",
-                      ["type"] = "`$STRING`",
-                    },
-                    {
-                      ["kind"] = "query",
-                      ["name"] = "keyword",
-                      ["orig"] = "keyword",
-                      ["type"] = "`$STRING`",
-                    },
-                    {
-                      ["example"] = 10,
-                      ["kind"] = "query",
-                      ["name"] = "limit",
-                      ["orig"] = "limit",
-                      ["type"] = "`$INTEGER`",
-                    },
-                    {
-                      ["kind"] = "query",
-                      ["name"] = "organization",
-                      ["orig"] = "organization",
-                      ["type"] = "`$STRING`",
-                    },
-                    {
-                      ["example"] = 1,
-                      ["kind"] = "query",
-                      ["name"] = "page",
-                      ["orig"] = "page",
-                      ["type"] = "`$INTEGER`",
-                    },
-                    {
-                      ["kind"] = "query",
-                      ["name"] = "q",
-                      ["orig"] = "q",
-                      ["type"] = "`$STRING`",
-                    },
-                    {
-                      ["example"] = "relevance",
-                      ["kind"] = "query",
-                      ["name"] = "sort",
-                      ["orig"] = "sort",
-                      ["type"] = "`$STRING`",
-                    },
-                  },
-                },
                 ["kind"] = "http",
                 ["method"] = "GET",
                 ["orig"] = "/opendata/",
                 ["segments"] = {
                   {
                     ["lit"] = "opendata",
+                  },
+                },
+                ["parts"] = {
+                  "opendata",
+                },
+                ["rename"] = {},
+                ["transform"] = {
+                  ["req"] = "`reqdata`",
+                  ["res"] = "`body.results`",
+                },
+                ["args"] = {
+                  ["query"] = {
+                    {
+                      ["name"] = "format",
+                      ["orig"] = "format",
+                      ["type"] = "`$STRING`",
+                      ["kind"] = "query",
+                    },
+                    {
+                      ["name"] = "keyword",
+                      ["orig"] = "keyword",
+                      ["type"] = "`$STRING`",
+                      ["kind"] = "query",
+                    },
+                    {
+                      ["name"] = "limit",
+                      ["orig"] = "limit",
+                      ["type"] = "`$INTEGER`",
+                      ["kind"] = "query",
+                      ["example"] = 10,
+                    },
+                    {
+                      ["name"] = "organization",
+                      ["orig"] = "organization",
+                      ["type"] = "`$STRING`",
+                      ["kind"] = "query",
+                    },
+                    {
+                      ["name"] = "page",
+                      ["orig"] = "page",
+                      ["type"] = "`$INTEGER`",
+                      ["kind"] = "query",
+                      ["example"] = 1,
+                    },
+                    {
+                      ["name"] = "q",
+                      ["orig"] = "q",
+                      ["type"] = "`$STRING`",
+                      ["kind"] = "query",
+                    },
+                    {
+                      ["name"] = "sort",
+                      ["orig"] = "sort",
+                      ["type"] = "`$STRING`",
+                      ["kind"] = "query",
+                      ["example"] = "relevance",
+                    },
                   },
                 },
                 ["select"] = {
@@ -223,13 +242,6 @@ local function make_config()
                     "sort",
                   },
                 },
-                ["transform"] = {
-                  ["req"] = "`reqdata`",
-                  ["res"] = "`body.results`",
-                },
-                ["parts"] = {
-                  "opendata",
-                },
               },
             },
           },
@@ -238,25 +250,9 @@ local function make_config()
             ["name"] = "load",
             ["points"] = {
               {
-                ["args"] = {
-                  ["params"] = {
-                    {
-                      ["kind"] = "param",
-                      ["name"] = "id",
-                      ["orig"] = "dataset_id",
-                      ["reqd"] = true,
-                      ["type"] = "`$STRING`",
-                    },
-                  },
-                },
                 ["kind"] = "http",
                 ["method"] = "GET",
                 ["orig"] = "/opendata/dataset/{datasetId}",
-                ["rename"] = {
-                  ["param"] = {
-                    ["datasetId"] = "id",
-                  },
-                },
                 ["segments"] = {
                   {
                     ["lit"] = "opendata",
@@ -268,19 +264,35 @@ local function make_config()
                     ["var"] = "id",
                   },
                 },
-                ["select"] = {
-                  ["exist"] = {
-                    "id",
+                ["parts"] = {
+                  "opendata",
+                  "dataset",
+                  "{id}",
+                },
+                ["rename"] = {
+                  ["param"] = {
+                    ["datasetId"] = "id",
                   },
                 },
                 ["transform"] = {
                   ["req"] = "`reqdata`",
                   ["res"] = "`body`",
                 },
-                ["parts"] = {
-                  "opendata",
-                  "dataset",
-                  "{id}",
+                ["args"] = {
+                  ["params"] = {
+                    {
+                      ["name"] = "id",
+                      ["orig"] = "dataset_id",
+                      ["type"] = "`$STRING`",
+                      ["kind"] = "param",
+                      ["reqd"] = true,
+                    },
+                  },
+                },
+                ["select"] = {
+                  ["exist"] = {
+                    "id",
+                  },
                 },
               },
             },

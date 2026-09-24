@@ -1,0 +1,241 @@
+# Entity: dataset
+
+main: kit: entity: dataset: {
+
+  alias: field: {}
+
+  fields: {
+    description: {
+      h: "Description"
+      n: "description"
+      r: false
+      sh: "Detailed description of the dataset"
+      t: "`$STRING`"
+    }
+    download_url: {
+      fo: "uri"
+      h: "Download Url"
+      n: "download_url"
+      r: false
+      sh: "URL to download the dataset"
+      t: "`$STRING`"
+    }
+    formats: {
+      h: "Formats"
+      n: "formats"
+      r: false
+      sh: "Available formats for the dataset"
+      t: "`$ARRAY`"
+    }
+    id: {
+      h: "Id"
+      n: "id"
+      r: false
+      sh: "Unique identifier for the dataset"
+      t: "`$STRING`"
+    }
+    jurisdiction: {
+      h: "Jurisdiction"
+      n: "jurisdiction"
+      r: false
+      sh: "Jurisdiction level of the dataset"
+      t: "`$STRING`"
+    }
+    keywords: {
+      h: "Keywords"
+      n: "keywords"
+      r: false
+      sh: "Keywords associated with the dataset"
+      t: "`$ARRAY`"
+    }
+    publisher: {
+      h: "Publisher"
+      n: "publisher"
+      r: false
+      sh: "Organization that published the dataset"
+      t: "`$STRING`"
+    }
+    record_modified: {
+      fo: "date"
+      h: "Record Modified"
+      n: "record_modified"
+      r: false
+      sh: "Date when the dataset was last modified"
+      t: "`$STRING`"
+    }
+    record_released: {
+      fo: "date"
+      h: "Record Released"
+      n: "record_released"
+      r: false
+      sh: "Date when the dataset was first released"
+      t: "`$STRING`"
+    }
+    resources: {
+      h: "Resources"
+      n: "resources"
+      r: false
+      sh: "List of resources associated with the dataset"
+      t: "`$ARRAY`"
+    }
+    title: {
+      h: "Title"
+      n: "title"
+      r: false
+      sh: "Title of the dataset"
+      t: "`$STRING`"
+    }
+  }
+
+  id: {
+    field: "id"
+    name: "id"
+  }
+
+  name: "dataset"
+  op: {
+    list: {
+      name: "list"
+      points: [
+        {
+          co: {
+            id: "GET /opendata/"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            query: [
+              {
+                k: "query"
+                n: "format"
+                or: "format"
+                r: false
+                t: "`$STRING`"
+              }
+              {
+                k: "query"
+                n: "keyword"
+                or: "keyword"
+                r: false
+                t: "`$STRING`"
+              }
+              {
+                ex: 10
+                k: "query"
+                n: "limit"
+                or: "limit"
+                r: false
+                t: "`$INTEGER`"
+              }
+              {
+                k: "query"
+                n: "organization"
+                or: "organization"
+                r: false
+                t: "`$STRING`"
+              }
+              {
+                ex: 1
+                k: "query"
+                n: "page"
+                or: "page"
+                r: false
+                t: "`$INTEGER`"
+              }
+              {
+                k: "query"
+                n: "q"
+                or: "q"
+                r: false
+                t: "`$STRING`"
+              }
+              {
+                ex: "relevance"
+                k: "query"
+                n: "sort"
+                or: "sort"
+                r: false
+                t: "`$STRING`"
+              }
+            ]
+          }
+          m: "GET"
+          o: "/opendata/"
+          q: {
+            exist: [
+              "format"
+              "keyword"
+              "limit"
+              "organization"
+              "page"
+              "q"
+              "sort"
+            ]
+          }
+          s: [
+            {
+              lit: "opendata"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body.results`"
+          }
+        }
+      ]
+    }
+    load: {
+      name: "load"
+      points: [
+        {
+          co: {
+            id: "GET /opendata/dataset/{datasetId}"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            params: [
+              {
+                k: "param"
+                n: "id"
+                or: "dataset_id"
+                r: true
+                t: "`$STRING`"
+              }
+            ]
+          }
+          m: "GET"
+          o: "/opendata/dataset/{datasetId}"
+          q: {
+            exist: [
+              "id"
+            ]
+          }
+          r: {
+            param: {
+              datasetId: "id"
+            }
+          }
+          s: [
+            {
+              lit: "opendata"
+            }
+            {
+              lit: "dataset"
+            }
+            {
+              var: "id"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+
+
+}

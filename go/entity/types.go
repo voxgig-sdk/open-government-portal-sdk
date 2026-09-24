@@ -1,7 +1,7 @@
 // Typed models for the OpenGovernmentPortal SDK.
 //
-// GENERATED from the API model: main.kit.entity.<e>.fields[] and per-op
-// params (op.<name>.points[].args.params[]). Field/param types come from the
+// GENERATED from the API model: main.kit.entity.<e>.fields{} and per-op
+// params (op.<name>.points[].g.params[]). Field/param types come from the
 // canonical type sentinels via @voxgig/sdkgen canonToType (source of truth:
 // @voxgig/apidef VALID_CANON). Do not edit by hand.
 package entity
@@ -14,17 +14,6 @@ import (
 
 // Dataset is the typed data model for the dataset entity.
 type Dataset struct {
-	Description *string `json:"description,omitempty"`
-	DownloadUrl *string `json:"download_url,omitempty"`
-	Formats *[]any `json:"formats,omitempty"`
-	Id *string `json:"id,omitempty"`
-	Jurisdiction *string `json:"jurisdiction,omitempty"`
-	Keywords *[]any `json:"keywords,omitempty"`
-	Publisher *string `json:"publisher,omitempty"`
-	RecordModified *string `json:"record_modified,omitempty"`
-	RecordReleased *string `json:"record_released,omitempty"`
-	Resources *[]any `json:"resources,omitempty"`
-	Title *string `json:"title,omitempty"`
 }
 
 // DatasetLoadMatch is the typed request payload for Dataset.LoadTyped.

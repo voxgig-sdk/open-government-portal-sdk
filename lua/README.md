@@ -43,7 +43,7 @@ local datasets, err = client:Dataset():list()
 if err then error(err) end
 
 for _, item in ipairs(datasets) do
-  print(item["id"], item["description"])
+  print(item["id"])
 end
 ```
 

@@ -11,19 +11,12 @@ const FEATURE_CLASS = {
     test: TestFeature_1.TestFeature,
     timeout: TimeoutFeature_1.TimeoutFeature,
 };
-// Per-feature plugin DEFINITIONS (voxgig/plugin `Definition` values), from
-// the model's active plugin groups. A feature that takes a `plugins` option
-// (secrets over sekreto) reads its own entry; a feature with no plugins has
-// none. Named imports above make each definition statically reachable, so
-// an SDK carries exactly the plugin modules its model selects — the same
-// leanness the old side-effect registry imports bought, without a registry.
 const FEATURE_PLUGINS = {};
 exports.FEATURE_PLUGINS = FEATURE_PLUGINS;
 class Config {
     makeFeature(fn) {
         const fc = FEATURE_CLASS[fn];
         const fi = new fc();
-        // TODO: errors etc
         return fi;
     }
     // False for a feature added at runtime via options.extend (station's
@@ -114,61 +107,72 @@ class Config {
             "fields": [
                 {
                     "name": "description",
-                    "short": "Detailed description of the dataset",
-                    "type": "`$STRING`"
+                    "title": "Description",
+                    "type": "`$STRING`",
+                    "short": "Detailed description of the dataset"
                 },
                 {
-                    "format": "uri",
                     "name": "download_url",
+                    "title": "Download Url",
+                    "type": "`$STRING`",
                     "short": "URL to download the dataset",
-                    "type": "`$STRING`"
+                    "format": "uri"
                 },
                 {
                     "name": "formats",
-                    "short": "Available formats for the dataset",
-                    "type": "`$ARRAY`"
+                    "title": "Formats",
+                    "type": "`$ARRAY`",
+                    "short": "Available formats for the dataset"
                 },
                 {
                     "name": "id",
-                    "short": "Unique identifier for the dataset",
-                    "type": "`$STRING`"
+                    "title": "Id",
+                    "type": "`$STRING`",
+                    "short": "Unique identifier for the dataset"
                 },
                 {
                     "name": "jurisdiction",
-                    "short": "Jurisdiction level of the dataset",
-                    "type": "`$STRING`"
+                    "title": "Jurisdiction",
+                    "type": "`$STRING`",
+                    "short": "Jurisdiction level of the dataset"
                 },
                 {
                     "name": "keywords",
-                    "short": "Keywords associated with the dataset",
-                    "type": "`$ARRAY`"
+                    "title": "Keywords",
+                    "type": "`$ARRAY`",
+                    "short": "Keywords associated with the dataset"
                 },
                 {
                     "name": "publisher",
-                    "short": "Organization that published the dataset",
-                    "type": "`$STRING`"
+                    "title": "Publisher",
+                    "type": "`$STRING`",
+                    "short": "Organization that published the dataset"
                 },
                 {
-                    "format": "date",
                     "name": "record_modified",
+                    "title": "Record Modified",
+                    "type": "`$STRING`",
                     "short": "Date when the dataset was last modified",
-                    "type": "`$STRING`"
+                    "format": "date"
                 },
                 {
-                    "format": "date",
                     "name": "record_released",
+                    "title": "Record Released",
+                    "type": "`$STRING`",
                     "short": "Date when the dataset was first released",
-                    "type": "`$STRING`"
+                    "format": "date"
                 },
                 {
                     "name": "resources",
-                    "short": "List of resources associated with the dataset",
-                    "type": "`$ARRAY`"
+                    "title": "Resources",
+                    "type": "`$ARRAY`",
+                    "short": "List of resources associated with the dataset"
                 },
                 {
                     "name": "title",
-                    "short": "Title of the dataset",
-                    "type": "`$STRING`"
+                    "title": "Title",
+                    "type": "`$STRING`",
+                    "short": "Title of the dataset"
                 }
             ],
             "id": {
@@ -182,55 +186,6 @@ class Config {
                     "name": "list",
                     "points": [
                         {
-                            "args": {
-                                "query": [
-                                    {
-                                        "kind": "query",
-                                        "name": "format",
-                                        "orig": "format",
-                                        "type": "`$STRING`"
-                                    },
-                                    {
-                                        "kind": "query",
-                                        "name": "keyword",
-                                        "orig": "keyword",
-                                        "type": "`$STRING`"
-                                    },
-                                    {
-                                        "example": 10,
-                                        "kind": "query",
-                                        "name": "limit",
-                                        "orig": "limit",
-                                        "type": "`$INTEGER`"
-                                    },
-                                    {
-                                        "kind": "query",
-                                        "name": "organization",
-                                        "orig": "organization",
-                                        "type": "`$STRING`"
-                                    },
-                                    {
-                                        "example": 1,
-                                        "kind": "query",
-                                        "name": "page",
-                                        "orig": "page",
-                                        "type": "`$INTEGER`"
-                                    },
-                                    {
-                                        "kind": "query",
-                                        "name": "q",
-                                        "orig": "q",
-                                        "type": "`$STRING`"
-                                    },
-                                    {
-                                        "example": "relevance",
-                                        "kind": "query",
-                                        "name": "sort",
-                                        "orig": "sort",
-                                        "type": "`$STRING`"
-                                    }
-                                ]
-                            },
                             "kind": "http",
                             "method": "GET",
                             "orig": "/opendata/",
@@ -239,6 +194,63 @@ class Config {
                                     "lit": "opendata"
                                 }
                             ],
+                            "parts": [
+                                "opendata"
+                            ],
+                            "rename": {},
+                            "transform": {
+                                "req": "`reqdata`",
+                                "res": "`body.results`"
+                            },
+                            "args": {
+                                "query": [
+                                    {
+                                        "name": "format",
+                                        "orig": "format",
+                                        "type": "`$STRING`",
+                                        "kind": "query"
+                                    },
+                                    {
+                                        "name": "keyword",
+                                        "orig": "keyword",
+                                        "type": "`$STRING`",
+                                        "kind": "query"
+                                    },
+                                    {
+                                        "name": "limit",
+                                        "orig": "limit",
+                                        "type": "`$INTEGER`",
+                                        "kind": "query",
+                                        "example": 10
+                                    },
+                                    {
+                                        "name": "organization",
+                                        "orig": "organization",
+                                        "type": "`$STRING`",
+                                        "kind": "query"
+                                    },
+                                    {
+                                        "name": "page",
+                                        "orig": "page",
+                                        "type": "`$INTEGER`",
+                                        "kind": "query",
+                                        "example": 1
+                                    },
+                                    {
+                                        "name": "q",
+                                        "orig": "q",
+                                        "type": "`$STRING`",
+                                        "kind": "query"
+                                    },
+                                    {
+                                        "name": "sort",
+                                        "orig": "sort",
+                                        "type": "`$STRING`",
+                                        "kind": "query",
+                                        "example": "relevance"
+                                    }
+                                ]
+                            },
                             "select": {
                                 "exist": [
                                     "format",
@@ -249,14 +261,7 @@ class Config {
                                     "q",
                                     "sort"
                                 ]
-                            },
-                            "transform": {
-                                "req": "`reqdata`",
-                                "res": "`body.results`"
-                            },
-                            "parts": [
-                                "opendata"
-                            ]
+                            }
                         }
                     ]
                 },
@@ -265,25 +270,9 @@ class Config {
                     "name": "load",
                     "points": [
                         {
-                            "args": {
-                                "params": [
-                                    {
-                                        "kind": "param",
-                                        "name": "id",
-                                        "orig": "dataset_id",
-                                        "reqd": true,
-                                        "type": "`$STRING`"
-                                    }
-                                ]
-                            },
                             "kind": "http",
                             "method": "GET",
                             "orig": "/opendata/dataset/{datasetId}",
-                            "rename": {
-                                "param": {
-                                    "datasetId": "id"
-                                }
-                            },
                             "segments": [
                                 {
                                     "lit": "opendata"
@@ -295,20 +284,36 @@ class Config {
                                     "var": "id"
                                 }
                             ],
-                            "select": {
-                                "exist": [
-                                    "id"
-                                ]
+                            "parts": [
+                                "opendata",
+                                "dataset",
+                                "{id}"
+                            ],
+                            "rename": {
+                                "param": {
+                                    "datasetId": "id"
+                                }
                             },
                             "transform": {
                                 "req": "`reqdata`",
                                 "res": "`body`"
                             },
-                            "parts": [
-                                "opendata",
-                                "dataset",
-                                "{id}"
-                            ]
+                            "args": {
+                                "params": [
+                                    {
+                                        "name": "id",
+                                        "orig": "dataset_id",
+                                        "type": "`$STRING`",
+                                        "kind": "param",
+                                        "reqd": true
+                                    }
+                                ]
+                            },
+                            "select": {
+                                "exist": [
+                                    "id"
+                                ]
+                            }
                         }
                     ]
                 }

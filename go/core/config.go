@@ -91,61 +91,72 @@ func MakeConfig() map[string]any {
 				"fields": []any{
 					map[string]any{
 						"name": "description",
-						"short": "Detailed description of the dataset",
+						"title": "Description",
 						"type": "`$STRING`",
+						"short": "Detailed description of the dataset",
 					},
 					map[string]any{
-						"format": "uri",
 						"name": "download_url",
-						"short": "URL to download the dataset",
+						"title": "Download Url",
 						"type": "`$STRING`",
+						"short": "URL to download the dataset",
+						"format": "uri",
 					},
 					map[string]any{
 						"name": "formats",
-						"short": "Available formats for the dataset",
+						"title": "Formats",
 						"type": "`$ARRAY`",
+						"short": "Available formats for the dataset",
 					},
 					map[string]any{
 						"name": "id",
-						"short": "Unique identifier for the dataset",
+						"title": "Id",
 						"type": "`$STRING`",
+						"short": "Unique identifier for the dataset",
 					},
 					map[string]any{
 						"name": "jurisdiction",
-						"short": "Jurisdiction level of the dataset",
+						"title": "Jurisdiction",
 						"type": "`$STRING`",
+						"short": "Jurisdiction level of the dataset",
 					},
 					map[string]any{
 						"name": "keywords",
-						"short": "Keywords associated with the dataset",
+						"title": "Keywords",
 						"type": "`$ARRAY`",
+						"short": "Keywords associated with the dataset",
 					},
 					map[string]any{
 						"name": "publisher",
+						"title": "Publisher",
+						"type": "`$STRING`",
 						"short": "Organization that published the dataset",
-						"type": "`$STRING`",
 					},
 					map[string]any{
-						"format": "date",
 						"name": "record_modified",
-						"short": "Date when the dataset was last modified",
+						"title": "Record Modified",
 						"type": "`$STRING`",
+						"short": "Date when the dataset was last modified",
+						"format": "date",
 					},
 					map[string]any{
-						"format": "date",
 						"name": "record_released",
-						"short": "Date when the dataset was first released",
+						"title": "Record Released",
 						"type": "`$STRING`",
+						"short": "Date when the dataset was first released",
+						"format": "date",
 					},
 					map[string]any{
 						"name": "resources",
-						"short": "List of resources associated with the dataset",
+						"title": "Resources",
 						"type": "`$ARRAY`",
+						"short": "List of resources associated with the dataset",
 					},
 					map[string]any{
 						"name": "title",
-						"short": "Title of the dataset",
+						"title": "Title",
 						"type": "`$STRING`",
+						"short": "Title of the dataset",
 					},
 				},
 				"id": map[string]any{
@@ -159,61 +170,69 @@ func MakeConfig() map[string]any {
 						"name": "list",
 						"points": []any{
 							map[string]any{
-								"args": map[string]any{
-									"query": []any{
-										map[string]any{
-											"kind": "query",
-											"name": "format",
-											"orig": "format",
-											"type": "`$STRING`",
-										},
-										map[string]any{
-											"kind": "query",
-											"name": "keyword",
-											"orig": "keyword",
-											"type": "`$STRING`",
-										},
-										map[string]any{
-											"example": 10,
-											"kind": "query",
-											"name": "limit",
-											"orig": "limit",
-											"type": "`$INTEGER`",
-										},
-										map[string]any{
-											"kind": "query",
-											"name": "organization",
-											"orig": "organization",
-											"type": "`$STRING`",
-										},
-										map[string]any{
-											"example": 1,
-											"kind": "query",
-											"name": "page",
-											"orig": "page",
-											"type": "`$INTEGER`",
-										},
-										map[string]any{
-											"kind": "query",
-											"name": "q",
-											"orig": "q",
-											"type": "`$STRING`",
-										},
-										map[string]any{
-											"example": "relevance",
-											"kind": "query",
-											"name": "sort",
-											"orig": "sort",
-											"type": "`$STRING`",
-										},
-									},
-								},
 								"kind": "http",
 								"method": "GET",
 								"orig": "/opendata/",
 								"segments": []any{
 									map[string]any{
 										"lit": "opendata",
+									},
+								},
+								"parts": []any{
+									"opendata",
+								},
+								"rename": map[string]any{},
+								"transform": map[string]any{
+									"req": "`reqdata`",
+									"res": "`body.results`",
+								},
+								"args": map[string]any{
+									"query": []any{
+										map[string]any{
+											"name": "format",
+											"orig": "format",
+											"type": "`$STRING`",
+											"kind": "query",
+										},
+										map[string]any{
+											"name": "keyword",
+											"orig": "keyword",
+											"type": "`$STRING`",
+											"kind": "query",
+										},
+										map[string]any{
+											"name": "limit",
+											"orig": "limit",
+											"type": "`$INTEGER`",
+											"kind": "query",
+											"example": 10,
+										},
+										map[string]any{
+											"name": "organization",
+											"orig": "organization",
+											"type": "`$STRING`",
+											"kind": "query",
+										},
+										map[string]any{
+											"name": "page",
+											"orig": "page",
+											"type": "`$INTEGER`",
+											"kind": "query",
+											"example": 1,
+										},
+										map[string]any{
+											"name": "q",
+											"orig": "q",
+											"type": "`$STRING`",
+											"kind": "query",
+										},
+										map[string]any{
+											"name": "sort",
+											"orig": "sort",
+											"type": "`$STRING`",
+											"kind": "query",
+											"example": "relevance",
+										},
 									},
 								},
 								"select": map[string]any{
@@ -227,13 +246,6 @@ func MakeConfig() map[string]any {
 										"sort",
 									},
 								},
-								"transform": map[string]any{
-									"req": "`reqdata`",
-									"res": "`body.results`",
-								},
-								"parts": []any{
-									"opendata",
-								},
 							},
 						},
 					},
@@ -242,25 +254,9 @@ func MakeConfig() map[string]any {
 						"name": "load",
 						"points": []any{
 							map[string]any{
-								"args": map[string]any{
-									"params": []any{
-										map[string]any{
-											"kind": "param",
-											"name": "id",
-											"orig": "dataset_id",
-											"reqd": true,
-											"type": "`$STRING`",
-										},
-									},
-								},
 								"kind": "http",
 								"method": "GET",
 								"orig": "/opendata/dataset/{datasetId}",
-								"rename": map[string]any{
-									"param": map[string]any{
-										"datasetId": "id",
-									},
-								},
 								"segments": []any{
 									map[string]any{
 										"lit": "opendata",
@@ -272,19 +268,35 @@ func MakeConfig() map[string]any {
 										"var": "id",
 									},
 								},
-								"select": map[string]any{
-									"exist": []any{
-										"id",
+								"parts": []any{
+									"opendata",
+									"dataset",
+									"{id}",
+								},
+								"rename": map[string]any{
+									"param": map[string]any{
+										"datasetId": "id",
 									},
 								},
 								"transform": map[string]any{
 									"req": "`reqdata`",
 									"res": "`body`",
 								},
-								"parts": []any{
-									"opendata",
-									"dataset",
-									"{id}",
+								"args": map[string]any{
+									"params": []any{
+										map[string]any{
+											"name": "id",
+											"orig": "dataset_id",
+											"type": "`$STRING`",
+											"kind": "param",
+											"reqd": true,
+										},
+									},
+								},
+								"select": map[string]any{
+									"exist": []any{
+										"id",
+									},
 								},
 							},
 						},
