@@ -37,6 +37,8 @@ require_once __DIR__ . '/TransformResponse.php';
 
 OpenGovernmentPortalUtility::setRegistrar(function (OpenGovernmentPortalUtility $u): void {
     $u->clean = [OpenGovernmentPortalClean::class, 'call'];
+    $u->clean_add = [OpenGovernmentPortalClean::class, 'add'];
+    $u->clean_explain = [OpenGovernmentPortalDone::class, 'clean_explain'];
     $u->done = [OpenGovernmentPortalDone::class, 'call'];
     $u->make_error = [OpenGovernmentPortalMakeError::class, 'call'];
     $u->feature_add = [OpenGovernmentPortalFeatureAdd::class, 'call'];

@@ -308,7 +308,7 @@ class OpenGovernmentPortalConfig
                     'params' => [
                       [
                         'name' => 'id',
-                        'orig' => 'dataset_id',
+                        'orig' => 'datasetId',
                         'type' => '`$STRING`',
                         'kind' => 'param',
                         'reqd' => true,

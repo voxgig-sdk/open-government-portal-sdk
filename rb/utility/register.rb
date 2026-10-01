@@ -33,6 +33,8 @@ require_relative 'transform_response'
 
 OpenGovernmentPortalUtility.registrar = ->(u) {
   u.clean = OpenGovernmentPortalUtilities::Clean
+  u.clean_add = OpenGovernmentPortalUtilities::CleanAdd
+  u.clean_explain = OpenGovernmentPortalUtilities::CleanExplain
   u.done = OpenGovernmentPortalUtilities::Done
   u.make_error = OpenGovernmentPortalUtilities::MakeError
   u.feature_add = OpenGovernmentPortalUtilities::FeatureAdd

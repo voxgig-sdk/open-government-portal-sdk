@@ -286,7 +286,7 @@ func MakeConfig() map[string]any {
 									"params": []any{
 										map[string]any{
 											"name": "id",
-											"orig": "dataset_id",
+											"orig": "datasetId",
 											"type": "`$STRING`",
 											"kind": "param",
 											"reqd": true,
