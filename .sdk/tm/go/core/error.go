@@ -12,6 +12,8 @@ type OpenGovernmentPortalError struct {
 	Ctx    *Context `json:"-"`
 	Result any
 	Spec   any
+	// The HTTP status, -1 when there was no response.
+	Status int
 }
 
 func NewOpenGovernmentPortalError(code string, msg string, ctx *Context) *OpenGovernmentPortalError {
@@ -21,7 +23,12 @@ func NewOpenGovernmentPortalError(code string, msg string, ctx *Context) *OpenGo
 		Code:               code,
 		Msg:                msg,
 		Ctx:                ctx,
+		Status:             -1,
 	}
+}
+
+func (e *OpenGovernmentPortalError) NotFound() bool {
+	return 404 == e.Status
 }
 
 func (e *OpenGovernmentPortalError) Error() string {
@@ -35,6 +42,7 @@ func (e *OpenGovernmentPortalError) Record() map[string]any {
 		"sdk":     e.Sdk,
 		"code":    e.Code,
 		"message": e.Msg,
+		"status":  e.Status,
 		"result":  e.Result,
 		"spec":    e.Spec,
 	}

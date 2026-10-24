@@ -93,6 +93,7 @@ class OpenGovernmentPortalConfig
           ],
           'optspec' => [
             'clearTimer' => '`$FUNCTION`',
+            'now' => '`$FUNCTION`',
             'setTimer' => '`$FUNCTION`',
           ],
           'strict' => false,
@@ -257,16 +258,10 @@ class OpenGovernmentPortalConfig
                       ],
                     ],
                   ],
-                  'select' => [
-                    'exist' => [
-                      'format',
-                      'keyword',
-                      'limit',
-                      'organization',
-                      'page',
-                      'q',
-                      'sort',
-                    ],
+                  'select' => [],
+                  'response' => [
+                    'kind' => 'json',
+                    'media' => 'application/json',
                   ],
                 ],
               ],
@@ -319,6 +314,10 @@ class OpenGovernmentPortalConfig
                     'exist' => [
                       'id',
                     ],
+                  ],
+                  'response' => [
+                    'kind' => 'json',
+                    'media' => 'application/json',
                   ],
                 ],
               ],

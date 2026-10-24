@@ -3,5 +3,18 @@
     "SUMMARY.md"
   ],
   "config": ".sdk/doc/qa/vale.ini",
-  "routes": {}
+  "routes": {},
+  "quoted": {
+    "SUMMARY.md": [
+      "Available formats for the dataset",
+      "Dataset details retrieved successfully",
+      "Detailed description of the dataset",
+      "Jurisdiction level of the dataset",
+      "Production server",
+      "Successful response with dataset results",
+      "This API allows users to search and access datasets from the Government of Canada. It facilitates learning how to work with datasets and provides insights into how government data has been utilized.",
+      "URL to download the dataset",
+      "Unique identifier for the dataset"
+    ]
+  }
 }

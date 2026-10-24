@@ -18,13 +18,17 @@ const PLAN = [
         "select": {
             "format": "v1",
             "keyword": "v1",
-            "limit": "v1",
+            "limit": 10,
             "organization": "v1",
-            "page": "v1",
+            "page": 1,
             "q": "v1",
-            "sort": "v1"
+            "sort": "relevance"
         },
         "headers": [],
+        "cookies": [],
+        "responseMedia": [
+            "application/json"
+        ],
         "query": [
             "q",
             "sort",
@@ -34,6 +38,36 @@ const PLAN = [
             "page",
             "limit"
         ],
+        "queryArgs": [
+            {
+                "name": "format",
+                "wire": "format"
+            },
+            {
+                "name": "keyword",
+                "wire": "keyword"
+            },
+            {
+                "name": "limit",
+                "wire": "limit"
+            },
+            {
+                "name": "organization",
+                "wire": "organization"
+            },
+            {
+                "name": "page",
+                "wire": "page"
+            },
+            {
+                "name": "q",
+                "wire": "q"
+            },
+            {
+                "name": "sort",
+                "wire": "sort"
+            }
+        ],
         "auth": null,
         "status": 200,
         "sample": {
@@ -41,34 +75,34 @@ const PLAN = [
             "page": 1,
             "results": [
                 {
+                    "id": "x",
+                    "title": "Proactive Disclosure - Travel Expenses",
                     "description": "x",
-                    "download_url": "x",
+                    "publisher": "Treasury Board of Canada Secretariat",
+                    "record_modified": "2026-02-16",
+                    "record_released": "2017-02-20",
                     "formats": [
                         "JSON",
                         "XLSX",
                         "HTML"
                     ],
-                    "id": "x",
-                    "jurisdiction": "Federal",
                     "keywords": [
                         "Proactive Disclosure",
                         "PD",
                         "Travel Expenses"
                     ],
-                    "publisher": "Treasury Board of Canada Secretariat",
-                    "record_modified": "2026-02-16",
-                    "record_released": "2017-02-20",
+                    "jurisdiction": "Federal",
+                    "download_url": "x",
                     "resources": [
                         {
-                            "format": "CSV",
                             "id": "x",
-                            "last_modified": "2026-01-01T00:00:00Z",
                             "name": "x",
+                            "format": "CSV",
+                            "url": "x",
                             "size": 1,
-                            "url": "x"
+                            "last_modified": "2026-01-01T00:00:00Z"
                         }
-                    ],
-                    "title": "Proactive Disclosure - Travel Expenses"
+                    ]
                 }
             ]
         },
@@ -89,7 +123,12 @@ const PLAN = [
         ],
         "select": {},
         "headers": [],
+        "cookies": [],
+        "responseMedia": [
+            "application/json"
+        ],
         "query": [],
+        "queryArgs": [],
         "auth": null,
         "status": 200,
         "sample": {
@@ -113,12 +152,12 @@ const PLAN = [
             "download_url": "x",
             "resources": [
                 {
-                    "format": "CSV",
                     "id": "x",
-                    "last_modified": "2026-01-01T00:00:00Z",
                     "name": "x",
+                    "format": "CSV",
+                    "url": "x",
                     "size": 1,
-                    "url": "x"
+                    "last_modified": "2026-01-01T00:00:00Z"
                 }
             ]
         },

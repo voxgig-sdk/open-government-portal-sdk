@@ -9,7 +9,7 @@ import { createLiveTransport } from '../../live-runner'
 import { runLiveEntity } from '../../live-entity'
 
 
-import { OpenGovernmentPortalSDK, BaseFeature, stdutil } from '../../..'
+import { OpenGovernmentPortalSDK, BaseFeature, config, stdutil } from '../../..'
 
 import {
   envOverride,
@@ -41,6 +41,64 @@ describe('DatasetEntity', async () => {
   })
 
 
+  class FailHook extends BaseFeature {
+    name = 'failhook'
+    version = '0.0.1'
+    active = true
+    unexpected = 0
+    init() { }
+    PreSpec() { throw new Error('dataset hook failed') }
+    PreUnexpected() { this.unexpected++ }
+  }
+
+  test('stream-error', async () => {
+    const offline = { net: { offline: true } }
+    await assert.rejects(async () => {
+      for await (const _item of OpenGovernmentPortalSDK.test(offline).Dataset().stream('list')) { }
+    }, /offline/)
+
+    for await (const _item of OpenGovernmentPortalSDK.test(offline).Dataset()
+      .stream('list', undefined, { ctrl: { throw: false } })) { }
+
+    if (null != (config as any).feature?.rbac) {
+      const denied = OpenGovernmentPortalSDK.test(undefined, { feature: { rbac: { active: true, deny: true } } })
+      await assert.rejects(async () => {
+        for await (const _item of denied.Dataset().stream('list')) { }
+      }, (err: any) => 'rbac_denied' === err.code)
+    }
+  })
+
+  test('stream-ctrl', async () => {
+    const explain: any = {}
+    const ctrl: any = { explain }
+    for await (const _item of OpenGovernmentPortalSDK.test().Dataset().stream('list', undefined, { ctrl })) { }
+    assert.deepStrictEqual(Object.keys(ctrl), ['explain'])
+    assert(explain === ctrl.explain && 0 < Object.keys(explain).length)
+  })
+
+  test('unexpected', async () => {
+    const hook = new FailHook()
+    const client = new OpenGovernmentPortalSDK({ feature: { test: { active: true } }, extend: [hook] })
+    await assert.rejects(client.Dataset().list(), /hook failed/)
+    assert(0 < hook.unexpected)
+
+    const fired = hook.unexpected
+    assert.strictEqual(await client.Dataset().list(undefined, { throw: false }), undefined)
+    assert(fired < hook.unexpected)
+  })
+
+  test('validate', async (t) => {
+    if (null == (config as any).feature?.validate) {
+      t.skip('feature not present in this SDK: validate')
+      return
+    }
+    const client = OpenGovernmentPortalSDK.test(undefined, { feature: { validate: { active: true } } })
+    await assert.rejects(client.Dataset().list({"format":1} as any),
+      (err: any) => 'validate_failed' === err.code)
+  })
+
+
+
   test('basic', async (t) => {
 
     const live = 'TRUE' === process.env.OPEN_GOVERNMENT_PORTAL_TEST_LIVE
@@ -51,7 +109,7 @@ describe('DatasetEntity', async () => {
     
     const setup = basicSetup()
     if (setup.live) {
-      return runLiveEntity(setup, {"active":true,"alias":{"field":{}},"fields":{"description":{"a":true,"h":"Description","n":"description","r":false,"sh":"Detailed description of the dataset","t":"`$STRING`","key$":"description","index$":0},"download_url":{"a":true,"fo":"uri","h":"Download Url","n":"download_url","r":false,"sh":"URL to download the dataset","t":"`$STRING`","key$":"download_url","index$":1},"formats":{"a":true,"h":"Formats","n":"formats","r":false,"sh":"Available formats for the dataset","t":"`$ARRAY`","key$":"formats","index$":2},"id":{"a":true,"h":"Id","n":"id","r":false,"sh":"Unique identifier for the dataset","t":"`$STRING`","key$":"id","index$":3},"jurisdiction":{"a":true,"h":"Jurisdiction","n":"jurisdiction","r":false,"sh":"Jurisdiction level of the dataset","t":"`$STRING`","key$":"jurisdiction","index$":4},"keywords":{"a":true,"h":"Keywords","n":"keywords","r":false,"sh":"Keywords associated with the dataset","t":"`$ARRAY`","key$":"keywords","index$":5},"publisher":{"a":true,"h":"Publisher","n":"publisher","r":false,"sh":"Organization that published the dataset","t":"`$STRING`","key$":"publisher","index$":6},"record_modified":{"a":true,"fo":"date","h":"Record Modified","n":"record_modified","r":false,"sh":"Date when the dataset was last modified","t":"`$STRING`","key$":"record_modified","index$":7},"record_released":{"a":true,"fo":"date","h":"Record Released","n":"record_released","r":false,"sh":"Date when the dataset was first released","t":"`$STRING`","key$":"record_released","index$":8},"resources":{"a":true,"h":"Resources","n":"resources","r":false,"sh":"List of resources associated with the dataset","t":"`$ARRAY`","key$":"resources","index$":9},"title":{"a":true,"h":"Title","n":"title","r":false,"sh":"Title of the dataset","t":"`$STRING`","key$":"title","index$":10}},"id":{"field":"id","name":"id"},"name":"dataset","op":{"list":{"input":"data","name":"list","points":[{"a":true,"co":{"id":"GET /opendata/","source":"openapi3","version":2},"g":{"query":[{"a":true,"k":"query","n":"format","or":"format","r":false,"t":"`$STRING`","index$":0},{"a":true,"k":"query","n":"keyword","or":"keyword","r":false,"t":"`$STRING`","index$":1},{"a":true,"ex":10,"k":"query","n":"limit","or":"limit","r":false,"t":"`$INTEGER`","index$":2},{"a":true,"k":"query","n":"organization","or":"organization","r":false,"t":"`$STRING`","index$":3},{"a":true,"ex":1,"k":"query","n":"page","or":"page","r":false,"t":"`$INTEGER`","index$":4},{"a":true,"k":"query","n":"q","or":"q","r":false,"t":"`$STRING`","index$":5},{"a":true,"ex":"relevance","k":"query","n":"sort","or":"sort","r":false,"t":"`$STRING`","index$":6}]},"k":"http","m":"GET","o":"/opendata/","q":{"exist":["format","keyword","limit","organization","page","q","sort"]},"r":{},"s":[{"lit":"opendata"}],"t":{"req":"`reqdata`","res":"`body.results`"},"index$":0}],"key$":"list"},"load":{"input":"data","name":"load","points":[{"a":true,"co":{"id":"GET /opendata/dataset/{datasetId}","source":"openapi3","version":2},"g":{"params":[{"a":true,"k":"param","n":"id","or":"datasetId","r":true,"t":"`$STRING`","index$":0}]},"k":"http","m":"GET","o":"/opendata/dataset/{datasetId}","q":{"exist":["id"]},"r":{"param":{"datasetId":"id"}},"s":[{"lit":"opendata"},{"lit":"dataset"},{"var":"id"}],"t":{"req":"`reqdata`","res":"`body`"},"index$":0}],"key$":"load"}},"relations":{"ancestors":[]},"key$":"dataset","name__orig":"dataset","Name":"Dataset","name_":"dataset","name-":"dataset","NAME":"DATASET","index$":0}, {"active":true,"entity":"dataset","key$":"BasicDatasetFlow","kind":"basic","name":"BasicDatasetFlow","param":{},"step":[{"a":true,"d":{},"i":{},"m":{},"o":"list","s":[],"v":[{"apply":"ItemExists","def":{"ref":"dataset_ref01"}}],"index$":0},{"a":true,"d":{},"i":{"ref":"dataset_ref01","srcdatavar":"dataset_ref01_data","suffix":"_dt0"},"m":{"id":"dataset01"},"o":"load","s":[],"v":[{"apply":"TextFieldMark","def":{"mark":"Mark01-dataset_ref01"}}],"index$":1}]}, 'Dataset', {"GET /opendata/":{"protocol":"http","parameters":[{"name":"q","in":"query","description":"Search query term to filter datasets","required":false,"schema":{"type":"string"},"index$":0},{"name":"sort","in":"query","description":"Sort order for results","required":false,"schema":{"type":"string","enum":["relevance","modified","created","title_asc","title_desc"],"default":"relevance"},"index$":1},{"name":"organization","in":"query","description":"Filter by organization/publisher name","required":false,"schema":{"type":"string"},"index$":2},{"name":"format","in":"query","description":"Filter by dataset format","required":false,"schema":{"type":"string","enum":["JSON","CSV","XLSX","HTML","XML","ZIP","JSONL","PNG","SQL"]},"index$":3},{"name":"keyword","in":"query","description":"Filter by keyword tags","required":false,"schema":{"type":"string"},"index$":4},{"name":"page","in":"query","description":"Page number for pagination","required":false,"schema":{"type":"integer","minimum":1,"default":1},"index$":5},{"name":"limit","in":"query","description":"Number of results per page","required":false,"schema":{"type":"integer","minimum":1,"maximum":100,"default":10},"index$":6}]},"GET /opendata/dataset/{datasetId}":{"protocol":"http","parameters":[{"name":"datasetId","in":"path","description":"Unique identifier of the dataset","required":true,"schema":{"type":"string"},"index$":0}]}})
+      return runLiveEntity(setup, {"active":true,"alias":{"field":{}},"fields":{"description":{"a":true,"h":"Description","n":"description","r":false,"sh":"Detailed description of the dataset","t":"`$STRING`","key$":"description","index$":0},"download_url":{"a":true,"fo":"uri","h":"Download Url","n":"download_url","r":false,"sh":"URL to download the dataset","t":"`$STRING`","key$":"download_url","index$":1},"formats":{"a":true,"h":"Formats","n":"formats","r":false,"sh":"Available formats for the dataset","t":"`$ARRAY`","key$":"formats","index$":2},"id":{"a":true,"h":"Id","n":"id","r":false,"sh":"Unique identifier for the dataset","t":"`$STRING`","key$":"id","index$":3},"jurisdiction":{"a":true,"h":"Jurisdiction","n":"jurisdiction","r":false,"sh":"Jurisdiction level of the dataset","t":"`$STRING`","key$":"jurisdiction","index$":4},"keywords":{"a":true,"h":"Keywords","n":"keywords","r":false,"sh":"Keywords associated with the dataset","t":"`$ARRAY`","key$":"keywords","index$":5},"publisher":{"a":true,"h":"Publisher","n":"publisher","r":false,"sh":"Organization that published the dataset","t":"`$STRING`","key$":"publisher","index$":6},"record_modified":{"a":true,"fo":"date","h":"Record Modified","n":"record_modified","r":false,"sh":"Date when the dataset was last modified","t":"`$STRING`","key$":"record_modified","index$":7},"record_released":{"a":true,"fo":"date","h":"Record Released","n":"record_released","r":false,"sh":"Date when the dataset was first released","t":"`$STRING`","key$":"record_released","index$":8},"resources":{"a":true,"h":"Resources","n":"resources","r":false,"sh":"List of resources associated with the dataset","t":"`$ARRAY`","key$":"resources","index$":9},"title":{"a":true,"h":"Title","n":"title","r":false,"sh":"Title of the dataset","t":"`$STRING`","key$":"title","index$":10}},"id":{"field":"id","name":"id"},"name":"dataset","op":{"list":{"input":"data","name":"list","points":[{"a":true,"co":{"id":"GET /opendata/","source":"openapi3","version":2},"g":{"query":[{"a":true,"k":"query","n":"format","or":"format","r":false,"t":"`$STRING`","index$":0},{"a":true,"k":"query","n":"keyword","or":"keyword","r":false,"t":"`$STRING`","index$":1},{"a":true,"ex":10,"k":"query","n":"limit","or":"limit","r":false,"t":"`$INTEGER`","index$":2},{"a":true,"k":"query","n":"organization","or":"organization","r":false,"t":"`$STRING`","index$":3},{"a":true,"ex":1,"k":"query","n":"page","or":"page","r":false,"t":"`$INTEGER`","index$":4},{"a":true,"k":"query","n":"q","or":"q","r":false,"t":"`$STRING`","index$":5},{"a":true,"ex":"relevance","k":"query","n":"sort","or":"sort","r":false,"t":"`$STRING`","index$":6}]},"k":"http","m":"GET","o":"/opendata/","q":{},"r":{},"rs":{"kind":"json","media":"application/json"},"s":[{"lit":"opendata"}],"t":{"req":"`reqdata`","res":"`body.results`"},"index$":0}],"key$":"list"},"load":{"input":"data","name":"load","points":[{"a":true,"co":{"id":"GET /opendata/dataset/{datasetId}","source":"openapi3","version":2},"g":{"params":[{"a":true,"k":"param","n":"id","or":"datasetId","r":true,"t":"`$STRING`","index$":0}]},"k":"http","m":"GET","o":"/opendata/dataset/{datasetId}","q":{"exist":["id"]},"r":{"param":{"datasetId":"id"}},"rs":{"kind":"json","media":"application/json"},"s":[{"lit":"opendata"},{"lit":"dataset"},{"var":"id"}],"t":{"req":"`reqdata`","res":"`body`"},"index$":0}],"key$":"load"}},"relations":{"ancestors":[]},"key$":"dataset","name__orig":"dataset","Name":"Dataset","name_":"dataset","name-":"dataset","NAME":"DATASET","index$":0}, {"active":true,"entity":"dataset","key$":"BasicDatasetFlow","kind":"basic","name":"BasicDatasetFlow","param":{},"step":[{"a":true,"d":{},"i":{},"m":{},"o":"list","s":[],"v":[{"apply":"ItemExists","def":{"ref":"dataset_ref01"}}],"index$":0},{"a":true,"d":{},"i":{"ref":"dataset_ref01","srcdatavar":"dataset_ref01_data","suffix":"_dt0"},"m":{"id":"dataset01"},"o":"load","s":[],"v":[{"apply":"TextFieldMark","def":{"mark":"Mark01-dataset_ref01"}}],"index$":1}]}, 'Dataset', {"GET /opendata/":{"protocol":"http","parameters":[{"name":"q","in":"query","description":"Search query term to filter datasets","required":false,"schema":{"type":"string"},"index$":0},{"name":"sort","in":"query","description":"Sort order for results","required":false,"schema":{"type":"string","enum":["relevance","modified","created","title_asc","title_desc"],"default":"relevance"},"index$":1},{"name":"organization","in":"query","description":"Filter by organization/publisher name","required":false,"schema":{"type":"string"},"index$":2},{"name":"format","in":"query","description":"Filter by dataset format","required":false,"schema":{"type":"string","enum":["JSON","CSV","XLSX","HTML","XML","ZIP","JSONL","PNG","SQL"]},"index$":3},{"name":"keyword","in":"query","description":"Filter by keyword tags","required":false,"schema":{"type":"string"},"index$":4},{"name":"page","in":"query","description":"Page number for pagination","required":false,"schema":{"type":"integer","minimum":1,"default":1},"index$":5},{"name":"limit","in":"query","description":"Number of results per page","required":false,"schema":{"type":"integer","minimum":1,"maximum":100,"default":10},"index$":6}]},"GET /opendata/dataset/{datasetId}":{"protocol":"http","parameters":[{"name":"datasetId","in":"path","description":"Unique identifier of the dataset","required":true,"schema":{"type":"string"},"index$":0}]}}, { strict: LIVE_STRICT, t })
     }
     const client = setup.client
     const struct = setup.struct
@@ -79,6 +137,12 @@ describe('DatasetEntity', async () => {
 })
 
 
+
+// main.kit.test.live.strict is true (the default is true): a live
+// request that fails, or a live test missing an input it needs,
+// fails the test.
+// An account with no record for a test to read skips it either way.
+const LIVE_STRICT = true
 
 function basicSetup(extra?: any) {
   // TODO: fix test def options

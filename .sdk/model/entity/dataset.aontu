@@ -161,16 +161,9 @@ main: kit: entity: dataset: {
           }
           m: "GET"
           o: "/opendata/"
-          q: {
-            exist: [
-              "format"
-              "keyword"
-              "limit"
-              "organization"
-              "page"
-              "q"
-              "sort"
-            ]
+          rs: {
+            kind: "json"
+            media: "application/json"
           }
           s: [
             {
@@ -215,6 +208,10 @@ main: kit: entity: dataset: {
             param: {
               datasetId: "id"
             }
+          }
+          rs: {
+            kind: "json"
+            media: "application/json"
           }
           s: [
             {

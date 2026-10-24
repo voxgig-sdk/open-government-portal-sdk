@@ -79,6 +79,7 @@ module OpenGovernmentPortalConfig
           },
           "optspec" => {
             "clearTimer" => "`$FUNCTION`",
+            "now" => "`$FUNCTION`",
             "setTimer" => "`$FUNCTION`",
           },
           "strict" => false,
@@ -243,16 +244,10 @@ module OpenGovernmentPortalConfig
                       },
                     ],
                   },
-                  "select" => {
-                    "exist" => [
-                      "format",
-                      "keyword",
-                      "limit",
-                      "organization",
-                      "page",
-                      "q",
-                      "sort",
-                    ],
+                  "select" => {},
+                  "response" => {
+                    "kind" => "json",
+                    "media" => "application/json",
                   },
                 },
               ],
@@ -305,6 +300,10 @@ module OpenGovernmentPortalConfig
                     "exist" => [
                       "id",
                     ],
+                  },
+                  "response" => {
+                    "kind" => "json",
+                    "media" => "application/json",
                   },
                 },
               ],
